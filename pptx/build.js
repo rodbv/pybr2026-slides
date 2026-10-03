@@ -481,7 +481,8 @@ function chartSlide(mode, section, colors) {
       dataLabelFormatCode: "0.0",
       x: M, y: BODY.y, w: W - 2 * M, h: BODY.h - 0.5,
       barDir: "col",
-      chartColors: [mode.accentHex],
+      // Lime bars on both backgrounds: the value labels carry the numbers, so the bars need no text contrast.
+      chartColors: [LIME],
       showValue: true,
       dataLabelPosition: "outEnd",
       dataLabelColor: mode.textHex,
@@ -538,7 +539,7 @@ s = slide("Palestrante", ESCURO);
 fill(s, {
   title: "Seu nome aqui",
   role: "O que você faz · onde",
-  bio: bullets(["Quem abre a sessão costuma apresentar você", "Com o tempo curto, este slide pode sair", "Uma autodescrição ajuda quem não vê a tela"]),
+  bio: bullets(["Quem abre a sessão costuma apresentar você", "Com o tempo curto, este slide pode sair", "Uma autodescrição ajuda quem não vê"]),
 });
 
 s = slide("Agenda", ESCURO);
@@ -646,7 +647,7 @@ fill(s, {
 
 s = slide("Números em destaque", ESCURO);
 s.addText("Três números que ajudam", { placeholder: "title" });
-[["18", "pontos: o texto se lê do fundo da sala"], ["8", "linhas de código cabem bem"], ["5", "minutos para perguntas no fim"]].forEach(([v, l], i) => {
+[["18", "pontos: fonte mínima para quem está longe"], ["8", "linhas de código cabem bem"], ["5", "minutos para perguntas no fim"]].forEach(([v, l], i) => {
   fill(s, { [`value${i + 1}`]: v, [`label${i + 1}`]: l });
 });
 // The pixel circle from the stickers slide, around the middle number, as an example of use.
@@ -796,7 +797,7 @@ pres.addSection({ title: FIGURINHAS });
 s = slide("Somente título", FIGURINHAS);
 s.addText("Figurinhas", { placeholder: "title" });
 // A Florianópolis greeting for whoever reads the template to the end.
-s.addText("Dazumbanho! Chegasse ao fim ixtepô!", { x: W - M - 5.8, y: 0.45, w: 5.8, h: 0.6, fontSize: 16, bold: true, color: LIME, fontFace: THEME.headFontFace, align: "right", valign: "middle", margin: 0, isTextBox: true, lang: LANG, objectName: "Fim do modelo" });
+s.addText("Dazumbanho! Chegasse ao fim, ixtepô!", { x: W - M - 6.2, y: 0.45, w: 6.2, h: 0.6, fontSize: 20, bold: true, color: LIME, fontFace: THEME.headFontFace, align: "right", valign: "middle", margin: 0, isTextBox: true, lang: LANG, objectName: "Fim do modelo" });
 const sticker = (file, box, altText) => s.addImage({ path: resized(path.join(BRAND, file), { width: 900 }), ...box, altText });
 sticker("lockup-on-dark.png", { x: M, y: 1.7, w: 2.6, h: 2.6 * LOCKUP_RATIO }, "Logo python brasil com o dragão, versão clara");
 sticker("sticker-witch.png", { x: 3.55, y: 1.6, w: 1.6, h: 1.6 * (2132 / 2354) }, "Adesivo da bruxinha surfista com contorno limão");

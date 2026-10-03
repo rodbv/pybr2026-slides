@@ -27,7 +27,7 @@ module.exports = [
   // 5 Palestrante
   [
     "Quem abre a sessão costuma apresentar você; com o tempo curto, este slide pode sair.",
-    "Uma autodescrição ajuda quem não enxerga, por exemplo: \"Sou a Maria, tenho 1,60 m, cabelo preto solto, óculos verdes e uma camiseta da PyLadies.\"",
+    "Uma autodescrição ajuda quem não vê, por exemplo: \"Sou a Maria, tenho 1,60 m, cabelo preto solto, óculos verdes e uma camiseta da PyLadies.\"",
   ],
   // 6 Agenda
   [
