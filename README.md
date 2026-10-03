@@ -2,7 +2,7 @@
 
 Modelo de apresentação para palestrantes e organização da [Python Brasil 2026](https://2026.pythonbrasil.org.br/), em Florianópolis, de 14 a 19 de outubro de 2026. Funciona no LibreOffice Impress, no Google Slides e no PowerPoint, em Linux, macOS e Windows.
 
-![Visão geral dos 26 slides de exemplo](dist/preview/overview.png)
+![Visão geral dos 34 slides de exemplo](dist/preview/overview.png)
 
 ## Usar no Google Slides
 
@@ -37,7 +37,7 @@ O `.odp` já traz as duas fontes embutidas. No `.pptx`, sem as fontes instaladas
 
 ## Como usar
 
-Cada slide do arquivo mostra um layout preenchido com texto de exemplo. Os comentários do apresentador (notas) de cada slide explicam para que o layout serve.
+Cada slide do arquivo mostra um layout preenchido com texto de exemplo. O arquivo tem duas seções: layouts escuros e layouts claros. Os comentários do apresentador (notas) de cada slide explicam para que o layout serve.
 
 1. Abra o arquivo e salve uma cópia com o nome da sua palestra.
 2. Duplique os slides que você vai usar e apague os outros.
@@ -53,10 +53,14 @@ O Google Slides converte o gráfico do slide "Gráfico nativo" em imagem, e o ei
 
 Os espaços para imagem são caixas com borda fina, com o texto "Clique no ícone ou arraste uma imagem". No PowerPoint e no Google Slides, clique no ícone dentro da caixa para escolher a imagem. No LibreOffice, insira a imagem (Inserir > Imagem) e arraste-a sobre a caixa; apague a caixa depois. No slide "Imagem cheia", clique com o botão direito na imagem de exemplo e escolha "Substituir imagem".
 
+O QR code do encerramento leva ao site do evento. Para trocar: no LibreOffice, Inserir > Objeto > Código QR e de barras; no Google Slides e no PowerPoint, gere a imagem num gerador de QR code e use "Substituir imagem". Escreva o link embaixo do QR code também e teste a leitura com o celular a alguns metros da tela.
+
 ## Antes de apresentar
 
 - **Texto:** quem senta no fundo da sala precisa ler o slide também. O texto do modelo começa em 20 pt e diminui sozinho até caber; se ele diminuir, divida o slide em dois. Nada abaixo de 18 pt. O slide apoia a sua fala; o que não couber vai para as notas do apresentador.
 - **Código:** até 8 linhas e cerca de 60 colunas por slide. Se o trecho for maior, divida em mais slides ou refatore o exemplo para mostrar só o que importa: 20 linhas pequenas ninguém lê do fundo da sala.
+- **Link dos slides:** mostre um QR code no encerramento. Ninguém copia um link da tela, mas todo mundo aponta o celular. Aponte o QR code para um lugar só, com slides, código e contatos.
+- **Perguntas:** reserve uns 5 minutos do seu horário para perguntas e combine com quem modera como avisar o fim do tempo. Repita cada pergunta no microfone antes de responder: a sala e a gravação não ouvem quem perguntou.
 - **Sobre você:** quem abre a sessão costuma apresentar você antes da palestra. Se o tempo estiver curto, o slide "Sobre mim" pode sair, ou virar uma linha na capa.
 - **Live coding:** tenha um plano B. Grave um vídeo da demo funcionando ou capture telas de cada passo, e deixe os arquivos no computador. Se algo falhar no palco, você troca para a gravação e segue.
 - **Internet:** a rede do evento pode cair ou ficar lenta com centenas de pessoas conectadas. Baixe os vídeos, as páginas e os notebooks que vai mostrar; não dependa de streaming nem de demos online.
@@ -64,24 +68,29 @@ Os espaços para imagem são caixas com borda fina, com o texto "Clique no ícon
 
 ## Layouts
 
-Todos existem em versão escura e clara, exceto a capa, o encerramento e a imagem cheia, que são só escuros.
+Todos existem em versão escura e clara, exceto a imagem cheia, que é só escura.
 
 | Layout | Para |
 |---|---|
 | Capa | Título da palestra em até três linhas, subtítulo, nome e handle, com o selo da data |
+| Agenda | Lista numerada de três a cinco partes da palestra |
 | Seção | Divisor com número no disco limão e o dragão ao fundo |
 | Título e conteúdo | Tópicos; de três a cinco por slide |
 | Duas colunas | Comparações com título em cada coluna: antes e depois, problema e solução |
 | Texto e imagem | Texto à esquerda, imagem à direita |
 | Imagem e texto | Imagem sangrada à esquerda, texto à direita |
+| Três imagens | Três capturas de tela lado a lado, cada uma com legenda |
 | Código | Cartão escuro com até 8 linhas e 60 colunas de código a 15 pt |
+| Código lado a lado | Dois cartões de código, antes e depois, com até 8 linhas e 30 colunas cada |
 | Citação | Frase em destaque com autoria |
+| Frase | Uma frase só, grande, para a ideia principal ou para mudar de assunto |
 | Números em destaque | Três números grandes com rótulo; cabem valores como "1.200" ou "R$ 3,5 mi" |
 | Três cartões | Três blocos com título e descrição |
 | Palestrante | Foto, nome, cargo e três fatos |
 | Somente título | Espaço livre para tabelas, gráficos e diagramas |
 | Imagem cheia | Foto de fundo com faixa de legenda |
-| Encerramento | Obrigado, contatos e link dos slides |
+| Referências | Um material por linha, com nome e endereço curto |
+| Encerramento | "Obrigado!" ou "Perguntas?", contatos e um QR code grande com o link dos slides |
 | Em branco | Só o logo e o número do slide |
 
 ## Cores e contraste
