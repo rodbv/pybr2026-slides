@@ -94,6 +94,17 @@ function logo(mode, { x = M, y = FOOTER_Y, w = 1.5 } = {}) {
   return { image: { x, y, w, h: w * LOGO_RATIO, path: mode.logo } };
 }
 
+// Footer: the dragon beside the logo, both centered on the logo's line.
+const FOOTER_DRAGON_H = 0.42;
+function footer(mode, x = M) {
+  const dragonW = FOOTER_DRAGON_H * (664 / 841);
+  const logoH = 1.5 * LOGO_RATIO;
+  return [
+    { image: { x, y: FOOTER_Y + logoH / 2 - FOOTER_DRAGON_H / 2, w: dragonW, h: FOOTER_DRAGON_H, path: mode.dragon } },
+    logo(mode, { x: x + dragonW + 0.08 }),
+  ];
+}
+
 function slideNumber(mode) {
   return { x: W - M - 0.6, y: FOOTER_Y - 0.03, w: 0.6, h: 0.3, fontSize: 11, color: mode.mutedHex, align: "right", fontFace: THEME.headFontFace };
 }
@@ -134,7 +145,7 @@ function defineLayout(name, mode, objects, extra = {}) {
     title: name + mode.suffix,
     background: { color: mode.bg },
     slideNumber: slideNumber(mode),
-    objects: [logo(mode), ...objects],
+    objects: [...footer(mode), ...objects],
     ...extra,
   });
 }
@@ -173,7 +184,7 @@ for (const mode of [DARK, LIGHT]) {
     background: { color: mode.bg },
     slideNumber: slideNumber(mode),
     objects: [
-      logo(mode),
+      ...footer(mode),
       ph("title", "title", { x: M, y: 0.8, w: closeW, h: 1.4 }, "Obrigado!", { fontSize: 44, bold: true, color: mode.accent, align: "left", valign: "bottom", fit: "shrink" }),
       bodyPh(mode, "body", { x: M, y: 2.4, w: closeW, h: 2.3 }, "Contatos: handle, e-mail, site", { bullet: false }),
       imagePh(mode, "qr", { x: qrX, y: 0.55, w: qrD, h: qrD }, "QR code com o link dos slides"),
@@ -226,7 +237,7 @@ for (const mode of [DARK, LIGHT]) {
     background: { color: mode.bg },
     slideNumber: slideNumber(mode),
     objects: [
-      logo(mode, { x: 4.9 }),
+      ...footer(mode, 4.9),
       imagePh(mode, "image", { x: 0, y: 0, w: 4.4, h: H }),
       titlePh(mode, { x: 4.9, y: TITLE.y, w: W - 4.9 - M, h: TITLE.h }),
       bodyPh(mode, "body", { x: 4.9, y: BODY.y, w: W - 4.9 - M, h: BODY.h }),
