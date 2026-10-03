@@ -2,7 +2,7 @@
 
 Modelo de apresentação para palestrantes e organização da [Python Brasil 2026](https://2026.pythonbrasil.org.br/), em Florianópolis, de 14 a 19 de outubro de 2026. Funciona no LibreOffice Impress, no Google Slides e no PowerPoint, em Linux, macOS e Windows.
 
-![Visão geral dos 34 slides de exemplo](dist/preview/overview.png)
+![Visão geral dos 35 slides de exemplo](dist/preview/overview.png)
 
 ## Usar no Google Slides
 
@@ -37,7 +37,7 @@ O `.odp` já traz as duas fontes embutidas. No `.pptx`, sem as fontes instaladas
 
 ## Como usar
 
-Cada slide do arquivo mostra um layout preenchido com texto de exemplo. O arquivo tem duas seções: layouts escuros e layouts claros. Os comentários do apresentador (notas) de cada slide explicam para que o layout serve.
+Cada slide do arquivo mostra um layout preenchido com texto de exemplo. O arquivo tem três seções: layouts escuros, layouts claros e figurinhas. As anotações de cada slide explicam para que o layout serve e trazem dicas para a palestra.
 
 1. Abra o arquivo e salve uma cópia com o nome da sua palestra.
 2. Duplique os slides que você vai usar e apague os outros.
@@ -100,26 +100,31 @@ Todas as combinações de texto e fundo usadas no modelo passam no nível AA do 
 | Uso | Cor | Sobre | Contraste |
 |---|---|---|---|
 | Fundo escuro | `#0F0F0F` | | |
-| Texto no escuro | `#F0F8FF` | `#0F0F0F` | 17,9:1 |
+| Texto no escuro (verde claro) | `#E8F4BA` | `#0F0F0F` | 16,5:1 |
 | Destaque no escuro (limão) | `#B7FF06` | `#0F0F0F` | 15,8:1 |
-| Roxo no escuro | `#C95FB4` | `#0F0F0F` | 5,3:1 |
-| Texto secundário no escuro | `#A8A8A8` | `#0F0F0F` | 7,3:1 |
+| Texto secundário no escuro | `#A8A8A8` | `#0F0F0F` | 8,1:1 |
 | Cartões no escuro | `#242424`, borda `#3A3A3A` | | |
-| Texto em cartão escuro | `#F0F8FF` | `#242424` | 14,5:1 |
+| Texto em cartão escuro | `#E8F4BA` | `#242424` | 13,4:1 |
 | Fundo claro | `#FFFFFF` | | |
 | Texto no claro | `#0F0F0F` | `#FFFFFF` | 19,2:1 |
-| Destaque no claro (oliva) | `#3F6300` | `#FFFFFF` | 7,0:1 |
-| Roxo no claro (ameixa) | `#7A2F6B` | `#FFFFFF` | 8,6:1 |
+| Marca-texto no claro | `#0F0F0F` | `#B7FF06` | 15,8:1 |
+| Aspas da citação no claro (oliva) | `#3F6300` | `#FFFFFF` | 7,0:1 |
 | Texto secundário no claro | `#4A4A4A` | `#FFFFFF` | 8,9:1 |
 | Cartões no claro | `#E8F4BA`, borda `#C9D9A0` | | |
-| Destaque em cartão claro (oliva) | `#3F6300` | `#E8F4BA` | 6,0:1 |
-| Texto sobre disco limão | `#0F0F0F` | `#B7FF06` | 15,8:1 |
+| Texto em cartão claro | `#0F0F0F` | `#E8F4BA` | 16,5:1 |
 
-Duas regras para manter o contraste quando você editar:
+Regras para manter o contraste quando você editar:
 
-- Verde limão `#B7FF06` como cor de texto, só sobre fundo escuro. Sobre fundo branco o contraste é 1,2:1 e o texto some. No fundo claro, o texto em destaque é oliva `#3F6300`.
-- Os discos limão aparecem nos dois modos, sempre com texto preto `#0F0F0F`.
+- Verde limão `#B7FF06` como cor de texto, só sobre fundo escuro. Sobre fundo branco o contraste é 1,2:1 e o texto some. No fundo claro, destaque a palavra com o limão como cor de realce do texto (marca-texto) e mantenha o texto preto. O realce acompanha a palavra quando você edita.
+- Discos e retângulos limão aparecem nos dois modos, sempre com texto preto `#0F0F0F`.
 - Cartões e espaços para imagem têm borda fina: só a cor de fundo deles fica a 1,1:1 do fundo do slide e some em projetor fraco.
+- Se for usar outras cores, confira o contraste no [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/).
+
+O telão da Python Brasil 2026 é de LED. Em telão de LED, o fundo escuro costuma funcionar melhor, por isso o modelo começa pelos layouts escuros.
+
+## Figurinhas
+
+O último slide traz figurinhas para copiar e colar: o logo empilhado (claro e escuro), a bruxinha surfista, o mago digitando, o dragão, o círculo pixelado e o marca-texto. Os arquivos originais, em PNG e SVG, estão em [`assets/brand/`](assets/brand/).
 
 As cores estão no tema do arquivo. Se você trocar uma cor do tema (LibreOffice: Slide > Mestre; PowerPoint: Exibir > Slide mestre > Cores), todos os slides mudam juntos.
 
@@ -154,7 +159,11 @@ Quando o código entrar como imagem, escreva o código no texto alternativo (bot
 
 O cartão aceita até 8 linhas de 15 pt.
 
-## Gerar os arquivos de novo
+## Para quem quer mudar o modelo pelo código
+
+Esta parte serve para quem quer clonar ou fazer um fork do repositório e mudar o modelo. Para usar o modelo numa palestra, as seções acima bastam.
+
+### Gerar os arquivos
 
 O `.pptx` é gerado por um script Node com [pptxgenjs](https://gitbrent.github.io/PptxGenJS/). Edite `pptx/build.js` para mudar layouts, cores ou textos de exemplo.
 
@@ -165,6 +174,10 @@ npm run render    # PDF, PNGs em dist/preview/ e dist/pybr2026-template.odp (pre
 ```
 
 A paleta e as fontes ficam no objeto `THEME` no topo de `pptx/build.js`. O arquivo `pptx/lib/theme.js` grava essas cores no tema do `.pptx`; `pptx/lib/highlight.js` colore o código de exemplo.
+
+As figurinhas saem de `assets/make_brand_assets.sh`, que baixa as peças do site do evento e vetoriza o mago a partir de `assets/brand/source/mago.pdf` (precisa de ImageMagick, poppler e uv).
+
+### Atualizar a cópia no Google Slides
 
 A cópia no Google Slides não é atualizada pelo script. Depois de mudar o `.pptx`, envie o arquivo para o Drive, abra e escolha Arquivo > Salvar como Apresentações Google, compartilhe como "Qualquer pessoa com o link: Leitor" e troque o ID no link "Fazer uma cópia" deste README.
 
