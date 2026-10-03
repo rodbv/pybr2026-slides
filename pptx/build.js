@@ -31,11 +31,14 @@ const THEME = {
     accent4: "7A2F6B", // ameixa: roxo sobre fundo claro
     accent5: "A8A8A8", // texto secundário sobre fundo escuro
     accent6: "4A4A4A", // texto secundário sobre fundo claro
-    hlink: "C95FB4",
+    hlink: "DE35D0", // magenta dos links do site: links sobre fundo escuro
     folHlink: "7A2F6B",
   },
 };
 const HEX = THEME.colors;
+// Links follow the event site: underlined magenta on dark; on white the magenta falls to 3.8:1, so links use the plum.
+const LINK_ON_DARK = HEX.hlink;
+const LINK_ON_LIGHT = HEX.accent4;
 
 const W = 10;
 const H = 5.625;
@@ -430,6 +433,11 @@ function quoted(text, accentHex) {
   return [mark("“"), { text }, mark("”")];
 }
 
+// A clickable address, written without the scheme as the slides show it.
+function link(address, linkHex, options = {}) {
+  return { text: address, options: { hyperlink: { url: `https://${address}` }, color: linkHex, underline: { style: "sng", color: linkHex }, fontFace: THEME.headFontFace, ...options } };
+}
+
 function fill(sl, texts) {
   for (const [placeholder, text] of Object.entries(texts)) sl.addText(text, { placeholder });
 }
@@ -502,7 +510,7 @@ function chartSlide(mode, section, colors) {
   );
   sl.addText([
     { text: "Outras cores? Confira o contraste em " },
-    { text: "webaim.org/resources/contrastchecker", options: { fontFace: THEME.headFontFace, color: mode.accentHex } },
+    link("webaim.org/resources/contrastchecker", mode === DARK ? LINK_ON_DARK : LINK_ON_LIGHT),
   ], { x: M, y: BODY.y + BODY.h - 0.4, w: W - 2 * M, h: 0.4, fontSize: 16, color: mode.textHex, fontFace: THEME.bodyFontFace, margin: 0, valign: "middle", isTextBox: true, lang: LANG });
 }
 
@@ -603,7 +611,9 @@ function codeSlide(layout, section, tip) {
 }
 s = codeSlide("Código", ESCURO, [
   { text: "Dica: ", options: { bold: true } },
-  { text: "gere o código colorido no slidesnippet.com, tema Monokai, fundo #1A1A1A." },
+  { text: "gere o código colorido no " },
+  link("slidesnippet.com", LINK_ON_DARK),
+  { text: ", tema Monokai, fundo #1A1A1A." },
 ]);
 // The wizard sticker from the stickers slide, in the empty corner of the code card, as an example of use.
 s.addImage({ path: resized(path.join(BRAND, "sticker-mago.png"), { width: 600 }), x: 8.2, y: 2.75, w: 1.6 * MAGO_RATIO, h: 1.6, altText: "Figurinha do mago digitando no teclado" });
@@ -692,7 +702,7 @@ s = slide("Referências", ESCURO);
 s.addText("Referências", { placeholder: "title" });
 const reference = ([name, url], i, all) => [
   { text: name + "  ", options: {} },
-  { text: url, options: { fontFace: THEME.headFontFace, color: DARK.mutedHex, breakLine: i < all.length - 1 } },
+  link(url, LINK_ON_DARK, { breakLine: i < all.length - 1 }),
 ];
 s.addText([
   ["Código de conduta da Python Brasil", "python.org.br/cdc"],
@@ -750,7 +760,9 @@ fill(s, {
 
 codeSlide("Código (claro)", CLARO, [
   { text: "Dica: ", options: { bold: true } },
-  { text: "no LibreOffice, baixe o SVG do slidesnippet.com e arraste para o slide." },
+  { text: "no LibreOffice, baixe o SVG do " },
+  link("slidesnippet.com", LINK_ON_LIGHT),
+  { text: " e arraste para o slide." },
 ]);
 
 s = slide("Citação (claro)", CLARO);
