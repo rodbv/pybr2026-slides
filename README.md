@@ -116,12 +116,15 @@ As cores estão no tema do arquivo. Se você trocar uma cor do tema (LibreOffice
 
 ## Código nos slides
 
-Os programas de apresentação não colorem código. No slide "Código", as cores foram aplicadas palavra por palavra com a paleta do evento: palavras-chave em limão, strings em roxo, comentários em cinza, nomes de classe e função em verde claro.
+O modelo usa o tema **Monokai** para código. O verde-limão e o magenta do Monokai combinam com o limão e o roxo da Python Brasil, e todas as cores do tema passam no contraste AA sobre o cartão escuro (`#1A1A1A`).
 
-Para outro trecho, duas opções:
+Os programas de apresentação não colorem código. Para ter as mesmas cores no seu trecho:
 
-1. Cole o código no cartão, mantenha a fonte Cascadia Mono, e pinte as palavras-chave à mão. Para trechos curtos funciona bem.
-2. Gere uma imagem no [Carbon](https://carbon.now.sh) ou no [ray.so](https://ray.so) com um tema escuro, e insira no layout "Texto e imagem" ou "Somente título". Use fundo `#1A1A1A` e exporte em 2x para a imagem não ficar borrada no projetor.
+1. **Copiar do VS Code (texto editável).** Escolha o tema Monokai (Ctrl+K Ctrl+T, ou Cmd+K Cmd+T no Mac), copie o trecho e cole no cartão do slide "Código". O VS Code copia as cores junto. Outros editores com Monokai que copiam texto formatado também servem, como o Sublime Text com o pacote "Copy as RTF" ou o PyCharm com um tema Monokai.
+2. **Gerar uma imagem.** No [Carbon](https://carbon.now.sh), escolha o tema Monokai e exporte em 2x, para a imagem não ficar borrada no projetor. Insira a imagem no layout "Somente título" e escreva o código no texto alternativo, para leitores de tela.
+3. **Pela linha de comando.** O Pygments tem o estilo `monokai`: `pygmentize -l python -f html -O style=monokai,noclasses` gera HTML colorido que você abre no navegador e copia.
+
+Depois de colar, confira se a fonte ficou Cascadia Mono e o tamanho 15 pt. O cartão aceita até 8 linhas.
 
 ## Gerar os arquivos de novo
 
