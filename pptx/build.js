@@ -871,7 +871,7 @@ s = slide("Somente título", FIGURINHAS,
   "Um destaque chama atenção quando aparece pouco: uma figurinha por slide costuma bastar. Os arquivos originais estão na pasta assets/brand do repositório.");
 s.addText("Figurinhas", { placeholder: "title" });
 // A Florianópolis greeting for whoever reads the template to the end.
-s.addText("Dazumbanho! Você chegou ao fim. Detonou!", { x: W - M - 5.8, y: 0.45, w: 5.8, h: 0.6, fontSize: 16, bold: true, color: LIME, fontFace: THEME.headFontFace, align: "right", valign: "middle", margin: 0, isTextBox: true, lang: LANG, objectName: "Fim do modelo" });
+s.addText("Dazumbanho! Chegasse ao fim ixtepô!", { x: W - M - 5.8, y: 0.45, w: 5.8, h: 0.6, fontSize: 16, bold: true, color: LIME, fontFace: THEME.headFontFace, align: "right", valign: "middle", margin: 0, isTextBox: true, lang: LANG, objectName: "Fim do modelo" });
 const sticker = (file, box, altText) => s.addImage({ path: resized(path.join(BRAND, file), { width: 900 }), ...box, altText });
 sticker("lockup-on-dark.png", { x: M, y: 1.7, w: 2.6, h: 2.6 * LOCKUP_RATIO }, "Logo python brasil com o dragão, versão clara");
 sticker("sticker-witch.png", { x: 3.55, y: 1.6, w: 1.6, h: 1.6 * (2132 / 2354) }, "Adesivo da bruxinha surfista com contorno limão");
