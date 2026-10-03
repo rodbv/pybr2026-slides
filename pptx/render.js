@@ -13,7 +13,7 @@ const PREVIEW = path.join(DIST, "preview");
 const DECK = path.join(DIST, "pybr2026-template.pptx");
 
 // Slides for the README tour, by number: a sample of the dark layouts, the light ones and the stickers.
-const TOUR = [1, 2, 3, 6, 9, 12, 14, 17, 20, 21, 28, 35];
+const TOUR = [1, 2, 3, 6, 9, 12, 14, 17, 19, 21, 22, 37];
 const TOUR_SECONDS = 2.5;
 
 function run(cmd, args) {

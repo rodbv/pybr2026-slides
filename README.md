@@ -11,9 +11,9 @@ Também dá para baixar o [`.pptx`](https://github.com/rodbv/pybr2026-slides/rel
 ![Alguns slides do modelo, um a cada 2,5 segundos: capa, frase, palestrante, agenda, imagem, código, números, gráfico de contraste, perguntas, capa clara, citação e figurinhas](https://github.com/rodbv/pybr2026-slides/releases/latest/download/tour.gif)
 
 <details>
-<summary>Ver os 35 slides de uma vez</summary>
+<summary>Ver os 37 slides de uma vez</summary>
 
-![Visão geral dos 35 slides de exemplo](https://github.com/rodbv/pybr2026-slides/releases/latest/download/overview.png)
+![Visão geral dos 37 slides de exemplo](https://github.com/rodbv/pybr2026-slides/releases/latest/download/overview.png)
 
 </details>
 
@@ -93,11 +93,12 @@ Todos existem em versão escura e clara, exceto a imagem cheia, que é só escur
 | Frase | Uma frase só, grande, para a ideia principal ou para mudar de assunto |
 | Números em destaque | Três números grandes com rótulo; cabem valores como "1.200" ou "R$ 3,5 mi" |
 | Três cartões | Três blocos com título e descrição |
+| Destaque | Painel limão com o título à esquerda e até quatro tópicos à direita, para a mensagem que a sala não pode perder |
 | Palestrante | Foto, nome, cargo e três fatos |
 | Somente título | Espaço livre para tabelas, gráficos e diagramas |
 | Imagem cheia | Foto de fundo com faixa de legenda |
 | Referências | Um material por linha, com nome e endereço curto |
-| Encerramento | "Obrigado!" ou "Perguntas?", contatos e um QR code grande com o link dos slides |
+| Encerramento | "Valeu!" ou "Perguntas?", contatos e um QR code grande com o link dos slides |
 | Em branco | Só o logo e o número do slide |
 
 ## Cores e contraste
