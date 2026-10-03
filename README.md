@@ -118,13 +118,24 @@ As cores estão no tema do arquivo. Se você trocar uma cor do tema (LibreOffice
 
 O modelo usa o tema **Monokai** para código. O verde-limão e o magenta do Monokai combinam com o limão e o roxo da Python Brasil, e todas as cores do tema passam no contraste AA sobre o cartão escuro (`#1A1A1A`).
 
-Os programas de apresentação não colorem código. Para ter as mesmas cores no seu trecho:
+Os programas de apresentação não colorem código. Para ter as mesmas cores no seu trecho, use o [SlideSnippet](https://www.slidesnippet.com/) com estas opções:
 
-1. **Copiar do VS Code (texto editável).** Escolha o tema Monokai (Ctrl+K Ctrl+T, ou Cmd+K Cmd+T no Mac), copie o trecho e cole no cartão do slide "Código". O VS Code copia as cores junto. Outros editores com Monokai que copiam texto formatado também servem, como o Sublime Text com o pacote "Copy as RTF" ou o PyCharm com um tema Monokai.
-2. **Gerar uma imagem.** No [Carbon](https://carbon.now.sh), escolha o tema Monokai e exporte em 2x, para a imagem não ficar borrada no projetor. Insira a imagem no layout "Somente título" e escreva o código no texto alternativo, para leitores de tela.
-3. **Pela linha de comando.** O Pygments tem o estilo `monokai`: `pygmentize -l python -f html -O style=monokai,noclasses` gera HTML colorido que você abre no navegador e copia.
+| Opção | Valor |
+|---|---|
+| Theme | Monokai |
+| Font size | 20px (15 pt no slide) |
+| Line height | 1.2 |
+| Background | `#1A1A1A` (RGB 26, 26, 26) |
 
-Depois de colar, confira se a fonte ficou Cascadia Mono e o tamanho 15 pt. O cartão aceita até 8 linhas.
+Depois, conforme o programa:
+
+- **Google Slides:** escolha "Optimised for: Google Slides / Docs" e clique em "Copy styled". Clique dentro do cartão do slide "Código" e cole pelo menu Editar > Colar; o Ctrl+V pode perder as cores. O código continua editável.
+- **PowerPoint:** escolha "Optimised for: PowerPoint / Word", clique em "Copy styled" e cole com "Manter formatação original".
+- **LibreOffice:** o LibreOffice perde as cores ao colar texto do navegador. Clique em "Download SVG" e arraste o arquivo para o slide, sobre o cartão. O SVG fica nítido em qualquer tamanho. Para código editável, instale a extensão [Code Highlighter 2](https://extensions.libreoffice.org/en/extensions/show/5814) e escolha o estilo `monokai`.
+
+Quando o código entrar como imagem, escreva o código no texto alternativo (botão direito > Descrição no LibreOffice, Texto alternativo no Google Slides e no PowerPoint), para leitores de tela.
+
+O cartão aceita até 8 linhas de 15 pt.
 
 ## Gerar os arquivos de novo
 
