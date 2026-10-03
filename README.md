@@ -108,7 +108,6 @@ Todas as combinações de texto e fundo usadas no modelo passam no nível AA do 
 | Fundo claro | `#FFFFFF` | | |
 | Texto no claro | `#0F0F0F` | `#FFFFFF` | 19,2:1 |
 | Marca-texto no claro | `#0F0F0F` | `#B7FF06` | 15,8:1 |
-| Aspas da citação no claro (oliva) | `#3F6300` | `#FFFFFF` | 7,0:1 |
 | Texto secundário no claro | `#4A4A4A` | `#FFFFFF` | 8,9:1 |
 | Cartões no claro | `#E8F4BA`, borda `#C9D9A0` | | |
 | Texto em cartão claro | `#0F0F0F` | `#E8F4BA` | 16,5:1 |

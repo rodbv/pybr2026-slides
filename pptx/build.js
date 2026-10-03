@@ -822,7 +822,9 @@ codeSlide("Código (claro)", CLARO, [
 ]);
 
 s = slide("Citação (claro)", CLARO, "Citação, versão clara, com a fonte embaixo: aqui, a PEP 20, que você também vê com import this.");
-fill(s, { quote: quoted("Legibilidade conta.", HEX.accent3), author: "PEP 20" });
+// Light slides mark the key word with the lime highlight, as the brand's light pages do.
+const [open, , close] = quoted("", HEX.dk1);
+fill(s, { quote: [open, marked("Legibilidade"), { text: " conta." }, close], author: "PEP 20" });
 
 s = slide("Frase (claro)", CLARO, "Frase, versão clara. Com menos texto no slide, a letra fica maior e a atenção do público fica em você.");
 fill(s, { title: "Menos texto, letra maior." });
