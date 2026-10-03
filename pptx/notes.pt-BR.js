@@ -86,7 +86,7 @@ module.exports = [
   [
     "Espaço livre para tabelas, gráficos e diagramas.",
     "Pode não haver tempo de testar na sala: teste antes o adaptador de vídeo e o espelhamento de tela do seu computador.",
-    "Dúvidas antes do evento: o grupo de palestrantes no Telegram.",
+    "Cada sala tem alguém do voluntariado. Se o projetor, o som ou o microfone falharem, chame essa pessoa.",
   ],
   // 17 Gráfico
   [
