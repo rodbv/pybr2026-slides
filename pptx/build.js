@@ -867,9 +867,11 @@ pres.addSection({ title: FIGURINHAS });
 s = slide("Somente título", FIGURINHAS,
   "Figurinhas para copiar e colar nos seus slides: clique numa figurinha, copie (Ctrl+C ou Cmd+C) e cole no seu slide. " +
   "Para mudar o tamanho sem deformar, arraste um canto segurando Shift. O logo preto vai sobre fundo claro; o claro, sobre fundo escuro. " +
-  "O marca-texto é um retângulo: escreva por cima ou coloque-o atrás de uma palavra. Para destacar uma palavra dentro de um texto, a cor de realce do texto acompanha a palavra quando você edita. " +
+  "O marca-texto é a cor de realce do texto, que acompanha a palavra quando você edita: copie a figurinha e troque a palavra, ou selecione uma palavra sua e escolha o realce limão #B7FF06. " +
   "Um destaque chama atenção quando aparece pouco: uma figurinha por slide costuma bastar. Os arquivos originais estão na pasta assets/brand do repositório.");
 s.addText("Figurinhas", { placeholder: "title" });
+// A Florianópolis greeting for whoever reads the template to the end.
+s.addText("Dazumbanho! Você chegou ao fim. Detonou!", { x: W - M - 5.8, y: 0.45, w: 5.8, h: 0.6, fontSize: 16, bold: true, color: LIME, fontFace: THEME.headFontFace, align: "right", valign: "middle", margin: 0, isTextBox: true, lang: LANG, objectName: "Fim do modelo" });
 const sticker = (file, box, altText) => s.addImage({ path: resized(path.join(BRAND, file), { width: 900 }), ...box, altText });
 sticker("lockup-on-dark.png", { x: M, y: 1.7, w: 2.6, h: 2.6 * LOCKUP_RATIO }, "Logo python brasil com o dragão, versão clara");
 sticker("sticker-witch.png", { x: 3.55, y: 1.6, w: 1.6, h: 1.6 * (2132 / 2354) }, "Adesivo da bruxinha surfista com contorno limão");
@@ -879,9 +881,9 @@ s.addShape(pres.ShapeType.roundRect, { x: M, y: 3.35, w: 2.6, h: 1.5, fill: { co
 sticker("lockup-on-light.png", { x: M + 0.2, y: 3.45, w: 2.2, h: 2.2 * LOCKUP_RATIO }, "Logo python brasil com o dragão, versão escura");
 s.addImage({ path: path.join(BRAND, "pixel-circle.png"), x: 3.45, y: 3.45, w: 2.1, h: 2.1 * (420 / 700), altText: "Círculo pixelado limão para marcar uma palavra" });
 s.addText("olha aqui", { x: 3.45, y: 3.45, w: 2.1, h: 2.1 * (420 / 700), fontSize: 20, bold: true, color: DARK.textHex, fontFace: THEME.headFontFace, align: "center", valign: "middle", margin: 0, isTextBox: true, lang: LANG });
-// The marker is a lime box with black text, so it reads on dark and on white slides.
 sticker("sticker-mago.png", { x: 8.3, y: 3.3, w: 1.6 * MAGO_RATIO, h: 1.6 }, "Figurinha do mago digitando no teclado, com contorno limão");
-s.addText("marca-texto", { shape: pres.ShapeType.rect, x: 5.75, y: 3.8, w: 2.3, h: 0.6, fill: { color: LIME }, line: { color: LIME, width: 0 }, fontSize: 26, bold: true, color: ON_LIME, fontFace: THEME.headFontFace, align: "center", valign: "middle", margin: 0, lang: LANG, objectName: "Marca-texto limão" });
+// The marker is the native text highlight, black on lime, so it follows edits and reads on dark and on white slides.
+s.addText([marked("marca-texto")], { x: 5.6, y: 3.8, w: 2.6, h: 0.6, fontSize: 26, fontFace: THEME.headFontFace, align: "center", valign: "middle", margin: 0, isTextBox: true, lang: LANG, objectName: "Marca-texto limão" });
 
 // ---------- write ----------
 (async () => {
