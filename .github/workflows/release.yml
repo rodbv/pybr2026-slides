@@ -19,10 +19,14 @@ jobs:
           node-version: 24
           cache: npm
 
+      # Ubuntu's own LibreOffice leaves empty image placeholders out of the PDF previews,
+      # so the release uses the current version from the LibreOffice PPA.
       - name: Install LibreOffice, poppler and ImageMagick
         run: |
+          sudo add-apt-repository -y ppa:libreoffice/ppa
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends libreoffice-impress poppler-utils imagemagick
+          soffice --version
 
       # LibreOffice lays out and embeds the fonts installed on the machine.
       - name: Install the template fonts
