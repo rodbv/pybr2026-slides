@@ -460,6 +460,7 @@ function closingSlide(mode, section, title, body = CONTACTS, notes = CLOSING_NOT
   const sl = slide("Encerramento" + mode.suffix, section, notes);
   fill(sl, { title, body, qrCaption: "2026.pythonbrasil.org.br" });
   sl.addImage({ placeholder: "qr", path: QR_PATH, ...QR_BOX, altText: `QR code para ${QR_URL}` });
+  return sl;
 }
 
 // WCAG 2.1 contrast ratio between two hex colors.
@@ -689,11 +690,14 @@ fill(s, {
 });
 
 s = slide("Números em destaque", ESCURO, "Números. Até três costumam ler bem; o rótulo diz o que cada número mede. " +
+  "O círculo pixelado em volta do 8 é uma figurinha: arraste e estique para marcar outro número, ou apague. " +
   "Neste exemplo: a partir de 18 pt, quem senta no fundo da sala costuma ler o texto; 8 linhas de código cabem no cartão com letra grande; 5 minutos é uma reserva comum para perguntas, se o seu horário permitir.");
 s.addText("Três números que ajudam", { placeholder: "title" });
 [["18", "pontos: o texto se lê do fundo da sala"], ["8", "linhas de código cabem bem"], ["5", "minutos para perguntas no fim"]].forEach(([v, l], i) => {
   fill(s, { [`value${i + 1}`]: v, [`label${i + 1}`]: l });
 });
+// The pixel circle from the stickers slide, around the middle number, as an example of use.
+s.addImage({ path: path.join(BRAND, "pixel-circle.png"), x: 4.2, y: 2.2, w: 1.6, h: 1.0, altText: "Círculo pixelado limão em volta do número 8" });
 
 s = slide("Três cartões", ESCURO, "Três cartões, cada um com título e texto. " +
   "Vídeo com som: nem sempre o áudio do computador sai nas caixas da sala. Teste o som antes; como plano B, um vídeo legendado ou narrado por você ao vivo funciona sem áudio. " +
@@ -754,7 +758,9 @@ s.addText([
   ["Verificador de contraste", "webaim.org/resources/contrastchecker"],
 ].flatMap(reference), { placeholder: "body" });
 
-closingSlide(DARK, ESCURO, "Perguntas?", CONTACTS, "Este não é o último slide do modelo: a seguir vem a versão clara dos layouts, com ainda mais dicas. " + CLOSING_NOTES);
+s = closingSlide(DARK, ESCURO, "Perguntas?", CONTACTS, "Este não é o último slide do modelo: a seguir vem a versão clara dos layouts, com ainda mais dicas. " + CLOSING_NOTES);
+// Readers who skip the notes would stop here, so the slide itself says the deck goes on.
+s.addText("Continua: versão clara com mais dicas →", { x: M, y: 4.45, w: 5.2, h: 0.4, fontSize: 16, bold: true, color: LIME, fontFace: THEME.headFontFace, margin: 0, valign: "middle", isTextBox: true, lang: LANG, objectName: "Aviso: o modelo continua" });
 
 // ----- light variants -----
 const CLARO = "Layouts claros";
