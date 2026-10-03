@@ -4,7 +4,9 @@ Modelo de apresentação para palestrantes e organização da [Python Brasil 202
 
 **[Fazer uma cópia no Google Slides](https://docs.google.com/presentation/d/1zizefDaTGhI7EMGmI7DzBC1K--fyTgi4n1zIDSFAwvU/copy)**
 
-O link cria uma cópia editável no seu Google Drive, com todos os layouts. Não precisa baixar nada nem instalar fontes. Para usar no LibreOffice ou no PowerPoint, veja [Baixar](#baixar).
+O link cria uma cópia editável no seu Google Drive, com todos os layouts. Não precisa baixar nada nem instalar fontes.
+
+Também dá para baixar o [`.pptx`](https://github.com/rodbv/pybr2026-slides/releases/latest/download/pybr2026-template.pptx) e abrir no Google Slides (Arquivo > Abrir > Fazer upload). Esse arquivo é sempre a versão mais recente do modelo. Para usar no LibreOffice ou no PowerPoint, veja [Baixar](#baixar).
 
 ![Alguns slides do modelo, um a cada 2,5 segundos: capa, frase, palestrante, agenda, imagem, código, números, gráfico de contraste, perguntas, capa clara, citação e figurinhas](https://github.com/rodbv/pybr2026-slides/releases/latest/download/tour.gif)
 
