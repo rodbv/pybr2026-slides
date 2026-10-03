@@ -1,0 +1,144 @@
+# Modelo de slides da Python Brasil 2026
+
+Modelo de apresentação para palestrantes e organização da [Python Brasil 2026](https://2026.pythonbrasil.org.br/), em Florianópolis, de 14 a 19 de outubro de 2026. Funciona no LibreOffice Impress, no Google Slides e no PowerPoint, em Linux, macOS e Windows.
+
+![Visão geral dos 26 slides de exemplo](dist/preview/overview.png)
+
+## Usar no Google Slides
+
+**[Fazer uma cópia no Google Slides](https://docs.google.com/presentation/d/1IIdQNW3mwgIDROzhOyWOpeeAarsza7Ljb_2SUg4gcZ0/copy)**
+
+O link cria uma cópia editável no seu Google Drive, com todos os layouts. Não precisa baixar nada nem instalar fontes.
+
+## Baixar
+
+| Arquivo | Para |
+|---|---|
+| [`dist/pybr2026-template.odp`](dist/pybr2026-template.odp) | LibreOffice e OpenOffice |
+| [`dist/pybr2026-template.pptx`](dist/pybr2026-template.pptx) | PowerPoint, Keynote e também LibreOffice |
+
+Os dois arquivos têm o mesmo conteúdo. O `.odp` foi gerado pelo LibreOffice a partir do `.pptx`.
+
+## Fontes
+
+O modelo usa duas fontes livres, as mesmas do site do evento:
+
+- **Inter** para texto
+- **Cascadia Mono** para títulos e código
+
+Instale as duas antes de abrir o arquivo; elas estão na pasta [`fonts/`](fonts/) com suas licenças (SIL Open Font License).
+
+- **Linux:** copie os `.ttf` para `~/.local/share/fonts/` e rode `fc-cache -f`.
+- **macOS:** abra cada `.ttf` e clique em "Instalar fonte", ou copie para `~/Library/Fonts/`.
+- **Windows:** selecione os `.ttf`, botão direito, "Instalar".
+- **Google Slides:** nada a instalar. As duas fontes existem no Google Fonts e o Slides as encontra pelo nome na importação.
+
+Sem as fontes instaladas, o programa substitui por outra fonte e os títulos podem quebrar em lugares diferentes. O texto continua legível.
+
+## Como usar
+
+Cada slide do arquivo mostra um layout preenchido com texto de exemplo. Os comentários do apresentador (notas) de cada slide explicam para que o layout serve.
+
+1. Abra o arquivo e salve uma cópia com o nome da sua palestra.
+2. Duplique os slides que você vai usar e apague os outros.
+3. Para criar um slide novo a partir de um layout: Slide > Novo slide, depois escolha o layout no painel lateral (LibreOffice: "Propriedades > Layouts"; Google Slides e PowerPoint: botão "Layout").
+
+### Google Slides
+
+Use o link "Fazer uma cópia" no topo desta página. Os layouts, as cores do tema e as fontes vêm junto.
+
+O Google Slides converte o gráfico do slide "Gráfico nativo" em imagem, e o eixo perde os rótulos. Para um gráfico editável no Slides, use Inserir > Gráfico.
+
+### Imagens
+
+Os espaços para imagem são caixas cinza. No PowerPoint e no Google Slides, clique no ícone dentro da caixa para escolher a imagem. No LibreOffice, insira a imagem (Inserir > Imagem) e arraste-a sobre a caixa; apague a caixa depois. No slide "Imagem cheia", clique com o botão direito na imagem de exemplo e escolha "Substituir imagem".
+
+## Antes de apresentar
+
+- **Texto:** quem senta no fundo da sala precisa ler o slide também. Se o texto só cabe diminuindo a fonte, divida em dois slides. Nada abaixo de 18 pt. O slide apoia a sua fala; o que não couber vai para as notas do apresentador.
+- **Live coding:** tenha um plano B. Grave um vídeo da demo funcionando ou capture telas de cada passo, e deixe os arquivos no computador. Se algo falhar no palco, você troca para a gravação e segue.
+- **Internet:** a rede do evento pode cair ou ficar lenta com centenas de pessoas conectadas. Baixe os vídeos, as páginas e os notebooks que vai mostrar; não dependa de streaming nem de demos online.
+- **Arquivo:** leve uma cópia dos slides em PDF num pendrive, com os vídeos e as imagens juntos. O PDF abre em qualquer computador, com as fontes certas.
+
+## Layouts
+
+Todos existem em versão escura e clara, exceto a capa, o encerramento e a imagem cheia, que são só escuros.
+
+| Layout | Para |
+|---|---|
+| Capa | Título da palestra, subtítulo, nome e handle |
+| Seção | Divisor com número no círculo |
+| Título e conteúdo | Tópicos; de três a cinco por slide |
+| Duas colunas | Comparações: antes e depois, problema e solução |
+| Texto e imagem | Texto à esquerda, imagem à direita |
+| Imagem e texto | Imagem sangrada à esquerda, texto à direita |
+| Código | Cartão escuro com até 8 linhas de código a 15 pt |
+| Citação | Frase em destaque com autoria |
+| Números em destaque | Três números grandes com rótulo |
+| Três cartões | Três blocos com título e descrição |
+| Palestrante | Foto, nome, cargo e três fatos |
+| Somente título | Espaço livre para tabelas, gráficos e diagramas |
+| Imagem cheia | Foto de fundo com faixa de legenda |
+| Encerramento | Obrigado, contatos e link dos slides |
+| Em branco | Só o logo e o número do slide |
+
+## Cores e contraste
+
+Todas as combinações de texto e fundo usadas no modelo passam no nível AA do WCAG 2.1 (contraste mínimo de 4,5:1 para texto normal). As principais passam no AAA.
+
+| Uso | Cor | Sobre | Contraste |
+|---|---|---|---|
+| Fundo escuro | `#0F0F0F` | | |
+| Texto no escuro | `#F0F8FF` | `#0F0F0F` | 17,9:1 |
+| Destaque no escuro (limão) | `#B7FF06` | `#0F0F0F` | 15,8:1 |
+| Roxo no escuro | `#C95FB4` | `#0F0F0F` | 5,3:1 |
+| Texto secundário no escuro | `#A8A8A8` | `#0F0F0F` | 7,3:1 |
+| Fundo claro | `#E8F4BA` | | |
+| Texto no claro | `#0F0F0F` | `#E8F4BA` | 16,5:1 |
+| Destaque no claro (oliva) | `#3F6300` | `#E8F4BA` | 6,0:1 |
+| Roxo no claro (ameixa) | `#7A2F6B` | `#E8F4BA` | 7,4:1 |
+| Texto secundário no claro | `#4A4A4A` | `#E8F4BA` | 7,6:1 |
+
+Duas regras para manter o contraste quando você editar:
+
+- Verde limão `#B7FF06` só sobre fundo escuro. Sobre fundo claro o contraste é 1,2:1 e o texto some. No fundo claro, o destaque é o oliva `#3F6300`.
+- Texto sobre os círculos limão é sempre preto `#0F0F0F`.
+
+As cores estão no tema do arquivo. Se você trocar uma cor do tema (LibreOffice: Slide > Mestre; PowerPoint: Exibir > Slide mestre > Cores), todos os slides mudam juntos.
+
+## Acessibilidade
+
+- Tamanho mínimo de texto: 14 pt em legendas, 16 pt em cartões, 18 pt no corpo, 32 pt em títulos.
+- Idioma do texto marcado como português do Brasil, para leitores de tela e corretor ortográfico.
+- Todas as caixas de texto são texto de verdade, não imagem, com exceção do logo e do dragão.
+- As imagens de exemplo têm texto alternativo; ao inserir as suas, preencha o texto alternativo (botão direito > Descrição ou Texto alternativo).
+- Os espaços reservados têm nomes (`title`, `body`, `code`), o que ajuda a navegação por teclado e a ordem de leitura.
+
+## Código nos slides
+
+Os programas de apresentação não colorem código. No slide "Código", as cores foram aplicadas palavra por palavra com a paleta do evento: palavras-chave em limão, strings em roxo, comentários em cinza, nomes de classe e função em verde claro.
+
+Para outro trecho, duas opções:
+
+1. Cole o código no cartão, mantenha a fonte Cascadia Mono, e pinte as palavras-chave à mão. Para trechos curtos funciona bem.
+2. Gere uma imagem no [Carbon](https://carbon.now.sh) ou no [ray.so](https://ray.so) com um tema escuro, e insira no layout "Texto e imagem" ou "Somente título". Use fundo `#1A1A1A` e exporte em 2x para a imagem não ficar borrada no projetor.
+
+## Gerar os arquivos de novo
+
+O `.pptx` é gerado por um script Node com [pptxgenjs](https://gitbrent.github.io/PptxGenJS/). Edite `pptx/build.js` para mudar layouts, cores ou textos de exemplo.
+
+```sh
+npm install
+npm run build     # escreve dist/pybr2026-template.pptx
+npm run render    # PDF, PNGs em dist/preview/ e dist/pybr2026-template.odp (precisa de LibreOffice, poppler e ImageMagick)
+```
+
+A paleta e as fontes ficam no objeto `THEME` no topo de `pptx/build.js`. O arquivo `pptx/lib/theme.js` grava essas cores no tema do `.pptx`; `pptx/lib/highlight.js` colore o código de exemplo.
+
+A cópia no Google Slides não é atualizada pelo script. Depois de mudar o `.pptx`, envie o arquivo para o Drive, abra e escolha Arquivo > Salvar como Apresentações Google, compartilhe como "Qualquer pessoa com o link: Leitor" e troque o ID no link "Fazer uma cópia" deste README.
+
+## Licenças
+
+- Código deste repositório: MIT.
+- Logo, dragão e identidade visual: Python Brasil 2026 e APyB, vindos do [site oficial](https://github.com/pythonbrasil/pybr2026-site).
+- Fontes Inter e Cascadia Mono: SIL Open Font License 1.1, em `fonts/`.
