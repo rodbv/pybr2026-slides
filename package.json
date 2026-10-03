@@ -1,0 +1,17 @@
+{
+  "name": "pybr2026-slides",
+  "version": "0.1.0",
+  "description": "Modelo de slides da Python Brasil 2026 (Florianópolis): gerador e arquivos prontos",
+  "scripts": {
+    "build": "node pptx/build.js",
+    "render": "node pptx/render.js",
+    "all": "npm run build && npm run render"
+  },
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "pptxgenjs": "^4.0.1",
+    "sharp": "^0.35.5"
+  },
+  "private": true
+}
