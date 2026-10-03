@@ -1,5 +1,5 @@
 // Renders dist/pybr2026-template.pptx through LibreOffice: a PDF, one PNG per slide
-// in dist/preview/, a contact sheet, and the .odp copy of the deck.
+// in dist/preview/, a contact sheet, and the .odp copy of the deck with its fonts embedded.
 // Needs `soffice` on PATH (LibreOffice), `pdftoppm` (poppler) and `magick` (ImageMagick).
 const { execFileSync } = require("child_process");
 const fs = require("fs");
@@ -22,6 +22,7 @@ for (const f of fs.readdirSync(PREVIEW)) if (f.endsWith(".png")) fs.unlinkSync(p
 
 run("soffice", ["--headless", "--convert-to", "pdf", "--outdir", BUILD, DECK]);
 run("soffice", ["--headless", "--convert-to", "odp", "--outdir", DIST, DECK]);
+run("python3", [path.join(__dirname, "embed_fonts.py"), path.join(DIST, "pybr2026-template.odp")]);
 const pdf = path.join(BUILD, "pybr2026-template.pdf");
 run("pdftoppm", ["-png", "-r", "110", pdf, path.join(PREVIEW, "slide")]);
 
