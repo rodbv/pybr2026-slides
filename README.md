@@ -17,7 +17,7 @@ O link cria uma cópia editável no seu Google Drive, com todos os layouts. Não
 | [`dist/pybr2026-template.odp`](dist/pybr2026-template.odp) | LibreOffice e OpenOffice |
 | [`dist/pybr2026-template.pptx`](dist/pybr2026-template.pptx) | PowerPoint, Keynote e também LibreOffice |
 
-Os dois arquivos têm o mesmo conteúdo. O `.odp` foi gerado pelo LibreOffice a partir do `.pptx`.
+Os dois arquivos têm o mesmo conteúdo. O `.odp` foi gerado pelo LibreOffice a partir do `.pptx` e leva as fontes dentro do arquivo: abre certo mesmo sem as fontes instaladas.
 
 ## Fontes
 
@@ -33,7 +33,7 @@ Instale as duas antes de abrir o arquivo; elas estão na pasta [`fonts/`](fonts/
 - **Windows:** selecione os `.ttf`, botão direito, "Instalar".
 - **Google Slides:** nada a instalar. As duas fontes existem no Google Fonts e o Slides as encontra pelo nome na importação.
 
-Sem as fontes instaladas, o programa substitui por outra fonte e os títulos podem quebrar em lugares diferentes. O texto continua legível.
+O `.odp` já traz as duas fontes embutidas. No `.pptx`, sem as fontes instaladas, o programa substitui por outra fonte e os títulos podem quebrar em lugares diferentes. O texto continua legível.
 
 ## Como usar
 
@@ -51,11 +51,13 @@ O Google Slides converte o gráfico do slide "Gráfico nativo" em imagem, e o ei
 
 ### Imagens
 
-Os espaços para imagem são caixas cinza. No PowerPoint e no Google Slides, clique no ícone dentro da caixa para escolher a imagem. No LibreOffice, insira a imagem (Inserir > Imagem) e arraste-a sobre a caixa; apague a caixa depois. No slide "Imagem cheia", clique com o botão direito na imagem de exemplo e escolha "Substituir imagem".
+Os espaços para imagem são caixas com borda fina, com o texto "Clique no ícone ou arraste uma imagem". No PowerPoint e no Google Slides, clique no ícone dentro da caixa para escolher a imagem. No LibreOffice, insira a imagem (Inserir > Imagem) e arraste-a sobre a caixa; apague a caixa depois. No slide "Imagem cheia", clique com o botão direito na imagem de exemplo e escolha "Substituir imagem".
 
 ## Antes de apresentar
 
-- **Texto:** quem senta no fundo da sala precisa ler o slide também. Se o texto só cabe diminuindo a fonte, divida em dois slides. Nada abaixo de 18 pt. O slide apoia a sua fala; o que não couber vai para as notas do apresentador.
+- **Texto:** quem senta no fundo da sala precisa ler o slide também. O texto do modelo começa em 20 pt e diminui sozinho até caber; se ele diminuir, divida o slide em dois. Nada abaixo de 18 pt. O slide apoia a sua fala; o que não couber vai para as notas do apresentador.
+- **Código:** até 8 linhas e cerca de 60 colunas por slide. Se o trecho for maior, divida em mais slides ou refatore o exemplo para mostrar só o que importa: 20 linhas pequenas ninguém lê do fundo da sala.
+- **Sobre você:** quem abre a sessão costuma apresentar você antes da palestra. Se o tempo estiver curto, o slide "Sobre mim" pode sair, ou virar uma linha na capa.
 - **Live coding:** tenha um plano B. Grave um vídeo da demo funcionando ou capture telas de cada passo, e deixe os arquivos no computador. Se algo falhar no palco, você troca para a gravação e segue.
 - **Internet:** a rede do evento pode cair ou ficar lenta com centenas de pessoas conectadas. Baixe os vídeos, as páginas e os notebooks que vai mostrar; não dependa de streaming nem de demos online.
 - **Arquivo:** leve uma cópia dos slides em PDF num pendrive, com os vídeos e as imagens juntos. O PDF abre em qualquer computador, com as fontes certas.
@@ -66,15 +68,15 @@ Todos existem em versão escura e clara, exceto a capa, o encerramento e a image
 
 | Layout | Para |
 |---|---|
-| Capa | Título da palestra, subtítulo, nome e handle |
-| Seção | Divisor com número no círculo |
+| Capa | Título da palestra em até três linhas, subtítulo, nome e handle, com o selo da data |
+| Seção | Divisor com número no disco limão e o dragão ao fundo |
 | Título e conteúdo | Tópicos; de três a cinco por slide |
-| Duas colunas | Comparações: antes e depois, problema e solução |
+| Duas colunas | Comparações com título em cada coluna: antes e depois, problema e solução |
 | Texto e imagem | Texto à esquerda, imagem à direita |
 | Imagem e texto | Imagem sangrada à esquerda, texto à direita |
-| Código | Cartão escuro com até 8 linhas de código a 15 pt |
+| Código | Cartão escuro com até 8 linhas e 60 colunas de código a 15 pt |
 | Citação | Frase em destaque com autoria |
-| Números em destaque | Três números grandes com rótulo |
+| Números em destaque | Três números grandes com rótulo; cabem valores como "1.200" ou "R$ 3,5 mi" |
 | Três cartões | Três blocos com título e descrição |
 | Palestrante | Foto, nome, cargo e três fatos |
 | Somente título | Espaço livre para tabelas, gráficos e diagramas |
@@ -93,22 +95,28 @@ Todas as combinações de texto e fundo usadas no modelo passam no nível AA do 
 | Destaque no escuro (limão) | `#B7FF06` | `#0F0F0F` | 15,8:1 |
 | Roxo no escuro | `#C95FB4` | `#0F0F0F` | 5,3:1 |
 | Texto secundário no escuro | `#A8A8A8` | `#0F0F0F` | 7,3:1 |
-| Fundo claro | `#E8F4BA` | | |
-| Texto no claro | `#0F0F0F` | `#E8F4BA` | 16,5:1 |
-| Destaque no claro (oliva) | `#3F6300` | `#E8F4BA` | 6,0:1 |
-| Roxo no claro (ameixa) | `#7A2F6B` | `#E8F4BA` | 7,4:1 |
-| Texto secundário no claro | `#4A4A4A` | `#E8F4BA` | 7,6:1 |
+| Cartões no escuro | `#242424`, borda `#3A3A3A` | | |
+| Texto em cartão escuro | `#F0F8FF` | `#242424` | 14,5:1 |
+| Fundo claro | `#FFFFFF` | | |
+| Texto no claro | `#0F0F0F` | `#FFFFFF` | 19,2:1 |
+| Destaque no claro (oliva) | `#3F6300` | `#FFFFFF` | 7,0:1 |
+| Roxo no claro (ameixa) | `#7A2F6B` | `#FFFFFF` | 8,6:1 |
+| Texto secundário no claro | `#4A4A4A` | `#FFFFFF` | 8,9:1 |
+| Cartões no claro | `#E8F4BA`, borda `#C9D9A0` | | |
+| Destaque em cartão claro (oliva) | `#3F6300` | `#E8F4BA` | 6,0:1 |
+| Texto sobre disco limão | `#0F0F0F` | `#B7FF06` | 15,8:1 |
 
 Duas regras para manter o contraste quando você editar:
 
-- Verde limão `#B7FF06` só sobre fundo escuro. Sobre fundo claro o contraste é 1,2:1 e o texto some. No fundo claro, o destaque é o oliva `#3F6300`.
-- Texto sobre os círculos limão é sempre preto `#0F0F0F`.
+- Verde limão `#B7FF06` como cor de texto, só sobre fundo escuro. Sobre fundo branco o contraste é 1,2:1 e o texto some. No fundo claro, o texto em destaque é oliva `#3F6300`.
+- Os discos limão aparecem nos dois modos, sempre com texto preto `#0F0F0F`.
+- Cartões e espaços para imagem têm borda fina: só a cor de fundo deles fica a 1,1:1 do fundo do slide e some em projetor fraco.
 
 As cores estão no tema do arquivo. Se você trocar uma cor do tema (LibreOffice: Slide > Mestre; PowerPoint: Exibir > Slide mestre > Cores), todos os slides mudam juntos.
 
 ## Acessibilidade
 
-- Tamanho mínimo de texto: 14 pt em legendas, 16 pt em cartões, 18 pt no corpo, 32 pt em títulos.
+- Tamanhos: 20 pt no corpo (diminui até caber, nunca abaixo de 18 pt), 18 pt em cartões e rótulos, 15 pt no código, 32 pt nos títulos. O slide tem 10 polegadas de largura, então 20 pt aqui equivalem a 27 pt num slide widescreen padrão de 13,33 polegadas.
 - Idioma do texto marcado como português do Brasil, para leitores de tela e corretor ortográfico.
 - Todas as caixas de texto são texto de verdade, não imagem, com exceção do logo e do dragão.
 - As imagens de exemplo têm texto alternativo; ao inserir as suas, preencha o texto alternativo (botão direito > Descrição ou Texto alternativo).
