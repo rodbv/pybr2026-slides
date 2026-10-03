@@ -741,7 +741,7 @@ s.addTable(
 chartSlide(DARK, ESCURO, CHART_NOTES, [["Texto", DARK.textHex], ["Limão", LIME], ["Cinza", DARK.mutedHex]]);
 
 s = slide("Imagem cheia", ESCURO,
-  "Imagem de fundo com legenda. Clique com o botão direito na imagem > Substituir imagem. A faixa inferior é translúcida para a legenda ficar legível sobre qualquer foto. Duplique este slide para manter a faixa. " +
+  "Imagem de fundo com legenda. Clique com o botão direito na imagem > Substituir imagem. Com a faixa translúcida embaixo, a legenda fica legível sobre qualquer foto; para usar a faixa em outra foto, duplique este slide. " +
   "Fotos suas ou de licença livre funcionam bem. Vale conferir se a licença permite o uso e creditar a autoria na legenda, como no exemplo.");
 // The sample image fills the placeholder; an empty placeholder would be drawn above the caption.
 s.addImage({ placeholder: "image", path: path.join(BRAND, "sample-fullbleed.png"), x: 0, y: 0, w: W, h: H, altText: "Imagem de exemplo: dragão da Python Brasil 2026 sobre fundo escuro" });
@@ -829,7 +829,7 @@ fill(s, { quote: [open, marked("Legibilidade"), { text: " conta." }, close], aut
 s = slide("Frase (claro)", CLARO, "Frase, versão clara. Com menos texto no slide, a letra fica maior e a atenção do público fica em você.");
 fill(s, { title: "Menos texto, letra maior." });
 
-s = slide("Números em destaque (claro)", CLARO, "Números, versão clara. Os números ficam em preto com o marca-texto limão, como nas páginas da marca. O contraste de 4,5:1 é o mínimo do WCAG para texto; todas as cores deste modelo passam. " +
+s = slide("Números em destaque (claro)", CLARO, "Números, versão clara. No fundo branco, o limão como cor de texto quase some; para destacar, use o limão como marca-texto atrás do texto preto, como aqui. O contraste de 4,5:1 é o mínimo do WCAG para texto; todas as cores deste modelo passam. " +
   "Uma ideia por slide ajuda quem lê devagar ou usa leitor de tela, e nenhuma informação passada só pela cor ajuda quem tem daltonismo.");
 s.addText("Acessibilidade em números", { placeholder: "title" });
 [["4,5:1", "contraste mínimo do texto"], ["1", "ideia por slide"], ["0", "informações passadas só pela cor"]].forEach(([v, l], i) => {
@@ -853,7 +853,7 @@ fill(s, {
   bio: bullets(["Onde o público encontra você", "Três fatos, não um currículo", "Uma foto recente"]),
 });
 
-chartSlide(LIGHT, CLARO, "Gráfico, versão clara: as barras ficam pretas. " + CHART_NOTES, [["Texto", LIGHT.textHex], ["Cinza", LIGHT.mutedHex]]);
+chartSlide(LIGHT, CLARO, "Gráfico, versão clara. " + CHART_NOTES, [["Texto", LIGHT.textHex], ["Cinza", LIGHT.mutedHex]]);
 
 // The deck ends with the organization's message to the speaker.
 closingSlide(LIGHT, CLARO, "Valeu!", [
