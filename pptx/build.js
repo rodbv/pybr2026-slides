@@ -522,15 +522,15 @@ coverSlide(DARK, ESCURO,
   "Mais dicas nas anotações de cada slide",
   "Capa. Troque o título, o subtítulo e o nome. O dragão, o logo e o selo da data fazem parte do layout. " +
   "Cada slide mostra um layout e traz uma dica, e as anotações, como esta, explicam a dica (no Google Slides, elas se chamam \"anotações do apresentador\"). No LibreOffice, abra Exibir > Notas; no Google Slides e no PowerPoint, as anotações ficam embaixo do slide. Nenhuma dica é regra: use as que fizerem sentido para você e para a sua palestra, e apague o resto. " +
-  "Depois do encerramento escuro vem a versão clara dos layouts, com ainda mais dicas: vale ir até o fim. " +
+  "Depois do encerramento escuro vem a versão clara dos layouts, com ainda mais dicas, se você quiser. " +
   "Agradecemos por compartilhar o que você sabe: a Python Brasil existe porque pessoas como você sobem ao palco.");
 
 let s = slide("Frase", ESCURO,
   "Frase: uma ideia só, grande, para a mensagem principal ou para mudar de assunto. Se a frase passar de duas linhas, o layout Título e conteúdo costuma servir melhor. " +
   "Quase toda pessoa palestrante fica nervosa, inclusive quem palestra há anos. O público escolheu a sua sala porque quer ouvir você e torce para dar certo. " +
   "Se bater o nervosismo, procure um rosto amigo na plateia e fale para essa pessoa, como numa conversa. Dá até para combinar antes com uma pessoa amiga para sentar na frente. " +
-  "Se algo falhar no palco, comente com bom humor e siga em frente: a sala esquece em minutos.");
-fill(s, { title: "Vai dar tudo certo." });
+  "Se algo falhar no palco, comente com calma o que aconteceu e siga em frente: a sala esquece em minutos.");
+fill(s, { title: "A sala está torcendo por você." });
 
 s = slide("Citação", ESCURO,
   "Estas são dicas, não regras. O seu jeito de falar, o seu humor e a sua criatividade valem mais do que qualquer coisa neste modelo. " +
@@ -550,10 +550,10 @@ s = slide("Título e conteúdo", ESCURO,
 fill(s, {
   title: "Na hora de começar",
   body: bullets([
-    "Respire fundo e beba um gole de água",
-    "Sorria: o público está do seu lado",
+    "Solte o ar devagar e beba um gole de água",
+    "O público está do seu lado",
     "Fale mais devagar do que parece natural",
-    "Divirta-se: a palestra é sua",
+    "A palestra é sua, no seu ritmo",
   ]),
 });
 
@@ -707,7 +707,7 @@ s = slide("Três cartões", ESCURO, "Três cartões, cada um com título e texto
   "Vídeo com som: nem sempre o áudio do computador sai nas caixas da sala. Teste o som antes; como plano B, um vídeo legendado ou narrado por você ao vivo funciona sem áudio. " +
   "Live coding: com um vídeo da demo funcionando, ou capturas de cada passo salvas no computador, você troca para a gravação se algo falhar no palco e segue a palestra. " +
   "Internet: com centenas de pessoas na mesma rede, a conexão fica lenta ou cai; vídeos, páginas e notebooks baixados antes não dependem dela. " +
-  "Arquivo: se o seu computador não funcionar com o projetor, o PDF abre em qualquer outro, com as fontes certas.");
+  "Arquivo: se o seu computador não funcionar com o projetor, o PDF abre em qualquer outro, com as fontes certas. Se algo falhar mesmo assim, a sala entende: acontece em toda conferência.");
 s.addText("Antes de subir no palco", { placeholder: "title" });
 [
   ["Live coding", "Um plano B ajuda: capturas de tela ou um vídeo gravado da demo."],
