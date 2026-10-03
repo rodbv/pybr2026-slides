@@ -310,11 +310,13 @@ for (const mode of [DARK, LIGHT]) {
   defineLayout("Três cartões", mode, [titlePh(mode), ...cards]);
 
   // Números em destaque: o número grande na cor de destaque, sem moldura, cabe "1.200" ou "R$ 3,5 mi"
-  const statW = (W - 2 * M) / 3;
+  // The gap keeps neighbouring values and labels from reading as one line.
+  const statGap = 0.45;
+  const statW = (W - 2 * M - 2 * statGap) / 3;
   const stats = [];
   for (let i = 0; i < 3; i++) {
-    const x = M + i * statW;
-    stats.push(ph(`value${i + 1}`, "body", { x, y: 1.75, w: statW, h: 1.4 }, "44", { fontSize: 72, bold: true, fontFace: THEME.headFontFace, color: mode.accent, align: "center", valign: "bottom", fit: "shrink" }));
+    const x = M + i * (statW + statGap);
+    stats.push(ph(`value${i + 1}`, "body", { x, y: 1.75, w: statW, h: 1.4 }, "44", { fontSize: 60, bold: true, fontFace: THEME.headFontFace, color: mode.accent, align: "center", valign: "bottom", fit: "shrink" }));
     stats.push(bodyPh(mode, `label${i + 1}`, { x, y: 3.25, w: statW, h: 0.9 }, "rótulo", { bullet: false, fontSize: 18, align: "center" }));
   }
   defineLayout("Números em destaque", mode, [titlePh(mode), ...stats]);
@@ -551,27 +553,49 @@ codeSlide("Código", ESCURO, [
   { text: "gere o código colorido no slidesnippet.com, tema Monokai, fundo #1A1A1A." },
 ]);
 
-s = slide("Código lado a lado", ESCURO, "Dois trechos lado a lado: antes e depois de uma refatoração, ou duas formas de resolver o mesmo problema. Cada cartão aceita até 8 linhas e cerca de 30 colunas. " + CODE_NOTES.slice(CODE_NOTES.indexOf("Para ter")));
+const LONG_CODE = `from dataclasses import dataclass
+from datetime import datetime, timedelta
+
+
+@dataclass
+class Palestra:
+    titulo: str
+    inicio: datetime
+    duracao_min: int = 25
+
+    @property
+    def fim(self) -> datetime:
+        return self.inicio + timedelta(minutes=self.duracao_min)
+
+    def conflita_com(self, outra: "Palestra") -> bool:
+        return self.inicio < outra.fim and outra.inicio < self.fim
+
+    def cabe_no_slot(self, slot_min: int) -> bool:
+        # Reserva 5 minutos para perguntas
+        return self.duracao_min + 5 <= slot_min
+`;
+// The whole class at 6 pt shows what a long snippet looks like from the back of the room.
+const tiny = (runs) => runs.map((r) => ({ ...r, options: { ...r.options, fontSize: 6, lineSpacing: 7.5 } }));
+
+s = slide("Código lado a lado", ESCURO,
+  "Dois trechos lado a lado: antes e depois de uma refatoração, ou duas formas de resolver o mesmo problema. Cada cartão aceita até 8 linhas e cerca de 30 colunas. " +
+  "Neste exemplo, a esquerda mostra a classe inteira, que só cabe em letra miúda; a direita mostra só a parte que a explicação usa. " +
+  CODE_NOTES.slice(CODE_NOTES.indexOf("Para ter")));
 fill(s, {
   title: "Um exemplo menor também ensina",
-  leftTitle: "Antes",
-  codeLeft: highlightCode(`total = 0
-for p in palestras:
-    if p.trilha == "web":
-        total += p.duracao
-`),
-  rightTitle: "Depois",
-  codeRight: highlightCode(`total = sum(
-    p.duracao
-    for p in palestras
-    if p.trilha == "web"
-)
+  leftTitle: "20 linhas, letra miúda",
+  codeLeft: tiny(highlightCode(LONG_CODE)),
+  rightTitle: "4 linhas, letra grande",
+  codeRight: highlightCode(`def cabe(palestra, slot):
+    # 5 min para perguntas
+    fim = palestra.duracao + 5
+    return fim <= slot
 `),
 });
 
 s = slide("Números em destaque", ESCURO, "Números. Até três costumam ler bem; o rótulo diz o que cada número mede.");
 s.addText("Três números que ajudam", { placeholder: "title" });
-[[`18${NBSP}pt`, "texto que se lê do fundo"], ["8", "linhas de código cabem bem"], [`5${NBSP}min`, "para perguntas no fim"]].forEach(([v, l], i) => {
+[["18", "pontos: o texto se lê do fundo da sala"], ["8", "linhas de código cabem bem"], ["5", "minutos para perguntas no fim"]].forEach(([v, l], i) => {
   fill(s, { [`value${i + 1}`]: v, [`label${i + 1}`]: l });
 });
 
