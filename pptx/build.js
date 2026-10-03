@@ -3,9 +3,11 @@
 const path = require("path");
 const fs = require("fs");
 const pptxgen = require("pptxgenjs");
+const sharp = require("sharp");
 const QRCode = require("qrcode");
 const { applyTheme } = require("./lib/theme");
 const { continueNumbering } = require("./lib/numbering");
+const { fixNotes } = require("./lib/notes");
 const { highlightCode, CODE_TEXT_COLOR } = require("./lib/highlight");
 
 const ROOT = path.resolve(__dirname, "..");
@@ -41,7 +43,7 @@ const M = 0.5; // margem lateral
 const TITLE = { x: M, y: 0.42, w: W - 2 * M, h: 1.0 };
 const BODY = { x: M, y: 1.55, w: W - 2 * M, h: 3.3 };
 const TEXT_W = 8.0; // keeps body lines under about 60 characters at 20 pt
-const FOOTER_Y = 5.08;
+const FOOTER_Y = 5.15;
 const LANG = "pt-BR";
 
 const pres = new pptxgen();
@@ -53,6 +55,15 @@ pres.author = "Comunidade Python Brasil";
 pres.company = "Python Brasil 2026";
 pres.lang = LANG;
 const C = pres.SchemeColor;
+
+// pptxgenjs stores one copy of an image per layout that uses it, so images repeated on
+// every layout are resized to the size they show at before the deck is written.
+const RESIZED = [];
+function resized(src, size) {
+  const out = path.join(BUILD, `${path.basename(src, ".png")}-${size.width || size.height}.png`);
+  RESIZED.push({ src, out, size });
+  return out;
+}
 
 // Two color modes share every layout definition. Lime fills (discs, table header)
 // carry black text in both modes; as a text color, lime is used only on dark.
@@ -69,6 +80,9 @@ const DARK = {
   accentHex: HEX.accent1,
   logo: path.join(BRAND, "logo-light-on-dark.png"),
   dragon: path.join(BRAND, "dragon-lime.png"),
+  footerLogo: resized(path.join(BRAND, "logo-light-on-dark.png"), { width: 480 }),
+  footerDragon: resized(path.join(BRAND, "dragon-lime.png"), { height: 140 }),
+  watermark: resized(path.join(BRAND, "dragon-lime.png"), { height: 700 }),
 };
 const LIGHT = {
   suffix: " (claro)",
@@ -83,6 +97,9 @@ const LIGHT = {
   accentHex: HEX.accent3,
   logo: path.join(BRAND, "logo-dark-on-light.png"),
   dragon: path.join(BRAND, "dragon-dark.png"),
+  footerLogo: resized(path.join(BRAND, "logo-dark-on-light.png"), { width: 480 }),
+  footerDragon: resized(path.join(BRAND, "dragon-dark.png"), { height: 140 }),
+  watermark: resized(path.join(BRAND, "dragon-dark.png"), { height: 700 }),
 };
 const LIME = HEX.accent1;
 const ON_LIME = HEX.dk1;
@@ -90,23 +107,25 @@ const ON_LIME = HEX.dk1;
 // ---------- layout building blocks ----------
 
 const LOGO_RATIO = 262 / 1653;
-function logo(mode, { x = M, y = FOOTER_Y, w = 1.5 } = {}) {
-  return { image: { x, y, w, h: w * LOGO_RATIO, path: mode.logo } };
+function logo(mode, { x = M, y = FOOTER_Y, w = 1.5, src = mode.footerLogo, transparency = 0 } = {}) {
+  return { image: { x, y, w, h: w * LOGO_RATIO, path: src, transparency } };
 }
 
-// Footer: the dragon beside the logo, both centered on the logo's line.
-const FOOTER_DRAGON_H = 0.42;
+// Footer: a small, translucent signature, the dragon beside the logo on the logo's center line.
+const FOOTER_LOGO_W = 1.0;
+const FOOTER_DRAGON_H = 0.3;
+const FOOTER_TRANSPARENCY = 35;
 function footer(mode, x = M) {
   const dragonW = FOOTER_DRAGON_H * (664 / 841);
-  const logoH = 1.5 * LOGO_RATIO;
+  const logoH = FOOTER_LOGO_W * LOGO_RATIO;
   return [
-    { image: { x, y: FOOTER_Y + logoH / 2 - FOOTER_DRAGON_H / 2, w: dragonW, h: FOOTER_DRAGON_H, path: mode.dragon } },
-    logo(mode, { x: x + dragonW + 0.08 }),
+    { image: { x, y: FOOTER_Y + logoH / 2 - FOOTER_DRAGON_H / 2, w: dragonW, h: FOOTER_DRAGON_H, path: mode.footerDragon, transparency: FOOTER_TRANSPARENCY } },
+    logo(mode, { x: x + dragonW + 0.06, w: FOOTER_LOGO_W, transparency: FOOTER_TRANSPARENCY }),
   ];
 }
 
 function slideNumber(mode) {
-  return { x: W - M - 0.6, y: FOOTER_Y - 0.03, w: 0.6, h: 0.3, fontSize: 11, color: mode.mutedHex, align: "right", fontFace: THEME.headFontFace };
+  return { x: W - M - 0.6, y: FOOTER_Y - 0.07, w: 0.6, h: 0.3, fontSize: 11, color: mode.mutedHex, align: "right", fontFace: THEME.headFontFace };
 }
 
 function ph(name, type, box, text, options = {}) {
@@ -165,7 +184,7 @@ for (const mode of [DARK, LIGHT]) {
     background: { color: mode.bg },
     objects: [
       { image: { x: W - dragonW - 0.35, y: H - dragonH - 0.2, w: dragonW, h: dragonH, path: mode.dragon } },
-      logo(mode, { x: M, y: 0.45, w: 3.2 }),
+      logo(mode, { x: M, y: 0.45, w: 3.2, src: mode.logo }),
       // The date sits in its own text box: an ellipse only lays text out in its inscribed rectangle.
       shape("ellipse", { x: W - M - dateD, y: 0.3, w: dateD, h: dateD }, LIME),
       { text: { text: "14 a 19\nde outubro\nde 2026\n{Floripa/SC}", options: { x: W - M - dateD, y: 0.3, w: dateD, h: dateD, fontSize: 13, bold: true, fontFace: THEME.headFontFace, color: ON_LIME, align: "center", valign: "middle", margin: 0, isTextBox: true, lang: LANG } } },
@@ -175,7 +194,7 @@ for (const mode of [DARK, LIGHT]) {
     ],
   });
 
-  // Encerramento ("Obrigado!" ou "Perguntas?"): o QR code grande leva o público aos slides
+  // Encerramento ("Valeu!" ou "Perguntas?"): o QR code grande leva o público aos slides
   const qrD = 3.3;
   const qrX = W - M - qrD;
   const closeW = qrX - 0.5 - M;
@@ -185,7 +204,7 @@ for (const mode of [DARK, LIGHT]) {
     slideNumber: slideNumber(mode),
     objects: [
       ...footer(mode),
-      ph("title", "title", { x: M, y: 0.8, w: closeW, h: 1.4 }, "Obrigado!", { fontSize: 44, bold: true, color: mode.accent, align: "left", valign: "bottom", fit: "shrink" }),
+      ph("title", "title", { x: M, y: 0.8, w: closeW, h: 1.4 }, "Valeu!", { fontSize: 44, bold: true, color: mode.accent, align: "left", valign: "bottom", fit: "shrink" }),
       bodyPh(mode, "body", { x: M, y: 2.4, w: closeW, h: 2.3 }, "Contatos: handle, e-mail, site", { bullet: false }),
       imagePh(mode, "qr", { x: qrX, y: 0.55, w: qrD, h: qrD }, "QR code com o link dos slides"),
       ph("qrCaption", "body", { x: qrX, y: 0.55 + qrD + 0.1, w: qrD, h: 0.45 }, "endereço.com.br/slides", { fontSize: 16, color: mode.text, fontFace: THEME.headFontFace, align: "center", fit: "shrink" }),
@@ -200,7 +219,7 @@ for (const mode of [DARK, LIGHT]) {
   // Seção: disco limão com o número, título à direita, dragão translúcido ao fundo
   const secD = 1.9;
   const markH = 3.3;
-  const watermark = { image: { x: W - markH * DRAGON_RATIO + 0.4, y: H - markH + 0.3, w: markH * DRAGON_RATIO, h: markH, path: mode.dragon, transparency: 88 } };
+  const watermark = { image: { x: W - markH * DRAGON_RATIO + 0.4, y: H - markH + 0.3, w: markH * DRAGON_RATIO, h: markH, path: mode.watermark, transparency: 88 } };
   defineLayout("Seção", mode, [
     watermark,
     shape("ellipse", { x: M, y: 1.85, w: secD, h: secD }, LIME),
@@ -283,8 +302,8 @@ for (const mode of [DARK, LIGHT]) {
 
   // Citação: as aspas fazem parte do texto, para ficarem sempre junto da primeira linha
   defineLayout("Citação", mode, [
-    ph("quote", "body", { x: M, y: 0.9, w: TEXT_W + 0.5, h: 2.6 }, "“A citação vai aqui, em até três linhas.”", { fontSize: 32, color: mode.text, valign: "bottom", fit: "shrink" }),
-    ph("author", "body", { x: M, y: 3.7, w: TEXT_W + 0.5, h: 0.5 }, "Nome, cargo ou fonte", { fontSize: 18, color: mode.muted, fontFace: THEME.headFontFace }),
+    ph("quote", "body", { x: M, y: 0.6, w: TEXT_W + 0.5, h: 2.4 }, "“A citação vai aqui, em até três linhas.”", { fontSize: 32, color: mode.text, valign: "bottom", fit: "shrink" }),
+    ph("author", "body", { x: M, y: 3.15, w: TEXT_W + 0.5, h: 0.5 }, "Nome, cargo ou fonte", { fontSize: 18, color: mode.muted, fontFace: THEME.headFontFace }),
   ]);
 
   // Frase: uma ideia só, grande, como "Perguntas?"
@@ -382,12 +401,13 @@ const QR_PATH = path.join(BUILD, "qr-exemplo.png");
 const QR_BOX = { x: W - M - 3.3, y: 0.55, w: 3.3, h: 3.3 }; // same box as the layout's qr placeholder
 const QR_URL = "https://2026.pythonbrasil.org.br/";
 const CLOSING_NOTES =
-  "Encerramento, para \"Obrigado!\" ou \"Perguntas?\". Este slide pode ficar na tela durante as perguntas. " +
-  "Com o QR code, o público abre os seus slides pelo celular, sem copiar o link da tela. Ele funciona melhor apontando para um lugar com slides, código e contatos (repositório, gist ou página). " +
+  "Encerramento, para \"Valeu!\", \"Obrigada!\", \"Obrigado!\" ou \"Perguntas?\". Este slide pode ficar na tela durante as perguntas. " +
+  "Com o QR code, o público abre os seus slides pelo celular, sem copiar o link da tela. Ele funciona melhor apontando para uma página só, com slides, código, referências e contatos: o README de um repositório no GitHub, um gist, uma página no GitHub Pages ou um Linktree. Assim você troca os links depois sem mudar o QR code. " +
   "Para trocar o QR code: no LibreOffice, Inserir > Objeto > Código QR e de barras; no Google Slides e no PowerPoint, gere a imagem num gerador de QR code e substitua a de exemplo. " +
   "Com o link escrito embaixo, quem está sem a câmera à mão também chega lá. Vale testar a leitura com o celular a alguns metros da tela. " +
   "Uns 5 minutos para perguntas costumam bastar; combinar com quem modera como avisar o fim do tempo ajuda. " +
   "Repetir a pergunta no microfone ajuda a sala e a gravação, que não ouvem quem perguntou. " +
+  "Tudo bem não saber uma resposta. \"Não sei, posso ver e te respondo depois\" é uma resposta honesta, e o contato no slide ajuda a continuar a conversa. " +
   "Se uma pergunta desrespeitar o código de conduta, você não precisa responder: pode agradecer, passar para a próxima e avisar a organização depois.";
 
 const CONTACTS = [
@@ -402,14 +422,15 @@ function closingSlide(mode, section, title, body = CONTACTS, notes = CLOSING_NOT
   sl.addImage({ placeholder: "qr", path: QR_PATH, ...QR_BOX, altText: `QR code para ${QR_URL}` });
 }
 
-function chartSlide(mode, section, notes) {
+function chartSlide(mode, section, notes, contrast) {
   const sl = slide("Somente título" + mode.suffix, section, notes);
-  sl.addText("Exemplo: 30 minutos de palestra", { placeholder: "title" });
+  sl.addText("Contraste das cores deste modelo", { placeholder: "title" });
   sl.addChart(
     pres.ChartType.bar,
-    [{ name: "Minutos", labels: ["Abertura", "Contexto", "Conteúdo", "Demo", "Perguntas"], values: [2, 5, 13, 5, 5] }],
+    [{ name: "Contraste com o fundo", labels: contrast.map(([label]) => label), values: contrast.map(([, value]) => value) }],
     {
-      x: M, y: BODY.y, w: W - 2 * M, h: BODY.h,
+      dataLabelFormatCode: "0.0",
+      x: M, y: BODY.y, w: W - 2 * M, h: BODY.h - 0.5,
       barDir: "col",
       chartColors: [mode.accentHex],
       showValue: true,
@@ -429,36 +450,45 @@ function chartSlide(mode, section, notes) {
       showTitle: false,
     }
   );
+  sl.addText([
+    { text: "Outras cores? Confira o contraste em " },
+    { text: "webaim.org/resources/contrastchecker", options: { fontFace: THEME.headFontFace, color: mode.accentHex } },
+  ], { x: M, y: BODY.y + BODY.h - 0.4, w: W - 2 * M, h: 0.4, fontSize: 16, color: mode.textHex, fontFace: THEME.bodyFontFace, margin: 0, valign: "middle", isTextBox: true, lang: LANG });
 }
 const CHART_NOTES =
   "Somente título com um gráfico nativo. No PowerPoint e no LibreOffice, edite os dados com o botão direito > Editar dados. " +
   "O Google Slides converte este gráfico em imagem na importação; lá, crie o gráfico em Inserir > Gráfico. " +
-  "Dividir o tempo antes de montar os slides ajuda. Os minutos são um exemplo: confira a duração do seu horário na programação.";
+  "Cada barra é o contraste de uma cor do modelo com o fundo do slide. O WCAG pede pelo menos 4,5:1 para texto, a última barra. " +
+  "Se você usar outras cores, o verificador do WebAIM (webaim.org/resources/contrastchecker) mostra o contraste de cada par de cor de texto e cor de fundo.";
 
 const ESCURO = "Layouts escuros";
 pres.addSection({ title: ESCURO });
 
 coverSlide(DARK, ESCURO,
   "Que bom que você vai palestrar na Python Brasil 2026",
-  "Aqui estão algumas dicas, use as que servirem",
+  "Mais dicas nas anotações de cada slide",
   "Capa. Troque o título, o subtítulo e o nome. O dragão, o logo e o selo da data fazem parte do layout. " +
-  "Cada slide mostra um layout e traz uma dica. Nenhuma dica é regra: use as que fizerem sentido para você e para a sua palestra, e apague o resto. " +
-  "Obrigado por compartilhar o que você sabe: a Python Brasil existe porque pessoas como você sobem ao palco.");
+  "Cada slide mostra um layout e traz uma dica, e as anotações, como esta, explicam a dica (no Google Slides, elas se chamam \"anotações do apresentador\"). No LibreOffice, abra Exibir > Notas; no Google Slides e no PowerPoint, as anotações ficam embaixo do slide. Nenhuma dica é regra: use as que fizerem sentido para você e para a sua palestra, e apague o resto. " +
+  "Depois do encerramento escuro vem a versão clara dos layouts, com ainda mais dicas: vale ir até o fim. " +
+  "Agradecemos por compartilhar o que você sabe: a Python Brasil existe porque pessoas como você sobem ao palco.");
 
-let s = slide("Citação", ESCURO,
+let s = slide("Frase", ESCURO,
+  "Frase: uma ideia só, grande, para a mensagem principal ou para mudar de assunto. Se a frase passar de duas linhas, o layout Título e conteúdo costuma servir melhor. " +
+  "Quase toda pessoa palestrante fica nervosa, inclusive quem palestra há anos. O público escolheu a sua sala porque quer ouvir você e torce para dar certo. " +
+  "Se bater o nervosismo, procure um rosto amigo na plateia e fale para essa pessoa, como numa conversa. Dá até para combinar antes com uma pessoa amiga para sentar na frente. " +
+  "Se algo falhar no palco, comente com bom humor e siga em frente: a sala esquece em minutos.");
+fill(s, { title: "Vai dar tudo certo." });
+
+s = slide("Citação", ESCURO,
   "Estas são dicas, não regras. O seu jeito de falar, o seu humor e a sua criatividade valem mais do que qualquer coisa neste modelo. " +
   "Citação: até três linhas, com a fonte embaixo, quem disse e onde. Vale conferir a autoria numa fonte primária: muita frase famosa circula com o nome errado. " +
   "As aspas verdes fazem parte do texto: ao trocar a citação, mantenha as duas.");
 fill(s, {
-  quote: quoted("Saiba quando ser inconsistente: às vezes as recomendações de um guia de estilo não se aplicam. Na dúvida, use o seu bom senso.", LIME),
-  author: "PEP 8, guia de estilo do Python (tradução livre)",
+  quote: quoted("A praticidade vence a pureza.", LIME),
+  author: "The Zen of Python, PEP 20",
 });
-
-s = slide("Frase", ESCURO,
-  "Frase: uma ideia só, grande, para a mensagem principal ou para mudar de assunto. Se a frase passar de duas linhas, o layout Título e conteúdo costuma servir melhor. " +
-  "Quase toda pessoa palestrante fica nervosa, inclusive quem palestra há anos. O público escolheu a sua sala porque quer ouvir você e torce para dar certo. " +
-  "Se algo falhar no palco, comente com bom humor e siga em frente: a sala esquece em minutos.");
-fill(s, { title: "Vai dar tudo certo." });
+// The context line lives on the slide, not the layout: other quotes do not need it.
+s.addText("Dicas, não regras: use as que servirem para você.", { x: M, y: 3.75, w: TEXT_W + 0.5, h: 0.5, fontSize: 20, color: DARK.textHex, fontFace: THEME.bodyFontFace, margin: 0, valign: "top", isTextBox: true, lang: LANG });
 
 s = slide("Título e conteúdo", ESCURO,
   "Chegue cedo ao local da palestra. Com tempo para conhecer a sala, respirar e conversar com as pessoas, você sobe ao palco com mais calma. " +
@@ -474,6 +504,16 @@ fill(s, {
   ]),
 });
 
+s = slide("Palestrante", ESCURO,
+  "Sobre mim, logo depois da capa. Quem abre a sessão costuma apresentar você; se o tempo estiver curto, este slide pode sair ou virar uma linha na capa. " +
+  "Uma autodescrição ajuda pessoas cegas ou com baixa visão a formar a imagem de quem fala. Uma ou duas frases bastam, por exemplo: " +
+  "\"Sou a Maria, tenho 1,60 m, cabelo preto solto, uso óculos verdes e uma camiseta da PyLadies.\"");
+fill(s, {
+  title: "Seu nome aqui",
+  role: "O que você faz · onde",
+  bio: bullets(["Quem abre a sessão costuma apresentar você", "Com o tempo curto, este slide pode sair", "Uma autodescrição ajuda quem não vê a tela"]),
+});
+
 s = slide("Agenda", ESCURO, "Agenda: a numeração é automática. Voltar a ele entre as partes ajuda o público a saber onde está.");
 fill(s, {
   title: "Agenda",
@@ -482,6 +522,7 @@ fill(s, {
     "Três a cinco partes costumam bastar",
     "Pode voltar entre uma parte e outra",
     "Cada parte também pode abrir com uma Seção",
+    "Opcional: pode sair se o tempo for curto",
   ]),
 });
 
@@ -490,26 +531,29 @@ fill(s, { number: "01", title: "Uma seção para cada parte da agenda" });
 
 s = slide("Duas colunas", ESCURO,
   "Duas colunas, cada uma com o seu título: antes e depois, problema e solução. " +
-  "Quem senta no fundo da sala também quer ler o slide. O slide apoia a sua fala; o detalhe vai para as notas do apresentador.");
+  "Quem senta no fundo da sala também quer ler o slide. O slide apoia a sua fala; o detalhe e a “colinha” vão para as anotações do slide, que só você vê.");
 fill(s, {
   title: "Texto no slide",
   leftTitle: "Em vez de",
-  left: bullets(["Parágrafos inteiros", "Ler o slide em voz alta", "Diminuir a fonte para caber"]),
+  left: bullets(["Parágrafos inteiros", "Ler o slide em voz alta", "Diminuir a fonte para caber", "A “colinha” no slide"]),
   rightTitle: "Experimente",
-  right: bullets(["Uma ideia por slide", "Falar o que o slide não diz", "Dividir em dois slides"]),
+  right: bullets(["Uma ideia por slide", "Falar o que o slide não diz", "Dividir em dois slides", "A “colinha” nas anotações do slide"]),
 });
 
 s = slide("Texto e imagem", ESCURO,
   "Texto à esquerda, imagem à direita. Clique no ícone do espaço reservado para inserir a imagem; ela é cortada para caber. " +
-  "O texto alternativo de cada imagem (botão direito > Descrição, ou Texto alternativo) ajuda quem usa leitor de tela.");
+  "O texto alternativo de cada imagem (botão direito > Descrição, ou Texto alternativo) ajuda quem usa leitor de tela. " +
+  "Na palestra, uma frase sobre o que a imagem mostra ajuda quem não enxerga e quem só ouve a gravação, por exemplo: \"Este diagrama mostra a requisição passando pelo cache antes do banco.\"");
 fill(s, {
   title: "Imagens que explicam",
-  body: bullets(["Um diagrama no lugar de um parágrafo", "Uma imagem por ideia", "Legenda curta se a imagem não for óbvia"]),
+  body: bullets(["Um diagrama no lugar de um parágrafo", "Uma imagem por ideia", "Descreva para quem não vê"]),
 });
 
 s = slide("Imagem e texto", ESCURO,
   "Imagem sangrada à esquerda, texto à direita. Boa para fotos de pessoas, lugares e produtos. " +
-  "Fotos de bancos como Unsplash e Wikimedia Commons têm licenças diferentes: vale conferir se a licença de cada foto permite o uso numa palestra gravada, e creditar a autoria como a licença pede.");
+  "Fotos de bancos como Unsplash e Wikimedia Commons têm licenças diferentes: vale conferir se a licença de cada foto permite o uso numa palestra gravada, e creditar a autoria como a licença pede. " +
+  "CC BY pede o crédito; CC0 e domínio público não pedem, mas creditar é gentil; bancos de fotos gratuitas às vezes têm licença própria. " +
+  "Um formato de crédito que cabe em qualquer slide: Foto: nome da pessoa, licença, site.");
 fill(s, {
   title: "Licença e crédito",
   body: bullets(["Fotos suas ou de licença livre", "A licença permite este uso?", "Crédito da autoria no slide", "Pelo menos 1000 px de altura"]),
@@ -517,7 +561,8 @@ fill(s, {
 
 s = slide("Três imagens", ESCURO,
   "Três imagens com legenda: passos de um fluxo, antes e depois, ou telas de um app. " +
-  "A tela inteira encolhida vira texto difícil de ler. Antes de capturar, vale aumentar o zoom do navegador ou a fonte do terminal.");
+  "A tela inteira encolhida vira texto difícil de ler. Antes de capturar, vale aumentar o zoom do navegador ou a fonte do terminal. " +
+  "Confira também o que mais aparece na captura: senhas, tokens, e-mails, nomes de clientes, abas e notificações. Um retângulo por cima, no editor de imagem, esconde o que escapou.");
 fill(s, {
   title: "Capturas de tela legíveis",
   caption1: "Só a parte que importa",
@@ -540,6 +585,7 @@ const CODE_NOTES =
   "Para ter as mesmas cores no seu código, use o slidesnippet.com com: tema Monokai, fundo #1A1A1A, fonte de 20px e altura de linha 1.2. " +
   "Google Slides e PowerPoint: clique em Copy styled, clique dentro do cartão e cole. No Google, cole pelo menu Editar > Colar para manter as cores. " +
   "LibreOffice: clique em Download SVG e arraste o arquivo para o slide, sobre o cartão. " +
+  "Outra opção popular é o carbon.now.sh: escolha o tema Monokai, exporte em PNG ou SVG e insira a imagem no slide, em qualquer programa. " +
   "Em imagens, escreva o código no texto alternativo (botão direito > Descrição, ou Texto alternativo), para leitores de tela.";
 
 function codeSlide(layout, section, tip) {
@@ -581,9 +627,9 @@ s = slide("Código lado a lado", ESCURO,
   CODE_NOTES.slice(CODE_NOTES.indexOf("Para ter")));
 fill(s, {
   title: "Um exemplo menor também ensina",
-  leftTitle: "20 linhas, letra miúda",
+  leftTitle: "20 linhas, letra miúda :(",
   codeLeft: tiny(highlightCode(LONG_CODE)),
-  rightTitle: "4 linhas, letra grande",
+  rightTitle: "4 linhas, letra grande :)",
   codeRight: highlightCode(`def cabe(palestra, slot):
     # 5 min para perguntas
     fim = palestra.duracao + 5
@@ -591,13 +637,18 @@ fill(s, {
 `),
 });
 
-s = slide("Números em destaque", ESCURO, "Números. Até três costumam ler bem; o rótulo diz o que cada número mede.");
+s = slide("Números em destaque", ESCURO, "Números. Até três costumam ler bem; o rótulo diz o que cada número mede. " +
+  "Neste exemplo: a partir de 18 pt, quem senta no fundo da sala costuma ler o texto; 8 linhas de código cabem no cartão com letra grande; 5 minutos é uma reserva comum para perguntas, se o seu horário permitir.");
 s.addText("Três números que ajudam", { placeholder: "title" });
 [["18", "pontos: o texto se lê do fundo da sala"], ["8", "linhas de código cabem bem"], ["5", "minutos para perguntas no fim"]].forEach(([v, l], i) => {
   fill(s, { [`value${i + 1}`]: v, [`label${i + 1}`]: l });
 });
 
-s = slide("Três cartões", ESCURO, "Três cartões, cada um com título e texto.");
+s = slide("Três cartões", ESCURO, "Três cartões, cada um com título e texto. " +
+  "Vídeo com som: nem sempre o áudio do computador sai nas caixas da sala. Teste o som antes; como plano B, um vídeo legendado ou narrado por você ao vivo funciona sem áudio. " +
+  "Live coding: com um vídeo da demo funcionando, ou capturas de cada passo salvas no computador, você troca para a gravação se algo falhar no palco e segue a palestra. " +
+  "Internet: com centenas de pessoas na mesma rede, a conexão fica lenta ou cai; vídeos, páginas e notebooks baixados antes não dependem dela. " +
+  "Arquivo: se o seu computador não funcionar com o projetor, o PDF abre em qualquer outro, com as fontes certas.");
 s.addText("Antes de subir no palco", { placeholder: "title" });
 [
   ["Live coding", "Um plano B ajuda: capturas de tela ou um vídeo gravado da demo."],
@@ -605,15 +656,10 @@ s.addText("Antes de subir no palco", { placeholder: "title" });
   ["Arquivo", "Uma cópia em PDF num pendrive abre em qualquer computador."],
 ].forEach(([h, t], i) => fill(s, { [`card${i + 1}Title`]: h, [`card${i + 1}`]: t }));
 
-s = slide("Palestrante", ESCURO, "Apresentação da pessoa palestrante, para a abertura ou para a organização apresentar keynotes.");
-fill(s, {
-  title: "Seu nome aqui",
-  role: "O que você faz · onde",
-  bio: bullets(["Quem abre a sessão costuma apresentar você", "Com o tempo curto, este slide pode sair", "Ou ele vira uma linha na capa"]),
-});
-
 s = slide("Somente título", ESCURO,
   "Somente título: espaço livre para tabelas, gráficos e diagramas. Aqui, uma tabela nativa. " +
+  "A moderação da sessão costuma estar ocupada com a palestra anterior; quem é da organização ou do voluntariado na sala pode ajudar com o projetor, o microfone e o tempo. " +
+  "O grupo de palestrantes no Telegram reúne a organização e as outras pessoas palestrantes: é um bom lugar para dúvidas antes do evento. " +
   "Um carregador e um adaptador de vídeo (HDMI ou USB-C) na mochila ajudam: nem toda sala tem os dois.");
 s.addText("O seu dia de palestra", { placeholder: "title" });
 const tableHead = { bold: true, color: HEX.dk1, fill: { color: HEX.accent1 } };
@@ -623,16 +669,17 @@ s.addTable(
   [
     row(["Quando", "Sugestão"], tableHead),
     ...[
-      ["Bem antes", "Chegar cedo, conhecer o lugar, conversar"],
-      ["Na sala", "Testar o projetor e o microfone"],
-      ["15 min antes", "Conversar com quem modera a sessão"],
+      ["Antes do evento", "Tirar dúvidas no grupo de palestrantes no Telegram"],
+      ["No dia", "Chegar cedo, conhecer o lugar, conversar"],
+      ["Na sala", "Testar projetor, microfone e som"],
+      ["15 min antes", "Dar um oi para quem é da organização na sala"],
       ["Depois", "Publicar os slides no link do QR code"],
     ].map((cells) => row(cells, tableCell)),
   ],
   { x: M, y: BODY.y, w: W - 2 * M, colW: [2.2, 6.8], fontSize: 18, fontFace: THEME.bodyFontFace, rowH: 0.48, border: { type: "solid", pt: 1, color: HEX.dk1 }, margin: 0.08, valign: "middle", lang: LANG }
 );
 
-chartSlide(DARK, ESCURO, CHART_NOTES);
+chartSlide(DARK, ESCURO, CHART_NOTES, [["Texto", 17.9], ["Limão", 15.8], ["Cinza", 7.3], ["Roxo", 5.3], ["Mínimo", 4.5]]);
 
 s = slide("Imagem cheia", ESCURO,
   "Imagem de fundo com legenda. Clique com o botão direito na imagem > Substituir imagem. A faixa inferior é translúcida para a legenda ficar legível sobre qualquer foto. Duplique este slide para manter a faixa. " +
@@ -642,7 +689,8 @@ s.addImage({ placeholder: "image", path: path.join(BRAND, "sample-fullbleed.png"
 s.addShape(pres.ShapeType.rect, { x: 0, y: H - 0.9, w: W, h: 0.9, fill: { color: HEX.dk1, transparency: 25 }, line: { color: HEX.dk1, width: 0 }, objectName: "Faixa da legenda" });
 s.addText("Foto: Nome da Pessoa · CC BY 4.0", { x: M, y: H - 0.75, w: W - 2 * M, h: 0.6, fontSize: 14, color: HEX.lt1, valign: "middle", isTextBox: true, margin: 0, lang: LANG });
 
-s = slide("Referências", ESCURO, "Referências. Um material por linha: o nome e o endereço curto. Links longos são difíceis de copiar da tela.");
+s = slide("Referências", ESCURO, "Referências. Um material por linha: o nome e o endereço curto. Links longos são difíceis de copiar da tela. " +
+  "Uma página só com todos os links (o README de um repositório no GitHub, um gist, uma página no GitHub Pages ou um Linktree) cabe num QR code no encerramento, e o público abre tudo pelo celular.");
 s.addText("Referências", { placeholder: "title" });
 const reference = ([name, url], i, all) => [
   { text: name + "  ", options: {} },
@@ -655,7 +703,7 @@ s.addText([
   ["Verificador de contraste", "webaim.org/resources/contrastchecker"],
 ].flatMap(reference), { placeholder: "body" });
 
-closingSlide(DARK, ESCURO, "Perguntas?");
+closingSlide(DARK, ESCURO, "Perguntas?", CONTACTS, "Este não é o último slide do modelo: a seguir vem a versão clara dos layouts, com ainda mais dicas. " + CLOSING_NOTES);
 
 // ----- light variants -----
 const CLARO = "Layouts claros";
@@ -666,8 +714,10 @@ coverSlide(LIGHT, CLARO,
   "Para salas claras ou projetores fracos",
   "Capa, versão clara. Se a sala for muito iluminada ou o projetor for fraco, o fundo claro fica mais legível. Pergunte à organização como é a sua sala.");
 
-s = slide("Seção (claro)", CLARO, "Divisor de seção, versão clara.");
-fill(s, { number: "02", title: "Versão clara dos layouts" });
+s = slide("Seção (claro)", CLARO,
+  "Divisor de seção, versão clara. A troca de parte é uma boa hora para uma pausa, e entre um slide e outro também: respire, beba um gole de água e siga. " +
+  "A pausa parece longa para quem fala e curta para quem ouve, e o público aproveita para acompanhar.");
+fill(s, { number: "02", title: "Uma pausa para respirar e beber água" });
 
 s = slide("Título e conteúdo (claro)", CLARO,
   "Título e conteúdo, versão clara. O telão mostra tudo o que aparece na sua tela, inclusive uma mensagem pessoal no meio da palestra. " +
@@ -689,19 +739,20 @@ fill(s, {
   leftTitle: "Ensaiar",
   left: bullets(["Com cronômetro", "Com alguém assistindo", "No computador do dia"]),
   rightTitle: "Cortar",
-  right: bullets(["O que passar do tempo", "Detalhes que cabem nas notas", "Slides que você pula ao ensaiar"]),
+  right: bullets(["O que passar do tempo", "Detalhes que cabem nas anotações", "Slides que você pula ao ensaiar"]),
 });
 
-s = slide("Texto e imagem (claro)", CLARO, "Texto e imagem, versão clara. Parte do público pode ter baixa visão ou daltonismo; parte vai ver só a gravação.");
+s = slide("Texto e imagem (claro)", CLARO, "Texto e imagem, versão clara. Parte do público pode ter baixa visão ou daltonismo; parte vai ver só a gravação. " +
+  "Para a informação não depender só da cor, junte a cor a um rótulo, um ícone ou uma forma: em vez de uma bolinha verde e uma vermelha, escreva também \"passou\" e \"falhou\".");
 fill(s, {
   title: "Imagens acessíveis",
-  body: bullets(["Texto alternativo em toda imagem", "Gráficos descritos em voz alta", "Informação que não depende só da cor"]),
+  body: bullets(["Texto alternativo em toda imagem", "Legenda curta se a imagem não for óbvia", "Informação que não depende só da cor"]),
 });
 
-s = slide("Imagem e texto (claro)", CLARO, "Imagem e texto, versão clara. As notas do apresentador aparecem só para você no modo de apresentação (LibreOffice: Console do apresentador; Google Slides e PowerPoint: Modo do apresentador).");
+s = slide("Imagem e texto (claro)", CLARO, "Imagem e texto, versão clara. As anotações do slide aparecem só para você durante a apresentação (LibreOffice: Console do apresentador; Google Slides: Visualização do apresentador; PowerPoint: Modo de Exibição do Apresentador).");
 fill(s, {
-  title: "Conversa com a sala",
-  body: bullets(["Olhar para o público, não para a tela", "As notas do apresentador como apoio", "Apontar com palavras, não com o mouse"]),
+  title: "Olho no olho",
+  body: bullets(["Olhar para o público, não para a tela", "As anotações do slide como apoio", "Apontar com palavras, não com o mouse"]),
 });
 
 codeSlide("Código (claro)", CLARO, [
@@ -712,17 +763,18 @@ codeSlide("Código (claro)", CLARO, [
 s = slide("Citação (claro)", CLARO, "Citação, versão clara, com a fonte embaixo: aqui, a PEP 20, que você também vê com import this.");
 fill(s, { quote: quoted("Legibilidade conta.", HEX.accent3), author: "PEP 20" });
 
-s = slide("Frase (claro)", CLARO, "Frase, versão clara.");
+s = slide("Frase (claro)", CLARO, "Frase, versão clara. Com menos texto no slide, a letra fica maior e a atenção do público fica em você.");
 fill(s, { title: "Menos texto, letra maior." });
 
-s = slide("Números em destaque (claro)", CLARO, "Números, versão clara. Os números ficam em oliva. O contraste de 4,5:1 é o mínimo do WCAG para texto; todas as cores deste modelo passam.");
+s = slide("Números em destaque (claro)", CLARO, "Números, versão clara. Os números ficam em oliva. O contraste de 4,5:1 é o mínimo do WCAG para texto; todas as cores deste modelo passam. " +
+  "Uma ideia por slide ajuda quem lê devagar ou usa leitor de tela, e nenhuma informação passada só pela cor ajuda quem tem daltonismo.");
 s.addText("Acessibilidade em números", { placeholder: "title" });
 [["4,5:1", "contraste mínimo do texto"], ["1", "ideia por slide"], ["0", "informações passadas só pela cor"]].forEach(([v, l], i) => {
   fill(s, { [`value${i + 1}`]: v, [`label${i + 1}`]: l });
 });
 
 s = slide("Três cartões (claro)", CLARO,
-  "Três cartões, versão clara. O código de conduta da Python Brasil vale para todas as pessoas no evento, inclusive no palco: python.org.br/cdc. " +
+  "Três cartões, versão clara. O código de conduta da Python Brasil vale para todas as pessoas no evento, inclusive no palco: python.org.br/cdc. Dúvidas sobre algum conteúdo podem ir para o grupo de palestrantes no Telegram. " +
   "Se você sofrer ou presenciar assédio, discriminação ou humilhação, procure a Equipe de Resposta.");
 s.addText("O código de conduta no palco", { placeholder: "title" });
 [
@@ -731,31 +783,33 @@ s.addText("O código de conduta no palco", { placeholder: "title" });
   ["Dúvidas", "Na dúvida sobre algum conteúdo, a organização ajuda."],
 ].forEach(([h, t], i) => fill(s, { [`card${i + 1}Title`]: h, [`card${i + 1}`]: t }));
 
-s = slide("Palestrante (claro)", CLARO, "Palestrante, versão clara.");
+s = slide("Palestrante (claro)", CLARO, "Palestrante, versão clara. Com os pronomes no slide, quem cita a sua palestra depois acerta. Uma foto recente ajuda o público a encontrar você nos intervalos para continuar a conversa.");
 fill(s, {
   title: "Seu nome aqui",
   role: "Pronomes, cargo e comunidade",
   bio: bullets(["Onde o público encontra você", "Três fatos, não um currículo", "Uma foto recente"]),
 });
 
-chartSlide(LIGHT, CLARO, "Gráfico, versão clara: as barras ficam oliva. " + CHART_NOTES);
+chartSlide(LIGHT, CLARO, "Gráfico, versão clara: as barras ficam oliva. " + CHART_NOTES, [["Texto", 19.2], ["Cinza", 8.9], ["Ameixa", 8.6], ["Oliva", 7.0], ["Mínimo", 4.5]]);
 
 // The deck ends with the organization's message to the speaker.
-closingSlide(LIGHT, CLARO, "Obrigado!", [
+closingSlide(LIGHT, CLARO, "Valeu!", [
   { text: "Ficamos muito felizes por ter você na Python Brasil 2026.", options: { bold: true, breakLine: true } },
   { text: "Conte com a gente: estamos aqui para apoiar e torcer por você.", options: { breakLine: true } },
   { text: "Organização da Python Brasil 2026", options: { fontFace: THEME.headFontFace, fontSize: 18, color: LIGHT.mutedHex } },
-], "Uma mensagem da organização para você, no layout de encerramento. Na sua palestra, troque o texto pelos seus contatos e o QR code pelo link dos seus slides. " + CLOSING_NOTES);
+], "Uma mensagem da organização para você, no layout de encerramento. Antes do evento, a organização responde no grupo de palestrantes no Telegram. Na sua palestra, troque o texto pelos seus contatos e o QR code pelo link dos seus slides. " + CLOSING_NOTES);
 
 // ---------- write ----------
 (async () => {
   fs.mkdirSync(DIST, { recursive: true });
   fs.mkdirSync(BUILD, { recursive: true });
-  // pptxgenjs reads image files only when it writes the deck, so the QR code can be made here.
+  // pptxgenjs reads image files only when it writes the deck, so the resized images and the QR code can be made here.
+  for (const { src, out, size } of RESIZED) await sharp(src).resize(size).png().toFile(out);
   await QRCode.toFile(QR_PATH, QR_URL, { margin: 2, width: 800, color: { dark: "#0F0F0FFF", light: "#FFFFFFFF" } });
   await pres.writeFile({ fileName: OUT });
   await applyTheme(OUT, THEME);
   await continueNumbering(OUT);
+  await fixNotes(OUT, LANG);
   console.log(`wrote ${path.relative(ROOT, OUT)}`);
 })().catch((e) => {
   console.error(e);
