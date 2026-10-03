@@ -15,6 +15,13 @@ function notesRunProps(xml, lang) {
   return xml.replace(/<a:(rPr|endParaRPr) lang="en-US"/g, `<a:$1 lang="${lang}" sz="1200"`);
 }
 
+// pptxgenjs keeps the line breaks of a note inside one run, where the apps show them as
+// spaces; each line becomes its own paragraph instead.
+function splitNoteLines(xml, lang) {
+  const newParagraph = `</a:t></a:r></a:p><a:p><a:r><a:rPr lang="${lang}" sz="1200" dirty="0"/><a:t>`;
+  return xml.replace(/<a:t>([^<]*)<\/a:t>/g, (run, text) => (/\r?\n/.test(text) ? `<a:t>${text.split(/\r?\n/).join(newParagraph)}</a:t>` : run));
+}
+
 async function fixNotes(deckPath, lang) {
   const zip = await loadJSZip().loadAsync(fs.readFileSync(deckPath));
   const part = "ppt/presentation.xml";
@@ -24,7 +31,7 @@ async function fixNotes(deckPath, lang) {
   zip.file(part, out);
   for (const name of Object.keys(zip.files)) {
     if (!/^ppt\/notesSlides\/notesSlide\d+\.xml$/.test(name)) continue;
-    zip.file(name, notesRunProps(await zip.file(name).async("string"), lang));
+    zip.file(name, splitNoteLines(notesRunProps(await zip.file(name).async("string"), lang), lang));
   }
   fs.writeFileSync(deckPath, await zip.generateAsync({ type: "nodebuffer", compression: "DEFLATE" }));
 }

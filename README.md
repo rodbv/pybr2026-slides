@@ -179,7 +179,7 @@ npm run build     # escreve dist/pybr2026-template.pptx
 npm run render    # PDF, PNGs e GIF em dist/preview/ e dist/pybr2026-template.odp (precisa de LibreOffice, poppler e ImageMagick)
 ```
 
-A paleta e as fontes ficam no objeto `THEME` no topo de `pptx/build.js`. O arquivo `pptx/lib/theme.js` grava essas cores no tema do `.pptx`; `pptx/lib/highlight.js` colore o código de exemplo.
+As anotações dos slides ficam em `pptx/notes.pt-BR.js`, com uma lista de dicas curtas por slide, na ordem do deck. A paleta e as fontes ficam no objeto `THEME` no topo de `pptx/build.js`. O arquivo `pptx/lib/theme.js` grava essas cores no tema do `.pptx`; `pptx/lib/highlight.js` colore o código de exemplo.
 
 As figurinhas saem de `assets/make_brand_assets.sh`, que baixa as peças do site do evento e vetoriza o mago a partir de `assets/brand/source/mago.pdf` (precisa de ImageMagick, poppler e uv).
 
