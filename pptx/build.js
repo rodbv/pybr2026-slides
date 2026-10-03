@@ -717,8 +717,8 @@ chartSlide(LIGHT, CLARO, "Gráfico, versão clara: as barras ficam oliva. " + CH
 
 // The deck ends with the organization's message to the speaker.
 closingSlide(LIGHT, CLARO, "Obrigado!", [
-  { text: "Que alegria e que gratidão ter você na Python Brasil 2026.", options: { bold: true, breakLine: true } },
-  { text: "Estamos aqui para apoiar você e torcer pela sua palestra.", options: { breakLine: true } },
+  { text: "Ficamos muito felizes por ter você na Python Brasil 2026.", options: { bold: true, breakLine: true } },
+  { text: "Conte com a gente: estamos aqui para apoiar e torcer por você.", options: { breakLine: true } },
   { text: "Organização da Python Brasil 2026", options: { fontFace: THEME.headFontFace, fontSize: 18, color: LIGHT.mutedHex } },
 ], "Uma mensagem da organização para você, no layout de encerramento. Na sua palestra, troque o texto pelos seus contatos e o QR code pelo link dos seus slides. " + CLOSING_NOTES);
 
