@@ -1,0 +1,45 @@
+# Builds the decks and previews and attaches them to a GitHub Release for every version tag.
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install LibreOffice, poppler and ImageMagick
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libreoffice-impress poppler-utils imagemagick
+
+      # LibreOffice lays out and embeds the fonts installed on the machine.
+      - name: Install the template fonts
+        run: |
+          mkdir -p ~/.local/share/fonts
+          find fonts -name '*.ttf' -exec cp {} ~/.local/share/fonts/ \;
+          fc-cache -f
+
+      - run: npm ci
+      - run: npm run all
+
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" --verify-tag --generate-notes \
+            dist/pybr2026-template.pptx \
+            dist/pybr2026-template.odp \
+            dist/preview/tour.gif \
+            dist/preview/overview.png
