@@ -6,16 +6,23 @@ Modelo de apresentação para palestrantes e organização da [Python Brasil 202
 
 O link cria uma cópia editável no seu Google Drive, com todos os layouts. Não precisa baixar nada nem instalar fontes. Para usar no LibreOffice ou no PowerPoint, veja [Baixar](#baixar).
 
-![Visão geral dos 35 slides de exemplo](dist/preview/overview.png)
+![Alguns slides do modelo, um a cada 2,5 segundos: capa, frase, palestrante, agenda, imagem, código, números, gráfico de contraste, perguntas, capa clara, citação e figurinhas](https://github.com/rodbv/pybr2026-slides/releases/latest/download/tour.gif)
+
+<details>
+<summary>Ver os 35 slides de uma vez</summary>
+
+![Visão geral dos 35 slides de exemplo](https://github.com/rodbv/pybr2026-slides/releases/latest/download/overview.png)
+
+</details>
 
 ## Baixar
 
 | Arquivo | Para |
 |---|---|
-| [`dist/pybr2026-template.odp`](dist/pybr2026-template.odp) | LibreOffice e OpenOffice |
-| [`dist/pybr2026-template.pptx`](dist/pybr2026-template.pptx) | PowerPoint, Keynote e também LibreOffice |
+| [`pybr2026-template.odp`](https://github.com/rodbv/pybr2026-slides/releases/latest/download/pybr2026-template.odp) | LibreOffice e OpenOffice |
+| [`pybr2026-template.pptx`](https://github.com/rodbv/pybr2026-slides/releases/latest/download/pybr2026-template.pptx) | PowerPoint, Keynote e também LibreOffice |
 
-Os dois arquivos têm o mesmo conteúdo. O `.odp` foi gerado pelo LibreOffice a partir do `.pptx` e leva as fontes dentro do arquivo: abre certo mesmo sem as fontes instaladas.
+Os links baixam a versão mais recente. As versões anteriores ficam em [Releases](https://github.com/rodbv/pybr2026-slides/releases). Os dois arquivos têm o mesmo conteúdo. O `.odp` foi gerado pelo LibreOffice a partir do `.pptx` e leva as fontes dentro do arquivo: abre certo mesmo sem as fontes instaladas.
 
 ## Fontes
 
@@ -167,12 +174,21 @@ O `.pptx` é gerado por um script Node com [pptxgenjs](https://gitbrent.github.i
 ```sh
 npm install
 npm run build     # escreve dist/pybr2026-template.pptx
-npm run render    # PDF, PNGs em dist/preview/ e dist/pybr2026-template.odp (precisa de LibreOffice, poppler e ImageMagick)
+npm run render    # PDF, PNGs e GIF em dist/preview/ e dist/pybr2026-template.odp (precisa de LibreOffice, poppler e ImageMagick)
 ```
 
 A paleta e as fontes ficam no objeto `THEME` no topo de `pptx/build.js`. O arquivo `pptx/lib/theme.js` grava essas cores no tema do `.pptx`; `pptx/lib/highlight.js` colore o código de exemplo.
 
 As figurinhas saem de `assets/make_brand_assets.sh`, que baixa as peças do site do evento e vetoriza o mago a partir de `assets/brand/source/mago.pdf` (precisa de ImageMagick, poppler e uv).
+
+A pasta `dist/` fica fora do git. Para publicar uma versão, crie e envie uma tag:
+
+```sh
+git tag v2.1
+git push origin v2.1
+```
+
+A Action `.github/workflows/release.yml` gera os arquivos e cria uma Release com o `.pptx`, o `.odp`, o GIF e a visão geral. O README aponta sempre para a Release mais recente.
 
 ### Atualizar a cópia no Google Slides
 
