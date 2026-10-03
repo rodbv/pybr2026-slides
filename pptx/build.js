@@ -4,7 +4,7 @@ const path = require("path");
 const fs = require("fs");
 const pptxgen = require("pptxgenjs");
 const { applyTheme } = require("./lib/theme");
-const { highlightPython } = require("./lib/highlight");
+const { highlightCode, CODE_TEXT_COLOR } = require("./lib/highlight");
 
 const ROOT = path.resolve(__dirname, "..");
 const BRAND = path.join(ROOT, "assets", "brand");
@@ -202,7 +202,7 @@ for (const mode of [DARK, LIGHT]) {
   defineLayout("Código", mode, [
     titlePh(mode),
     shape("roundRect", { x: M, y: BODY.y, w: W - 2 * M, h: 2.85 }, HEX.dk2, { rectRadius: 0.1 }),
-    ph("code", "body", { x: M + 0.25, y: BODY.y + 0.15, w: W - 2 * M - 0.5, h: 2.6 }, "# Cole seu código aqui: até 8 linhas de 15 pt", { fontSize: 15, color: C.background1, fontFace: THEME.headFontFace, paraSpaceAfter: 0, lineSpacing: 17, fit: "shrink" }),
+    ph("code", "body", { x: M + 0.25, y: BODY.y + 0.15, w: W - 2 * M - 0.5, h: 2.6 }, "# Cole seu código aqui: até 8 linhas de 15 pt", { fontSize: 15, color: CODE_TEXT_COLOR, fontFace: THEME.headFontFace, paraSpaceAfter: 0, lineSpacing: 17, fit: "shrink" }),
     bodyPh(mode, "note", { x: M, y: BODY.y + 2.95, w: W - 2 * M, h: 0.4 }, "O que este trecho mostra", { bullet: false, fontSize: 14, valign: "middle" }),
   ]);
 
@@ -316,15 +316,22 @@ class Palestra:
         # Reserva 5 minutos para perguntas
         return self.duracao_min + 5 <= slot_min
 `;
-const CODE_PALETTE = { text: HEX.lt1, keyword: HEX.accent1, string: HEX.accent2, comment: HEX.accent5, decorator: HEX.lt2, number: HEX.lt2, name: HEX.lt2, builtin: HEX.lt1 };
+const CODE_NOTES =
+  "Código com o tema Monokai. O cartão escuro aceita até 8 linhas de 15 pt. " +
+  "Para colar o seu código com as mesmas cores: no VS Code, escolha o tema Monokai (Ctrl+K Ctrl+T, ou Cmd+K Cmd+T no Mac), copie o trecho e cole no cartão. O VS Code copia as cores junto. " +
+  "Se preferir imagem, gere no carbon.now.sh com o tema Monokai e escreva o código no texto alternativo da imagem. " +
+  "Se for fazer live coding, prepare um plano B: capturas de tela de cada passo ou um vídeo gravado da demo, salvos no computador, para o caso de algo falhar no palco ou a internet cair.";
 
-function codeSlide(layout, section) {
-  const sl = slide(layout, section, "Código. O cartão escuro aceita até 8 linhas de 15 pt. As cores foram aplicadas trecho a trecho; para outro trecho, cole o texto e pinte as palavras-chave, ou gere uma imagem no Carbon (carbon.now.sh) ou no ray.so com o tema escuro. Se for fazer live coding, prepare um plano B: capturas de tela de cada passo ou um vídeo gravado da demo, salvos no computador, para o caso de algo falhar no palco ou a internet cair.");
+function codeSlide(layout, section, tip) {
+  const sl = slide(layout, section, CODE_NOTES);
   sl.addText("Exemplo de código", { placeholder: "title" });
-  sl.addText(highlightPython(SAMPLE_CODE, CODE_PALETTE), { placeholder: "code" });
-  sl.addText("Uma dataclass com um método: a regra de negócio cabe no return.", { placeholder: "note" });
+  sl.addText(highlightCode(SAMPLE_CODE, "python"), { placeholder: "code" });
+  sl.addText(tip, { placeholder: "note" });
 }
-codeSlide("Código", CAPA);
+codeSlide("Código", CAPA, [
+  { text: "Dica: ", options: { bold: true } },
+  { text: "copie do VS Code com o tema Monokai e cole aqui. As cores vêm junto." },
+]);
 
 s = slide("Citação", CAPA, "Citação. Até quatro linhas; coloque a fonte embaixo.");
 s.addText("Simples é melhor que complexo. Complexo é melhor que complicado.", { placeholder: "quote" });
@@ -404,7 +411,10 @@ s = slide("Imagem e texto (claro)", CLARO, "Imagem e texto, versão clara.");
 s.addText("Imagem e texto", { placeholder: "title" });
 s.addText(bullets(["Imagem sangrada à esquerda", "Texto na metade direita"]), { placeholder: "body" });
 
-codeSlide("Código (claro)", CLARO);
+codeSlide("Código (claro)", CLARO, [
+  { text: "Dica: ", options: { bold: true } },
+  { text: "prefere imagem? Gere no carbon.now.sh com o tema Monokai." },
+]);
 
 s = slide("Citação (claro)", CLARO, "Citação, versão clara.");
 s.addText("Legibilidade conta.", { placeholder: "quote" });

@@ -1,39 +1,37 @@
-// Turns Python source into pptxgenjs text runs colored with the deck palette.
+// Turns source code into pptxgenjs text runs colored with the Monokai theme.
 // Slide editors have no syntax highlighting, so the colors are baked into the runs.
-const KEYWORDS = new Set(
-  "False None True and as assert async await break class continue def del elif else except finally for from global if import in is lambda nonlocal not or pass raise return try while with yield match case".split(" ")
-);
-const BUILTINS = new Set("print len range dict list set str int float bool type isinstance enumerate zip open super self cls".split(" "));
+// Shiki uses VS Code's grammars and theme files, so the runs match what a speaker
+// gets when copying from VS Code with Monokai.
+const { createHighlighterCoreSync } = require("shiki/core");
+const { createJavaScriptRegexEngine } = require("shiki/engine/javascript");
+const python = require("shiki/langs/python.mjs").default;
+const monokai = require("shiki/themes/monokai.mjs").default;
 
-const TOKEN = /(#.*$)|("""[\s\S]*?"""|'''[\s\S]*?'''|f?"(?:\\.|[^"\\])*"|f?'(?:\\.|[^'\\])*')|(@\w+(?:\.\w+)*)|(\b\d+(?:\.\d+)?\b)|(\b[A-Za-z_]\w*\b)|(\s+|.)/gm;
+const THEME = "monokai";
+const ITALIC = 1;
+const BOLD = 2;
 
-function highlightPython(source, palette) {
-  const lines = source.replace(/\n$/, "").split("\n");
+const highlighter = createHighlighterCoreSync({
+  themes: [monokai],
+  langs: [python],
+  engine: createJavaScriptRegexEngine(),
+});
+
+const hex = (color) => color.replace("#", "").slice(0, 6).toUpperCase();
+
+function highlightCode(source, lang = "python") {
+  const { tokens, fg } = highlighter.codeToTokens(source.replace(/\n$/, ""), { lang, theme: THEME });
   const runs = [];
-  lines.forEach((line, i) => {
-    const lineRuns = [];
-    let prev = null;
-    for (const m of line.matchAll(TOKEN)) {
-      const [text, comment, string, decorator, number, word] = m;
-      let color = palette.text;
-      let bold = false;
-      if (comment) color = palette.comment;
-      else if (string) color = palette.string;
-      else if (decorator) color = palette.decorator;
-      else if (number) color = palette.number;
-      else if (word) {
-        if (KEYWORDS.has(word)) { color = palette.keyword; bold = true; }
-        else if (prev === "def" || prev === "class") { color = palette.name; bold = true; }
-        else if (BUILTINS.has(word)) color = palette.builtin;
-        prev = word;
-      }
-      lineRuns.push({ text, options: { color, bold } });
-    }
-    if (lineRuns.length === 0) lineRuns.push({ text: " ", options: { color: palette.text } });
-    if (i < lines.length - 1) lineRuns[lineRuns.length - 1].options.breakLine = true;
+  tokens.forEach((line, i) => {
+    const lineRuns = line.map((t) => ({
+      text: t.content,
+      options: { color: hex(t.color || fg), italic: (t.fontStyle & ITALIC) !== 0, bold: (t.fontStyle & BOLD) !== 0 },
+    }));
+    if (lineRuns.length === 0) lineRuns.push({ text: " ", options: { color: hex(fg) } });
+    if (i < tokens.length - 1) lineRuns[lineRuns.length - 1].options.breakLine = true;
     runs.push(...lineRuns);
   });
   return runs;
 }
 
-module.exports = { highlightPython };
+module.exports = { highlightCode, CODE_TEXT_COLOR: hex(monokai.colors["editor.foreground"]) };
