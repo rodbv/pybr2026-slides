@@ -435,8 +435,6 @@ const CHART_NOTES =
   "O Google Slides converte este gráfico em imagem na importação; lá, crie o gráfico em Inserir > Gráfico. " +
   "Dividir o tempo antes de montar os slides ajuda. Os minutos são um exemplo: confira a duração do seu horário na programação.";
 
-const NBSP = " ";
-
 const ESCURO = "Layouts escuros";
 pres.addSection({ title: ESCURO });
 
