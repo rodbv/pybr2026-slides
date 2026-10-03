@@ -340,6 +340,8 @@ for (const mode of [DARK, LIGHT]) {
 }
 
 // ---------- example slides ----------
+// Every example slide carries a real tip for the person presenting, so the deck
+// teaches the layouts and the craft at the same time.
 
 function slide(layout, section, notes) {
   const s = pres.addSlide({ masterName: layout, sectionTitle: section });
@@ -361,11 +363,17 @@ function quoted(text, accentHex) {
   return [mark("“"), { text }, mark("”")];
 }
 
-function coverSlide(mode, section) {
-  const sl = slide("Capa" + mode.suffix, section, "Capa. Troque título, subtítulo e nome. O dragão, o logo e o selo da data fazem parte do layout; para outra capa, duplique este slide.");
-  sl.addText("Título da palestra em até três linhas, sem pressa", { placeholder: "title" });
-  sl.addText("Subtítulo, trilha ou frase de efeito", { placeholder: "subtitle" });
-  sl.addText([{ text: "Nome da pessoa palestrante", options: { bold: true } }, { text: "  ·  @usuario", options: { bold: false, color: mode.mutedHex } }], { placeholder: "speaker" });
+function fill(sl, texts) {
+  for (const [placeholder, text] of Object.entries(texts)) sl.addText(text, { placeholder });
+}
+
+function coverSlide(mode, section, title, subtitle, notes) {
+  const sl = slide("Capa" + mode.suffix, section, notes);
+  fill(sl, {
+    title,
+    subtitle,
+    speaker: [{ text: "Seu nome aqui", options: { bold: true } }, { text: "  ·  @seu_usuario", options: { bold: false, color: mode.mutedHex } }],
+  });
 }
 
 const QR_PATH = path.join(BUILD, "qr-exemplo.png");
@@ -378,26 +386,29 @@ const CLOSING_NOTES =
   "Para trocar o QR code: no LibreOffice, Inserir > Objeto > Código QR e de barras; no Google Slides e no PowerPoint, gere a imagem num gerador de QR code e substitua a de exemplo. " +
   "Escreva o link embaixo do QR code também, para quem não tem a câmera à mão, e teste a leitura com o celular a alguns metros da tela. " +
   "Reserve uns 5 minutos do seu horário para perguntas e combine com quem modera como avisar o fim do tempo. " +
-  "Repita cada pergunta no microfone antes de responder: a sala e a gravação não ouvem quem perguntou.";
+  "Repita cada pergunta no microfone antes de responder: a sala e a gravação não ouvem quem perguntou. " +
+  "Se uma pergunta desrespeitar o código de conduta, você não precisa responder: agradeça, passe para a próxima e avise a organização depois.";
 
 function closingSlide(mode, section, title) {
   const sl = slide("Encerramento" + mode.suffix, section, CLOSING_NOTES);
-  sl.addText(title, { placeholder: "title" });
-  sl.addText([
-    { text: "Nome da pessoa palestrante", options: { bold: true, breakLine: true } },
-    { text: "@usuario", options: { fontFace: THEME.headFontFace, fontSize: 18, breakLine: true } },
-    { text: "pessoa@exemplo.com.br", options: { fontFace: THEME.headFontFace, fontSize: 18 } },
-  ], { placeholder: "body" });
+  fill(sl, {
+    title,
+    body: [
+      { text: "Seu nome aqui", options: { bold: true, breakLine: true } },
+      { text: "@seu_usuario", options: { fontFace: THEME.headFontFace, fontSize: 18, breakLine: true } },
+      { text: "voce@exemplo.com.br", options: { fontFace: THEME.headFontFace, fontSize: 18 } },
+    ],
+    qrCaption: "2026.pythonbrasil.org.br",
+  });
   sl.addImage({ placeholder: "qr", path: QR_PATH, ...QR_BOX, altText: `QR code para ${QR_URL}` });
-  sl.addText("2026.pythonbrasil.org.br", { placeholder: "qrCaption" });
 }
 
 function chartSlide(mode, section, notes) {
   const sl = slide("Somente título" + mode.suffix, section, notes);
-  sl.addText("Gráfico nativo (dados de exemplo)", { placeholder: "title" });
+  sl.addText("Exemplo: 30 minutos de palestra", { placeholder: "title" });
   sl.addChart(
     pres.ChartType.bar,
-    [{ name: "Inscrições", labels: ["2022", "2023", "2024", "2025", "2026"], values: [520, 640, 710, 830, 900] }],
+    [{ name: "Minutos", labels: ["Abertura", "Contexto", "Conteúdo", "Demo", "Perguntas"], values: [2, 5, 13, 5, 5] }],
     {
       x: M, y: BODY.y, w: W - 2 * M, h: BODY.h,
       barDir: "col",
@@ -420,48 +431,92 @@ function chartSlide(mode, section, notes) {
     }
   );
 }
-const CHART_NOTES = "Somente título com um gráfico nativo. No PowerPoint e no LibreOffice, edite os dados com o botão direito > Editar dados. O Google Slides converte este gráfico em imagem na importação; lá, crie o gráfico em Inserir > Gráfico. Os números são de exemplo.";
+const CHART_NOTES =
+  "Somente título com um gráfico nativo. No PowerPoint e no LibreOffice, edite os dados com o botão direito > Editar dados. " +
+  "O Google Slides converte este gráfico em imagem na importação; lá, crie o gráfico em Inserir > Gráfico. " +
+  "Divida o seu tempo antes de montar os slides e ensaie com cronômetro. Os minutos são um exemplo: confira a duração do seu horário na programação.";
+
+const NBSP = " ";
 
 const ESCURO = "Layouts escuros";
 pres.addSection({ title: ESCURO });
 
-coverSlide(DARK, ESCURO);
+coverSlide(DARK, ESCURO,
+  "Que bom que você vai palestrar na Python Brasil 2026",
+  "Cada slide traz um layout e uma dica",
+  "Capa. Troque o título, o subtítulo e o nome. O dragão, o logo e o selo da data fazem parte do layout. " +
+  "Obrigado por compartilhar o que você sabe: a Python Brasil existe porque pessoas como você sobem ao palco.");
 
-let s = slide("Agenda", ESCURO, "Agenda. De três a cinco tópicos; a numeração é automática. Volte a este slide entre as partes, ou use o slide de Seção, para o público saber onde está.");
-s.addText("Agenda", { placeholder: "title" });
-s.addText(numbered(["Por que mais um pacote", "Como ele funciona por dentro", "O que deu errado em produção", "Próximos passos"]), { placeholder: "body" });
+let s = slide("Frase", ESCURO,
+  "Frase: uma ideia só, grande, para a mensagem principal ou para mudar de assunto. Se a frase passar de duas linhas, ela é um slide de conteúdo. " +
+  "Quase toda pessoa palestrante fica nervosa, inclusive quem palestra há anos. O público escolheu a sua sala porque quer ouvir você e torce para dar certo. " +
+  "Se algo falhar no palco, respire, comente com bom humor e siga em frente: a sala esquece em minutos.");
+fill(s, { title: "Vai dar tudo certo." });
 
-s = slide("Seção", ESCURO, "Divisor de seção. Edite o número dentro do círculo e o título.");
-s.addText("01", { placeholder: "number" });
-s.addText("Título da seção", { placeholder: "title" });
+s = slide("Título e conteúdo", ESCURO,
+  "Chegue cedo ao local da palestra. Com tempo para conhecer a sala, respirar e conversar com as pessoas, você sobe ao palco com mais calma. " +
+  "Título e conteúdo: de três a cinco tópicos por slide. O texto começa em 20 pt; se o programa diminuir a fonte para caber, divida o slide em dois. " +
+  "As fontes Inter e Cascadia Mono são gratuitas, em fonts.google.com; instale as duas antes de editar, ou os títulos mudam de largura.");
+fill(s, {
+  title: "Na hora de começar",
+  body: bullets([
+    "Respire fundo e beba um gole de água",
+    "Sorria: o público está do seu lado",
+    "Fale mais devagar do que parece natural",
+    "Divirta-se: a palestra é sua",
+  ]),
+});
 
-s = slide("Título e conteúdo", ESCURO, "Layout básico. Use de três a cinco tópicos por slide. O texto começa em 20 pt; se o programa diminuir a fonte para caber, divida o slide em dois. As fontes Inter e Cascadia Mono são gratuitas, em fonts.google.com; instale as duas antes de editar, ou os títulos mudam de largura.");
-s.addText("Como usar este modelo", { placeholder: "title" });
-s.addText(bullets([
-  "Cada slide mostra um layout: duplique o que precisar",
-  "Slide novo: escolha o layout no painel de layouts",
-  "Instale Inter e Cascadia Mono (fonts.google.com)",
-  "Verde-limão como texto, só sobre fundo escuro",
-]), { placeholder: "body" });
+s = slide("Agenda", ESCURO, "Agenda: a numeração é automática. Mostre este slide no começo e volte a ele entre as partes, para o público saber onde está.");
+fill(s, {
+  title: "Agenda",
+  body: numbered([
+    "Conte ao público o caminho da palestra",
+    "Use de três a cinco partes",
+    "Volte a este slide entre as partes",
+    "Ou abra cada parte com um slide de Seção",
+  ]),
+});
 
-s = slide("Duas colunas", ESCURO, "Comparações: antes e depois, problema e solução, prós e contras. Cada coluna tem o seu título.");
-s.addText("Duas colunas", { placeholder: "title" });
-s.addText("Problema", { placeholder: "leftTitle" });
-s.addText(bullets(["Scripts copiados entre repositórios", "Versão em produção desconhecida", "Deploy manual às sextas"]), { placeholder: "left" });
-s.addText("Solução", { placeholder: "rightTitle" });
-s.addText(bullets(["Um pacote interno com CLI", "Versão fixada no lock file", "Publicação a cada tag"]), { placeholder: "right" });
+s = slide("Seção", ESCURO, "Divisor de seção. Edite o número dentro do círculo e o título. Repita o nome da parte que está na agenda.");
+fill(s, { number: "01", title: "Uma seção para cada parte da agenda" });
 
-s = slide("Texto e imagem", ESCURO, "Texto à esquerda, imagem à direita. Clique no ícone do espaço reservado para inserir a imagem; ela é cortada para caber.");
-s.addText("Texto e imagem", { placeholder: "title" });
-s.addText(bullets(["Diagrama, captura de tela ou foto", "Uma ideia por slide", "Legenda curta se a imagem não for óbvia"]), { placeholder: "body" });
+s = slide("Duas colunas", ESCURO,
+  "Duas colunas, cada uma com o seu título: antes e depois, problema e solução, evite e prefira. " +
+  "Quem senta no fundo da sala precisa ler o slide também. O slide apoia a sua fala; o detalhe vai para as notas do apresentador.");
+fill(s, {
+  title: "Texto no slide",
+  leftTitle: "Evite",
+  left: bullets(["Parágrafos inteiros", "Ler o slide em voz alta", "Diminuir a fonte para caber"]),
+  rightTitle: "Prefira",
+  right: bullets(["Uma ideia por slide", "Falar o que o slide não diz", "Dividir em dois slides"]),
+});
 
-s = slide("Imagem e texto", ESCURO, "Imagem sangrada à esquerda. Boa para fotos de pessoas, lugares e produtos.");
-s.addText("Imagem e texto", { placeholder: "title" });
-s.addText(bullets(["A imagem ocupa a altura inteira", "O texto fica na metade direita", "Use fotos com boa resolução (mínimo 1000 px de altura)"]), { placeholder: "body" });
+s = slide("Texto e imagem", ESCURO,
+  "Texto à esquerda, imagem à direita. Clique no ícone do espaço reservado para inserir a imagem; ela é cortada para caber. " +
+  "Escreva o texto alternativo de cada imagem (botão direito > Descrição, ou Texto alternativo), para quem usa leitor de tela.");
+fill(s, {
+  title: "Imagens que explicam",
+  body: bullets(["Um diagrama no lugar de um parágrafo", "Uma imagem por ideia", "Legenda curta se a imagem não for óbvia"]),
+});
 
-s = slide("Três imagens", ESCURO, "Três imagens com legenda: passos de um fluxo, antes e depois, ou telas de um app. Corte cada captura para mostrar só o que importa: a tela inteira encolhida vira texto que ninguém lê.");
-s.addText("Três passos na tela", { placeholder: "title" });
-["1. Abra o terminal", "2. Rode o comando", "3. Veja o resultado"].forEach((t, i) => s.addText(t, { placeholder: `caption${i + 1}` }));
+s = slide("Imagem e texto", ESCURO,
+  "Imagem sangrada à esquerda, texto à direita. Boa para fotos de pessoas, lugares e produtos. " +
+  "Fotos de bancos como Unsplash e Wikimedia Commons têm licenças diferentes: confira se a licença de cada foto permite o uso numa palestra gravada, e credite a autoria como a licença pede.");
+fill(s, {
+  title: "Licença e crédito",
+  body: bullets(["Use fotos suas ou de licença livre", "Confira se a licença permite o uso", "Credite a autoria no slide", "Pelo menos 1000 px de altura"]),
+});
+
+s = slide("Três imagens", ESCURO,
+  "Três imagens com legenda: passos de um fluxo, antes e depois, ou telas de um app. " +
+  "A tela inteira encolhida vira texto que ninguém lê. Antes de capturar, aumente o zoom do navegador ou a fonte do terminal.");
+fill(s, {
+  title: "Capturas de tela legíveis",
+  caption1: "Corte só a parte que importa",
+  caption2: "Aumente a fonte antes de capturar",
+  caption3: "Esconda senhas, tokens e e-mails",
+});
 
 const SAMPLE_CODE = `@dataclass
 class Palestra:
@@ -483,9 +538,7 @@ const CODE_NOTES =
 
 function codeSlide(layout, section, tip) {
   const sl = slide(layout, section, CODE_NOTES);
-  sl.addText("Código: até 8 linhas por slide", { placeholder: "title" });
-  sl.addText(highlightCode(SAMPLE_CODE, "python"), { placeholder: "code" });
-  sl.addText(tip, { placeholder: "note" });
+  fill(sl, { title: "Código: até 8 linhas por slide", code: highlightCode(SAMPLE_CODE, "python"), note: tip });
 }
 codeSlide("Código", ESCURO, [
   { text: "Dica: ", options: { bold: true } },
@@ -493,74 +546,78 @@ codeSlide("Código", ESCURO, [
 ]);
 
 s = slide("Código lado a lado", ESCURO, "Dois trechos lado a lado: antes e depois de uma refatoração, ou duas formas de resolver o mesmo problema. Cada cartão aceita até 8 linhas e cerca de 30 colunas. " + CODE_NOTES.slice(CODE_NOTES.indexOf("Para ter")));
-s.addText("Refatoração", { placeholder: "title" });
-s.addText("Antes", { placeholder: "leftTitle" });
-s.addText(highlightCode(`total = 0
+fill(s, {
+  title: "Refatore o exemplo até caber",
+  leftTitle: "Antes",
+  codeLeft: highlightCode(`total = 0
 for p in palestras:
     if p.trilha == "web":
         total += p.duracao
-`), { placeholder: "codeLeft" });
-s.addText("Depois", { placeholder: "rightTitle" });
-s.addText(highlightCode(`total = sum(
+`),
+  rightTitle: "Depois",
+  codeRight: highlightCode(`total = sum(
     p.duracao
     for p in palestras
     if p.trilha == "web"
 )
-`), { placeholder: "codeRight" });
-
-s = slide("Citação", ESCURO, "Citação. Até três linhas; coloque a fonte embaixo. As aspas verdes fazem parte do texto: ao trocar a citação, mantenha as duas.");
-s.addText(quoted("Simples é melhor que complexo. Complexo é melhor que complicado.", LIME), { placeholder: "quote" });
-s.addText("Tim Peters, The Zen of Python", { placeholder: "author" });
-
-s = slide("Frase", ESCURO, "Uma frase só, para a ideia que o público deve levar para casa ou para mudar de assunto. Se a frase passar de duas linhas, ela é um slide de conteúdo.");
-s.addText("Teste o projetor antes da sua palestra.", { placeholder: "title" });
-
-s = slide("Números em destaque", ESCURO, "Números. Três no máximo; o rótulo diz o que o número mede.");
-s.addText("A Python Brasil 2026 em números", { placeholder: "title" });
-[["44", "palestras"], ["8", "tutoriais"], ["6", "dias de evento"]].forEach(([v, l], i) => {
-  s.addText(v, { placeholder: `value${i + 1}` });
-  s.addText(l, { placeholder: `label${i + 1}` });
+`),
 });
 
-s = slide("Três cartões", ESCURO, "Três cartões, cada um com título e texto. Este exemplo traz dicas para o dia da palestra: apague o slide da sua apresentação.");
+s = slide("Citação", ESCURO, "Citação. Até três linhas, com a fonte embaixo: quem disse e onde. Confira a autoria numa fonte primária, porque muita frase famosa circula com o nome errado. As aspas verdes fazem parte do texto: ao trocar a citação, mantenha as duas.");
+fill(s, { quote: quoted("Simples é melhor que complexo. Complexo é melhor que complicado.", LIME), author: "Tim Peters, The Zen of Python" });
+
+s = slide("Números em destaque", ESCURO, "Números. Três no máximo; o rótulo diz o que o número mede.");
+s.addText("Três números para lembrar", { placeholder: "title" });
+[[`18${NBSP}pt`, "tamanho mínimo do texto"], ["8", "linhas de código por slide"], [`5${NBSP}min`, "para perguntas no fim"]].forEach(([v, l], i) => {
+  fill(s, { [`value${i + 1}`]: v, [`label${i + 1}`]: l });
+});
+
+s = slide("Três cartões", ESCURO, "Três cartões, cada um com título e texto.");
 s.addText("Antes de subir no palco", { placeholder: "title" });
 [
   ["Live coding", "Tenha um plano B: capturas de tela ou um vídeo gravado da demo."],
   ["Internet", "A rede do evento pode cair. Baixe vídeos e páginas que vai mostrar."],
   ["Arquivo", "Leve os slides em PDF num pendrive, com vídeos e imagens juntos."],
-].forEach(([h, t], i) => {
-  s.addText(h, { placeholder: `card${i + 1}Title` });
-  s.addText(t, { placeholder: `card${i + 1}` });
+].forEach(([h, t], i) => fill(s, { [`card${i + 1}Title`]: h, [`card${i + 1}`]: t }));
+
+s = slide("Palestrante", ESCURO, "Apresentação da pessoa palestrante, para a abertura ou para a organização apresentar keynotes.");
+fill(s, {
+  title: "Seu nome aqui",
+  role: "O que você faz · onde",
+  bio: bullets(["Quem abre a sessão costuma apresentar você", "Com o tempo curto, este slide pode sair", "Ou ele vira uma linha na capa"]),
 });
 
-s = slide("Palestrante", ESCURO, "Apresentação da pessoa palestrante, para a abertura ou para a organização apresentar keynotes. Quem abre a sessão costuma apresentar você antes da palestra. Se o tempo estiver curto, o slide \"Sobre mim\" pode sair, ou virar uma linha na capa.");
-s.addText("Nome da pessoa", { placeholder: "title" });
-s.addText("Engenharia de software · Python Floripa", { placeholder: "role" });
-s.addText(bullets(["Trabalha com Python desde 2015", "Mantém um projeto open source", "Primeira Python Brasil foi em 2018"]), { placeholder: "bio" });
-
-s = slide("Somente título", ESCURO, "Somente título: espaço livre para tabelas, gráficos e diagramas. Aqui, uma tabela nativa com a programação do dia.");
-s.addText("Programação: quinta, 15 de outubro", { placeholder: "title" });
+s = slide("Somente título", ESCURO,
+  "Somente título: espaço livre para tabelas, gráficos e diagramas. Aqui, uma tabela nativa. " +
+  "Leve o carregador e um adaptador de vídeo (HDMI ou USB-C): nem toda sala tem os dois.");
+s.addText("O seu dia de palestra", { placeholder: "title" });
 const tableHead = { bold: true, color: HEX.dk1, fill: { color: HEX.accent1 } };
 const tableCell = { color: HEX.lt1, fill: { color: DARK.cardHex } };
+const row = (cells, options) => cells.map((text) => ({ text, options }));
 s.addTable(
   [
-    [{ text: "Horário", options: tableHead }, { text: "Atividade", options: tableHead }, { text: "Sala", options: tableHead }],
-    [{ text: "09:00", options: tableCell }, { text: "Abertura", options: tableCell }, { text: "Auditório", options: tableCell }],
-    [{ text: "09:30", options: tableCell }, { text: "Keynote", options: tableCell }, { text: "Auditório", options: tableCell }],
-    [{ text: "10:30", options: tableCell }, { text: "Intervalo", options: tableCell }, { text: "Hall", options: tableCell }],
-    [{ text: "11:00", options: tableCell }, { text: "Palestras em paralelo", options: tableCell }, { text: "Salas 1 a 3", options: tableCell }],
-    [{ text: "12:30", options: tableCell }, { text: "Almoço", options: tableCell }, { text: "Restaurante", options: tableCell }],
+    row(["Quando", "O que fazer"], tableHead),
+    ...[
+      ["Na véspera", "Ensaie em voz alta, com cronômetro"],
+      ["Bem antes", "Chegue cedo: conheça o lugar, respire, converse"],
+      ["Na sala", "Teste o projetor e o microfone"],
+      ["15 min antes", "Apresente-se a quem modera a sessão"],
+      ["No palco", "Respire, sorria e comece"],
+      ["Depois", "Publique os slides no link do QR code"],
+    ].map((cells) => row(cells, tableCell)),
   ],
-  { x: M, y: BODY.y, w: W - 2 * M, colW: [1.6, 5.4, 2.0], fontSize: 18, fontFace: THEME.bodyFontFace, rowH: 0.48, border: { type: "solid", pt: 1, color: HEX.dk1 }, margin: 0.08, valign: "middle", lang: LANG }
+  { x: M, y: BODY.y, w: W - 2 * M, colW: [2.2, 6.8], fontSize: 18, fontFace: THEME.bodyFontFace, rowH: 0.48, border: { type: "solid", pt: 1, color: HEX.dk1 }, margin: 0.08, valign: "middle", lang: LANG }
 );
 
 chartSlide(DARK, ESCURO, CHART_NOTES);
 
-s = slide("Imagem cheia", ESCURO, "Imagem de fundo com legenda. Clique com o botão direito na imagem > Substituir imagem. A faixa inferior é translúcida para a legenda ficar legível sobre qualquer foto. Duplique este slide para manter a faixa.");
+s = slide("Imagem cheia", ESCURO,
+  "Imagem de fundo com legenda. Clique com o botão direito na imagem > Substituir imagem. A faixa inferior é translúcida para a legenda ficar legível sobre qualquer foto. Duplique este slide para manter a faixa. " +
+  "Use fotos suas ou de licença livre, confira se a licença permite o uso e credite a autoria na legenda.");
 // The sample image fills the placeholder; an empty placeholder would be drawn above the caption.
 s.addImage({ placeholder: "image", path: path.join(BRAND, "sample-fullbleed.png"), x: 0, y: 0, w: W, h: H, altText: "Imagem de exemplo: dragão da Python Brasil 2026 sobre fundo escuro" });
 s.addShape(pres.ShapeType.rect, { x: 0, y: H - 0.9, w: W, h: 0.9, fill: { color: HEX.dk1, transparency: 25 }, line: { color: HEX.dk1, width: 0 }, objectName: "Faixa da legenda" });
-s.addText("Legenda ou crédito da imagem", { x: M, y: H - 0.75, w: W - 2 * M, h: 0.6, fontSize: 14, color: HEX.lt1, valign: "middle", isTextBox: true, margin: 0, lang: LANG });
+s.addText("Confira se a licença da foto permite o uso e credite a autoria aqui", { x: M, y: H - 0.75, w: W - 2 * M, h: 0.6, fontSize: 14, color: HEX.lt1, valign: "middle", isTextBox: true, margin: 0, lang: LANG });
 
 s = slide("Referências", ESCURO, "Referências. Um material por linha: o nome e o endereço curto. Links longos ninguém copia da tela; junte tudo numa página e mostre o QR code no encerramento.");
 s.addText("Referências", { placeholder: "title" });
@@ -569,10 +626,10 @@ const reference = ([name, url], i, all) => [
   { text: url, options: { fontFace: THEME.headFontFace, color: DARK.mutedHex, breakLine: i < all.length - 1 } },
 ];
 s.addText([
-  ["The Zen of Python", "peps.python.org/pep-0020"],
-  ["Guia de estilo", "peps.python.org/pep-0008"],
-  ["Tutorial oficial", "docs.python.org/pt-br/3/tutorial"],
-  ["Python Brasil", "python.org.br"],
+  ["Código de conduta da Python Brasil", "python.org.br/cdc"],
+  ["Código colorido para slides", "slidesnippet.com"],
+  ["Fontes Inter e Cascadia Mono", "fonts.google.com"],
+  ["Verificador de contraste", "webaim.org/resources/contrastchecker"],
 ].flatMap(reference), { placeholder: "body" });
 
 closingSlide(DARK, ESCURO, "Perguntas?");
@@ -581,70 +638,82 @@ closingSlide(DARK, ESCURO, "Perguntas?");
 const CLARO = "Layouts claros";
 pres.addSection({ title: CLARO });
 
-coverSlide(LIGHT, CLARO);
+coverSlide(LIGHT, CLARO,
+  "Todos os layouts têm versão clara",
+  "Para salas claras ou projetores fracos",
+  "Capa, versão clara. Se a sala for muito iluminada ou o projetor for fraco, o fundo claro fica mais legível. Pergunte à organização como é a sua sala.");
 
 s = slide("Seção (claro)", CLARO, "Divisor de seção, versão clara.");
-s.addText("02", { placeholder: "number" });
-s.addText("Versão clara dos layouts", { placeholder: "title" });
+fill(s, { number: "02", title: "Versão clara dos layouts" });
 
-s = slide("Título e conteúdo (claro)", CLARO, "Fundo claro para conteúdo longo e salas com muita luz.");
-s.addText("Quando usar o fundo claro", { placeholder: "title" });
-s.addText(bullets([
-  "Salas muito iluminadas ou projetores fracos",
-  "Slides com muito texto ou tabelas grandes",
-  "Capturas de tela de interfaces claras",
-  "Destaques em texto ficam oliva; o limão aparece nos discos",
-]), { placeholder: "body" });
+s = slide("Título e conteúdo (claro)", CLARO,
+  "Título e conteúdo, versão clara. O telão mostra tudo o que aparece na sua tela, inclusive uma mensagem pessoal no meio da palestra. " +
+  "O modo Não perturbe existe no Linux, no macOS e no Windows; ative antes de subir ao palco e desative depois. " +
+  "Ao digitar um endereço, o navegador sugere o que está no histórico; numa janela anônima ou num perfil novo do navegador, o histórico fica vazio.");
+fill(s, {
+  title: "A sua tela no telão",
+  body: bullets([
+    "Desligue as notificações (modo Não perturbe)",
+    "Use um papel de parede neutro",
+    "Feche as abas e os programas que não vai usar",
+    "Use uma janela anônima: o histórico aparece ao digitar endereços",
+  ]),
+});
 
-s = slide("Duas colunas (claro)", CLARO, "Duas colunas, versão clara.");
-s.addText("Duas colunas", { placeholder: "title" });
-s.addText("Antes", { placeholder: "leftTitle" });
-s.addText(bullets(["Testes só na máquina de quem escreveu", "Cobertura desconhecida"]), { placeholder: "left" });
-s.addText("Depois", { placeholder: "rightTitle" });
-s.addText(bullets(["Testes a cada push", "Cobertura publicada no PR"]), { placeholder: "right" });
+s = slide("Duas colunas (claro)", CLARO, "Duas colunas, versão clara. Ensaie pelo menos uma vez inteira, em voz alta: a palestra ensaiada só na cabeça sempre passa do tempo.");
+fill(s, {
+  title: "Ensaie em voz alta",
+  leftTitle: "Ensaie",
+  left: bullets(["Com cronômetro", "Com alguém assistindo", "No computador do dia"]),
+  rightTitle: "Corte",
+  right: bullets(["O que passar do tempo", "Detalhes que cabem nas notas", "Slides que você pula ao ensaiar"]),
+});
 
-s = slide("Texto e imagem (claro)", CLARO, "Texto e imagem, versão clara.");
-s.addText("Texto e imagem", { placeholder: "title" });
-s.addText(bullets(["Mesma estrutura do layout escuro", "A moldura da imagem fica verde-clara"]), { placeholder: "body" });
+s = slide("Texto e imagem (claro)", CLARO, "Texto e imagem, versão clara. Parte do público pode ter baixa visão ou daltonismo; parte vai ver só a gravação.");
+fill(s, {
+  title: "Imagens acessíveis",
+  body: bullets(["Texto alternativo em toda imagem", "Descreva os gráficos em voz alta", "Não use só a cor para dar informação"]),
+});
 
-s = slide("Imagem e texto (claro)", CLARO, "Imagem e texto, versão clara.");
-s.addText("Imagem e texto", { placeholder: "title" });
-s.addText(bullets(["Imagem sangrada à esquerda", "Texto na metade direita"]), { placeholder: "body" });
+s = slide("Imagem e texto (claro)", CLARO, "Imagem e texto, versão clara. As notas do apresentador aparecem só para você no modo de apresentação (LibreOffice: Console do apresentador; Google Slides e PowerPoint: Modo do apresentador).");
+fill(s, {
+  title: "Fale com a sala",
+  body: bullets(["Olhe para o público, não para a tela", "Use as notas do apresentador", "Aponte com palavras, não com o mouse"]),
+});
 
 codeSlide("Código (claro)", CLARO, [
   { text: "Dica: ", options: { bold: true } },
   { text: "no LibreOffice, baixe o SVG do slidesnippet.com e arraste para o slide." },
 ]);
 
-s = slide("Citação (claro)", CLARO, "Citação, versão clara.");
-s.addText(quoted("Legibilidade conta.", HEX.accent3), { placeholder: "quote" });
-s.addText("PEP 20", { placeholder: "author" });
+s = slide("Citação (claro)", CLARO, "Citação, versão clara. Sempre com a fonte: aqui, a PEP 20, que você também vê com import this.");
+fill(s, { quote: quoted("Legibilidade conta.", HEX.accent3), author: "PEP 20" });
 
-s = slide("Frase (claro)", CLARO, "Uma frase só, versão clara.");
-s.addText("Menos texto, letra maior.", { placeholder: "title" });
+s = slide("Frase (claro)", CLARO, "Frase, versão clara.");
+fill(s, { title: "Menos texto, letra maior." });
 
-s = slide("Números em destaque (claro)", CLARO, "Números, versão clara. Os números ficam em oliva.");
-s.addText("Resultados", { placeholder: "title" });
-[["3x", "mais rápido"], ["40%", "menos código"], ["0", "incidentes"]].forEach(([v, l], i) => {
-  s.addText(v, { placeholder: `value${i + 1}` });
-  s.addText(l, { placeholder: `label${i + 1}` });
+s = slide("Números em destaque (claro)", CLARO, "Números, versão clara. Os números ficam em oliva. O contraste de 4,5:1 é o mínimo do WCAG para texto; todas as cores deste modelo passam.");
+s.addText("Acessibilidade em números", { placeholder: "title" });
+[["4,5:1", "contraste mínimo do texto"], ["1", "ideia por slide"], ["0", "informações passadas só pela cor"]].forEach(([v, l], i) => {
+  fill(s, { [`value${i + 1}`]: v, [`label${i + 1}`]: l });
 });
 
-s = slide("Três cartões (claro)", CLARO, "Três cartões, versão clara. Este exemplo traz dicas de legibilidade: apague o slide da sua apresentação.");
-s.addText("Para a última fileira também ler", { placeholder: "title" });
+s = slide("Três cartões (claro)", CLARO,
+  "Três cartões, versão clara. O código de conduta da Python Brasil vale para todas as pessoas no evento, inclusive no palco: python.org.br/cdc. " +
+  "Se você sofrer ou presenciar assédio, discriminação ou humilhação, procure a Equipe de Resposta.");
+s.addText("O código de conduta vale no palco", { placeholder: "title" });
 [
-  ["Menos texto", "Se o texto só cabe com fonte menor, divida em dois slides."],
-  ["Fonte grande", "Nada abaixo de 18 pt. Quem está no fundo da sala agradece."],
-  ["Você é a palestra", "O slide apoia a sua fala. O resto vai para as notas."],
-].forEach(([h, t], i) => {
-  s.addText(h, { placeholder: `card${i + 1}Title` });
-  s.addText(t, { placeholder: `card${i + 1}` });
-});
+  ["Todo público", "O público inclui crianças: nada de conteúdo sexualizado."],
+  ["Respeito", "Nenhuma piada às custas de alguém. Exemplos incluem todo mundo."],
+  ["Dúvidas", "Na dúvida sobre algum conteúdo, fale com a organização antes."],
+].forEach(([h, t], i) => fill(s, { [`card${i + 1}Title`]: h, [`card${i + 1}`]: t }));
 
 s = slide("Palestrante (claro)", CLARO, "Palestrante, versão clara.");
-s.addText("Nome da pessoa", { placeholder: "title" });
-s.addText("Ciência de dados · Python Nordeste", { placeholder: "role" });
-s.addText(bullets(["Dá aulas de Python para iniciantes", "Organiza meetups desde 2021", "Gosta de pandas e de gatos"]), { placeholder: "bio" });
+fill(s, {
+  title: "Seu nome aqui",
+  role: "Pronomes, cargo e comunidade",
+  bio: bullets(["Diga onde o público encontra você", "Três fatos, não um currículo", "Use uma foto recente"]),
+});
 
 chartSlide(LIGHT, CLARO, "Gráfico, versão clara: as barras ficam oliva. " + CHART_NOTES);
 
