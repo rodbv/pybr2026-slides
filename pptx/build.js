@@ -119,6 +119,7 @@ function logo(mode, { x = M, y = FOOTER_Y, w = 1.5, src = mode.footerLogo, trans
   return { image: { x, y, w, h: w * LOGO_RATIO, path: src, transparency } };
 }
 
+const MAGO_RATIO = 2580 / 3381;
 const WITCH_RATIO = 2234 / 2012;
 
 // Footer: a small, translucent signature, the witch beside the logo on the logo's center line.
@@ -643,11 +644,14 @@ const CODE_NOTES =
 function codeSlide(layout, section, tip) {
   const sl = slide(layout, section, CODE_NOTES);
   fill(sl, { title: "Código: 8 linhas cabem bem", code: highlightCode(SAMPLE_CODE, "python"), note: tip });
+  return sl;
 }
-codeSlide("Código", ESCURO, [
+s = codeSlide("Código", ESCURO, [
   { text: "Dica: ", options: { bold: true } },
   { text: "gere o código colorido no slidesnippet.com, tema Monokai, fundo #1A1A1A." },
 ]);
+// The wizard sticker from the stickers slide, in the empty corner of the code card, as an example of use.
+s.addImage({ path: resized(path.join(BRAND, "sticker-mago.png"), { width: 600 }), x: 8.2, y: 2.75, w: 1.6 * MAGO_RATIO, h: 1.6, altText: "Figurinha do mago digitando no teclado" });
 
 const LONG_CODE = `from dataclasses import dataclass
 from datetime import datetime, timedelta
@@ -875,7 +879,8 @@ sticker("lockup-on-light.png", { x: M + 0.2, y: 3.45, w: 2.2, h: 2.2 * LOCKUP_RA
 s.addImage({ path: path.join(BRAND, "pixel-circle.png"), x: 3.45, y: 3.45, w: 2.1, h: 2.1 * (420 / 700), altText: "Círculo pixelado limão para marcar uma palavra" });
 s.addText("olha aqui", { x: 3.45, y: 3.45, w: 2.1, h: 2.1 * (420 / 700), fontSize: 20, bold: true, color: DARK.textHex, fontFace: THEME.headFontFace, align: "center", valign: "middle", margin: 0, isTextBox: true, lang: LANG });
 // The marker is a lime box with black text, so it reads on dark and on white slides.
-s.addText("marca-texto", { shape: pres.ShapeType.rect, x: 6.0, y: 3.8, w: 2.6, h: 0.6, fill: { color: LIME }, line: { color: LIME, width: 0 }, fontSize: 26, bold: true, color: ON_LIME, fontFace: THEME.headFontFace, align: "center", valign: "middle", margin: 0, lang: LANG, objectName: "Marca-texto limão" });
+sticker("sticker-mago.png", { x: 8.3, y: 3.3, w: 1.6 * MAGO_RATIO, h: 1.6 }, "Figurinha do mago digitando no teclado, com contorno limão");
+s.addText("marca-texto", { shape: pres.ShapeType.rect, x: 5.75, y: 3.8, w: 2.3, h: 0.6, fill: { color: LIME }, line: { color: LIME, width: 0 }, fontSize: 26, bold: true, color: ON_LIME, fontFace: THEME.headFontFace, align: "center", valign: "middle", margin: 0, lang: LANG, objectName: "Marca-texto limão" });
 
 // ---------- write ----------
 (async () => {
