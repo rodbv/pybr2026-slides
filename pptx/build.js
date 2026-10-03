@@ -389,17 +389,15 @@ const CLOSING_NOTES =
   "Repita cada pergunta no microfone antes de responder: a sala e a gravação não ouvem quem perguntou. " +
   "Se uma pergunta desrespeitar o código de conduta, você não precisa responder: agradeça, passe para a próxima e avise a organização depois.";
 
-function closingSlide(mode, section, title) {
-  const sl = slide("Encerramento" + mode.suffix, section, CLOSING_NOTES);
-  fill(sl, {
-    title,
-    body: [
-      { text: "Seu nome aqui", options: { bold: true, breakLine: true } },
-      { text: "@seu_usuario", options: { fontFace: THEME.headFontFace, fontSize: 18, breakLine: true } },
-      { text: "voce@exemplo.com.br", options: { fontFace: THEME.headFontFace, fontSize: 18 } },
-    ],
-    qrCaption: "2026.pythonbrasil.org.br",
-  });
+const CONTACTS = [
+  { text: "Seu nome aqui", options: { bold: true, breakLine: true } },
+  { text: "@seu_usuario", options: { fontFace: THEME.headFontFace, fontSize: 18, breakLine: true } },
+  { text: "voce@exemplo.com.br", options: { fontFace: THEME.headFontFace, fontSize: 18 } },
+];
+
+function closingSlide(mode, section, title, body = CONTACTS, notes = CLOSING_NOTES) {
+  const sl = slide("Encerramento" + mode.suffix, section, notes);
+  fill(sl, { title, body, qrCaption: "2026.pythonbrasil.org.br" });
   sl.addImage({ placeholder: "qr", path: QR_PATH, ...QR_BOX, altText: `QR code para ${QR_URL}` });
 }
 
@@ -717,7 +715,12 @@ fill(s, {
 
 chartSlide(LIGHT, CLARO, "Gráfico, versão clara: as barras ficam oliva. " + CHART_NOTES);
 
-closingSlide(LIGHT, CLARO, "Obrigado!");
+// The deck ends with the organization's message to the speaker.
+closingSlide(LIGHT, CLARO, "Obrigado!", [
+  { text: "Que alegria e que gratidão ter você na Python Brasil 2026.", options: { bold: true, breakLine: true } },
+  { text: "Estamos aqui para apoiar você e torcer pela sua palestra.", options: { breakLine: true } },
+  { text: "Organização da Python Brasil 2026", options: { fontFace: THEME.headFontFace, fontSize: 18, color: LIGHT.mutedHex } },
+], "Uma mensagem da organização para você, no layout de encerramento. Na sua palestra, troque o texto pelos seus contatos e o QR code pelo link dos seus slides. " + CLOSING_NOTES);
 
 // ---------- write ----------
 (async () => {
