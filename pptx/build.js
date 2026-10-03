@@ -3,12 +3,15 @@
 const path = require("path");
 const fs = require("fs");
 const pptxgen = require("pptxgenjs");
+const QRCode = require("qrcode");
 const { applyTheme } = require("./lib/theme");
+const { continueNumbering } = require("./lib/numbering");
 const { highlightCode, CODE_TEXT_COLOR } = require("./lib/highlight");
 
 const ROOT = path.resolve(__dirname, "..");
 const BRAND = path.join(ROOT, "assets", "brand");
 const DIST = path.join(ROOT, "dist");
+const BUILD = path.join(ROOT, "build");
 const OUT = path.join(DIST, "pybr2026-template.pptx");
 
 const THEME = {
@@ -51,7 +54,6 @@ pres.company = "Python Brasil 2026";
 pres.lang = LANG;
 const C = pres.SchemeColor;
 
-// Two color modes share every layout definition.
 // Two color modes share every layout definition. Lime fills (discs, table header)
 // carry black text in both modes; as a text color, lime is used only on dark.
 const DARK = {
@@ -145,42 +147,51 @@ for (const mode of [DARK, LIGHT]) {
   const dragonH = 4.3;
   const dragonW = dragonH * DRAGON_RATIO;
 
-  if (mode === DARK) {
-    // Capa: o disco limão com a data repete o selo da página do evento
-    const dateD = 1.7;
-    pres.defineSlideMaster({
-      title: "Capa",
-      background: { color: mode.bg },
-      objects: [
-        { image: { x: W - dragonW - 0.35, y: H - dragonH - 0.2, w: dragonW, h: dragonH, path: mode.dragon } },
-        logo(mode, { x: M, y: 0.45, w: 3.2 }),
-        // The date sits in its own text box: an ellipse only lays text out in its inscribed rectangle.
-        shape("ellipse", { x: W - M - dateD, y: 0.3, w: dateD, h: dateD }, LIME),
-        { text: { text: "14 a 19\nde outubro\nde 2026\n{Floripa/SC}", options: { x: W - M - dateD, y: 0.3, w: dateD, h: dateD, fontSize: 13, bold: true, fontFace: THEME.headFontFace, color: ON_LIME, align: "center", valign: "middle", margin: 0, isTextBox: true, lang: LANG } } },
-        ph("title", "title", { x: M, y: 1.15, w: 5.8, h: 2.05 }, "Título da palestra", { fontSize: 36, bold: true, color: mode.accent, align: "left", valign: "bottom", fit: "shrink" }),
-        ph("subtitle", "body", { x: M, y: 3.35, w: 5.8, h: 0.5 }, "Subtítulo ou frase de efeito", { fontSize: 20, color: mode.text, fit: "shrink" }),
-        ph("speaker", "body", { x: M, y: 4.0, w: 5.8, h: 0.5 }, "Nome da pessoa palestrante · @usuario", { fontSize: 18, bold: true, color: mode.text, fit: "shrink" }),
-      ],
-    });
+  // Capa: o disco limão com a data repete o selo da página do evento
+  const dateD = 1.7;
+  pres.defineSlideMaster({
+    title: "Capa" + mode.suffix,
+    background: { color: mode.bg },
+    objects: [
+      { image: { x: W - dragonW - 0.35, y: H - dragonH - 0.2, w: dragonW, h: dragonH, path: mode.dragon } },
+      logo(mode, { x: M, y: 0.45, w: 3.2 }),
+      // The date sits in its own text box: an ellipse only lays text out in its inscribed rectangle.
+      shape("ellipse", { x: W - M - dateD, y: 0.3, w: dateD, h: dateD }, LIME),
+      { text: { text: "14 a 19\nde outubro\nde 2026\n{Floripa/SC}", options: { x: W - M - dateD, y: 0.3, w: dateD, h: dateD, fontSize: 13, bold: true, fontFace: THEME.headFontFace, color: ON_LIME, align: "center", valign: "middle", margin: 0, isTextBox: true, lang: LANG } } },
+      ph("title", "title", { x: M, y: 1.15, w: 5.8, h: 2.05 }, "Título da palestra", { fontSize: 36, bold: true, color: mode.accent, align: "left", valign: "bottom", fit: "shrink" }),
+      ph("subtitle", "body", { x: M, y: 3.35, w: 5.8, h: 0.5 }, "Subtítulo ou frase de efeito", { fontSize: 20, color: mode.text, fit: "shrink" }),
+      ph("speaker", "body", { x: M, y: 4.0, w: 5.8, h: 0.5 }, "Nome da pessoa palestrante · @usuario", { fontSize: 18, bold: true, color: mode.text, fit: "shrink" }),
+    ],
+  });
 
-    pres.defineSlideMaster({
-      title: "Encerramento",
-      background: { color: mode.bg },
-      slideNumber: slideNumber(mode),
-      objects: [
-        logo(mode),
-        { image: { x: M, y: 0.55, w: dragonW * 0.85, h: dragonH * 0.85, path: mode.dragon } },
-        ph("title", "title", { x: 4.3, y: 1.2, w: 5.2, h: 1.2 }, "Obrigado!", { fontSize: 40, bold: true, color: mode.accent, align: "left", fit: "shrink" }),
-        bodyPh(mode, "body", { x: 4.3, y: 2.5, w: 5.2, h: 2.3 }, "Contatos, links e onde encontrar os slides", { bullet: false }),
-      ],
-    });
-  }
+  // Encerramento ("Obrigado!" ou "Perguntas?"): o QR code grande leva o público aos slides
+  const qrD = 3.3;
+  const qrX = W - M - qrD;
+  const closeW = qrX - 0.5 - M;
+  pres.defineSlideMaster({
+    title: "Encerramento" + mode.suffix,
+    background: { color: mode.bg },
+    slideNumber: slideNumber(mode),
+    objects: [
+      logo(mode),
+      ph("title", "title", { x: M, y: 0.8, w: closeW, h: 1.4 }, "Obrigado!", { fontSize: 44, bold: true, color: mode.accent, align: "left", valign: "bottom", fit: "shrink" }),
+      bodyPh(mode, "body", { x: M, y: 2.4, w: closeW, h: 2.3 }, "Contatos: handle, e-mail, site", { bullet: false }),
+      imagePh(mode, "qr", { x: qrX, y: 0.55, w: qrD, h: qrD }, "QR code com o link dos slides"),
+      ph("qrCaption", "body", { x: qrX, y: 0.55 + qrD + 0.1, w: qrD, h: 0.45 }, "endereço.com.br/slides", { fontSize: 16, color: mode.text, fontFace: THEME.headFontFace, align: "center", fit: "shrink" }),
+    ],
+  });
+
+  defineLayout("Agenda", mode, [
+    titlePh(mode, TITLE, "Agenda"),
+    bodyPh(mode, "body", { ...BODY, w: TEXT_W }, "Tópico", { fontSize: 24, bullet: { type: "number", indent: 34 }, paraSpaceAfter: 14 }),
+  ]);
 
   // Seção: disco limão com o número, título à direita, dragão translúcido ao fundo
   const secD = 1.9;
   const markH = 3.3;
+  const watermark = { image: { x: W - markH * DRAGON_RATIO + 0.4, y: H - markH + 0.3, w: markH * DRAGON_RATIO, h: markH, path: mode.dragon, transparency: 88 } };
   defineLayout("Seção", mode, [
-    { image: { x: W - markH * DRAGON_RATIO + 0.4, y: H - markH + 0.3, w: markH * DRAGON_RATIO, h: markH, path: mode.dragon, transparency: 88 } },
+    watermark,
     shape("ellipse", { x: M, y: 1.85, w: secD, h: secD }, LIME),
     ph("number", "body", { x: M, y: 1.85, w: secD, h: secD }, "01", { fontSize: 40, bold: true, color: ON_LIME, align: "center", valign: "middle", fontFace: THEME.headFontFace }),
     ph("title", "title", { x: M + secD + 0.4, y: 1.6, w: W - M - (M + secD + 0.4), h: 2.4 }, "Título da seção", { fontSize: 34, bold: true, color: mode.text, align: "left", valign: "middle", fit: "shrink" }),
@@ -222,19 +233,56 @@ for (const mode of [DARK, LIGHT]) {
     ],
   });
 
+  // Três imagens: capturas de tela lado a lado, cada uma com legenda
+  const shotGap = 0.3;
+  const shotW = (W - 2 * M - 2 * shotGap) / 3;
+  const shotH = 2.45;
+  const shots = [];
+  for (let i = 0; i < 3; i++) {
+    const x = M + i * (shotW + shotGap);
+    shots.push(imagePh(mode, `image${i + 1}`, { x, y: BODY.y, w: shotW, h: shotH }));
+    shots.push(bodyPh(mode, `caption${i + 1}`, { x, y: BODY.y + shotH + 0.15, w: shotW, h: 0.75 }, "Legenda curta", { bullet: false, fontSize: 18, paraSpaceAfter: 0 }));
+  }
+  defineLayout("Três imagens", mode, [titlePh(mode), ...shots]);
+
   // Código: cartão escuro em ambos os modos, para o realce de sintaxe ter o mesmo contraste
+  const codeCard = (box) => shape("roundRect", box, HEX.dk2, { rectRadius: 0.1, line: { color: mode === DARK ? DARK.outlineHex : HEX.dk2, width: 1 } });
+  const codePh = (name, box, text) => ph(name, "body", box, text, { fontSize: 15, color: CODE_TEXT_COLOR, fontFace: THEME.headFontFace, paraSpaceAfter: 0, lineSpacing: 17, fit: "shrink" });
+  const codeH = 2.85;
   defineLayout("Código", mode, [
     titlePh(mode),
-    shape("roundRect", { x: M, y: BODY.y, w: W - 2 * M, h: 2.85 }, HEX.dk2, { rectRadius: 0.1, line: { color: mode === DARK ? DARK.outlineHex : HEX.dk2, width: 1 } }),
-    ph("code", "body", { x: M + 0.25, y: BODY.y + 0.15, w: W - 2 * M - 0.5, h: 2.6 }, "# Até 8 linhas e 60 colunas por slide", { fontSize: 15, color: CODE_TEXT_COLOR, fontFace: THEME.headFontFace, paraSpaceAfter: 0, lineSpacing: 17, fit: "shrink" }),
-    bodyPh(mode, "note", { x: M, y: BODY.y + 2.95, w: W - 2 * M, h: 0.4 }, "O que este trecho mostra", { bullet: false, fontSize: 16, valign: "middle" }),
+    codeCard({ x: M, y: BODY.y, w: W - 2 * M, h: codeH }),
+    codePh("code", { x: M + 0.25, y: BODY.y + 0.15, w: W - 2 * M - 0.5, h: codeH - 0.25 }, "# Até 8 linhas e 60 colunas por slide"),
+    bodyPh(mode, "note", { x: M, y: BODY.y + codeH + 0.1, w: W - 2 * M, h: 0.4 }, "O que este trecho mostra", { bullet: false, fontSize: 16, valign: "middle" }),
   ]);
+
+  // Código lado a lado: antes e depois, cada cartão com cerca de 30 colunas
+  const pairGap = 0.4;
+  const pairW = (W - 2 * M - pairGap) / 2;
+  const pairHeadH = 0.45;
+  const pairY = BODY.y + pairHeadH + 0.05;
+  const pair = [];
+  [["leftTitle", "codeLeft", "Antes"], ["rightTitle", "codeRight", "Depois"]].forEach(([head, code, label], i) => {
+    const x = M + i * (pairW + pairGap);
+    pair.push(headingPh(mode, head, { x, y: BODY.y - 0.05, w: pairW, h: pairHeadH }, label, { fontSize: 20 }));
+    pair.push(codeCard({ x, y: pairY, w: pairW, h: codeH }));
+    pair.push(codePh(code, { x: x + 0.25, y: pairY + 0.15, w: pairW - 0.5, h: codeH - 0.25 }, "# Até 8 linhas e 30 colunas"));
+  });
+  defineLayout("Código lado a lado", mode, [titlePh(mode), ...pair]);
 
   // Citação: as aspas fazem parte do texto, para ficarem sempre junto da primeira linha
   defineLayout("Citação", mode, [
     ph("quote", "body", { x: M, y: 0.9, w: TEXT_W + 0.5, h: 2.6 }, "“A citação vai aqui, em até três linhas.”", { fontSize: 32, color: mode.text, valign: "bottom", fit: "shrink" }),
     ph("author", "body", { x: M, y: 3.7, w: TEXT_W + 0.5, h: 0.5 }, "Nome, cargo ou fonte", { fontSize: 18, color: mode.muted, fontFace: THEME.headFontFace }),
   ]);
+
+  // Frase: uma ideia só, grande, como "Perguntas?"
+  defineLayout("Frase", mode, [
+    watermark,
+    ph("title", "title", { x: M, y: 0.9, w: TEXT_W, h: 3.4 }, "Uma frase só", { fontSize: 48, bold: true, color: mode.accent, align: "left", valign: "middle", fit: "shrink" }),
+  ]);
+
+  defineLayout("Referências", mode, [titlePh(mode, TITLE, "Referências"), bodyPh(mode, "body", BODY, "Título do material  endereço.com.br/link", { bullet: false, fontSize: 18, paraSpaceAfter: 12 })]);
 
   // Três cartões: fundo e numeração fixos no layout; título e texto editáveis
   const cardGap = 0.35;
@@ -292,24 +340,91 @@ function bullets(items) {
   return items.map((t, i) => ({ text: t, options: { bullet: true, breakLine: i < items.length - 1 } }));
 }
 
+// pptxgenjs applies the placeholder's numbering to the first paragraph only, so each item repeats it.
+function numbered(items) {
+  return items.map((t, i) => ({ text: t, options: { bullet: { type: "number", indent: 34 }, breakLine: i < items.length - 1 } }));
+}
+
 function quoted(text, accentHex) {
   const mark = (m) => ({ text: m, options: { color: accentHex, bold: true } });
   return [mark("“"), { text }, mark("”")];
 }
 
-const CAPA = "Capa e estrutura";
-pres.addSection({ title: CAPA });
+function coverSlide(mode, section) {
+  const sl = slide("Capa" + mode.suffix, section, "Capa. Troque título, subtítulo e nome. O dragão, o logo e o selo da data fazem parte do layout; para outra capa, duplique este slide.");
+  sl.addText("Título da palestra em até três linhas, sem pressa", { placeholder: "title" });
+  sl.addText("Subtítulo, trilha ou frase de efeito", { placeholder: "subtitle" });
+  sl.addText([{ text: "Nome da pessoa palestrante", options: { bold: true } }, { text: "  ·  @usuario", options: { bold: false, color: mode.mutedHex } }], { placeholder: "speaker" });
+}
 
-let s = slide("Capa", CAPA, "Capa. Troque título, subtítulo e nome. O dragão e o logo fazem parte do layout; para outra capa, duplique este slide.");
-s.addText("Título da palestra em até três linhas, sem pressa", { placeholder: "title" });
-s.addText("Subtítulo, trilha ou frase de efeito", { placeholder: "subtitle" });
-s.addText([{ text: "Nome da pessoa palestrante", options: { bold: true } }, { text: "  ·  @usuario", options: { bold: false, color: HEX.accent5 } }], { placeholder: "speaker" });
+const QR_PATH = path.join(BUILD, "qr-exemplo.png");
+const QR_BOX = { x: W - M - 3.3, y: 0.55, w: 3.3, h: 3.3 }; // same box as the layout's qr placeholder
+const QR_URL = "https://2026.pythonbrasil.org.br/";
+const CLOSING_NOTES =
+  "Encerramento, para \"Obrigado!\" ou \"Perguntas?\". Deixe este slide na tela durante as perguntas. " +
+  "O QR code é o jeito mais fácil de o público abrir os seus slides: ninguém copia um link da tela. " +
+  "Aponte o QR code para um lugar só, com slides, código e contatos (repositório, gist ou página). " +
+  "Para trocar o QR code: no LibreOffice, Inserir > Objeto > Código QR e de barras; no Google Slides e no PowerPoint, gere a imagem num gerador de QR code e substitua a de exemplo. " +
+  "Escreva o link embaixo do QR code também, para quem não tem a câmera à mão, e teste a leitura com o celular a alguns metros da tela. " +
+  "Reserve uns 5 minutos do seu horário para perguntas e combine com quem modera como avisar o fim do tempo. " +
+  "Repita cada pergunta no microfone antes de responder: a sala e a gravação não ouvem quem perguntou.";
 
-s = slide("Seção", CAPA, "Divisor de seção. Edite o número dentro do círculo e o título.");
+function closingSlide(mode, section, title) {
+  const sl = slide("Encerramento" + mode.suffix, section, CLOSING_NOTES);
+  sl.addText(title, { placeholder: "title" });
+  sl.addText([
+    { text: "Nome da pessoa palestrante", options: { bold: true, breakLine: true } },
+    { text: "@usuario", options: { fontFace: THEME.headFontFace, fontSize: 18, breakLine: true } },
+    { text: "pessoa@exemplo.com.br", options: { fontFace: THEME.headFontFace, fontSize: 18 } },
+  ], { placeholder: "body" });
+  sl.addImage({ placeholder: "qr", path: QR_PATH, ...QR_BOX, altText: `QR code para ${QR_URL}` });
+  sl.addText("2026.pythonbrasil.org.br", { placeholder: "qrCaption" });
+}
+
+function chartSlide(mode, section, notes) {
+  const sl = slide("Somente título" + mode.suffix, section, notes);
+  sl.addText("Gráfico nativo (dados de exemplo)", { placeholder: "title" });
+  sl.addChart(
+    pres.ChartType.bar,
+    [{ name: "Inscrições", labels: ["2022", "2023", "2024", "2025", "2026"], values: [520, 640, 710, 830, 900] }],
+    {
+      x: M, y: BODY.y, w: W - 2 * M, h: BODY.h,
+      barDir: "col",
+      chartColors: [mode.accentHex],
+      showValue: true,
+      dataLabelPosition: "outEnd",
+      dataLabelColor: mode.textHex,
+      dataLabelFontSize: 14,
+      dataLabelFontBold: true,
+      dataLabelFontFace: THEME.bodyFontFace,
+      catAxisLabelColor: mode.textHex,
+      catAxisLabelFontSize: 14,
+      catAxisLabelFontFace: THEME.bodyFontFace,
+      catAxisLineShow: false,
+      valAxisHidden: true,
+      valGridLine: { style: "none" },
+      catGridLine: { style: "none" },
+      showLegend: false,
+      showTitle: false,
+    }
+  );
+}
+const CHART_NOTES = "Somente título com um gráfico nativo. No PowerPoint e no LibreOffice, edite os dados com o botão direito > Editar dados. O Google Slides converte este gráfico em imagem na importação; lá, crie o gráfico em Inserir > Gráfico. Os números são de exemplo.";
+
+const ESCURO = "Layouts escuros";
+pres.addSection({ title: ESCURO });
+
+coverSlide(DARK, ESCURO);
+
+let s = slide("Agenda", ESCURO, "Agenda. De três a cinco tópicos; a numeração é automática. Volte a este slide entre as partes, ou use o slide de Seção, para o público saber onde está.");
+s.addText("Agenda", { placeholder: "title" });
+s.addText(numbered(["Por que mais um pacote", "Como ele funciona por dentro", "O que deu errado em produção", "Próximos passos"]), { placeholder: "body" });
+
+s = slide("Seção", ESCURO, "Divisor de seção. Edite o número dentro do círculo e o título.");
 s.addText("01", { placeholder: "number" });
 s.addText("Título da seção", { placeholder: "title" });
 
-s = slide("Título e conteúdo", CAPA, "Layout básico. Use de três a cinco tópicos por slide. O texto começa em 20 pt; se o programa diminuir a fonte para caber, divida o slide em dois. As fontes Inter e Cascadia Mono são gratuitas, em fonts.google.com; instale as duas antes de editar, ou os títulos mudam de largura.");
+s = slide("Título e conteúdo", ESCURO, "Layout básico. Use de três a cinco tópicos por slide. O texto começa em 20 pt; se o programa diminuir a fonte para caber, divida o slide em dois. As fontes Inter e Cascadia Mono são gratuitas, em fonts.google.com; instale as duas antes de editar, ou os títulos mudam de largura.");
 s.addText("Como usar este modelo", { placeholder: "title" });
 s.addText(bullets([
   "Cada slide mostra um layout: duplique o que precisar",
@@ -318,20 +433,24 @@ s.addText(bullets([
   "Verde-limão como texto, só sobre fundo escuro",
 ]), { placeholder: "body" });
 
-s = slide("Duas colunas", CAPA, "Comparações: antes e depois, problema e solução, prós e contras. O primeiro parágrafo de cada coluna é o título.");
+s = slide("Duas colunas", ESCURO, "Comparações: antes e depois, problema e solução, prós e contras. Cada coluna tem o seu título.");
 s.addText("Duas colunas", { placeholder: "title" });
 s.addText("Problema", { placeholder: "leftTitle" });
 s.addText(bullets(["Scripts copiados entre repositórios", "Versão em produção desconhecida", "Deploy manual às sextas"]), { placeholder: "left" });
 s.addText("Solução", { placeholder: "rightTitle" });
 s.addText(bullets(["Um pacote interno com CLI", "Versão fixada no lock file", "Publicação a cada tag"]), { placeholder: "right" });
 
-s = slide("Texto e imagem", CAPA, "Texto à esquerda, imagem à direita. Clique no ícone do espaço reservado para inserir a imagem; ela é cortada para caber.");
+s = slide("Texto e imagem", ESCURO, "Texto à esquerda, imagem à direita. Clique no ícone do espaço reservado para inserir a imagem; ela é cortada para caber.");
 s.addText("Texto e imagem", { placeholder: "title" });
 s.addText(bullets(["Diagrama, captura de tela ou foto", "Uma ideia por slide", "Legenda curta se a imagem não for óbvia"]), { placeholder: "body" });
 
-s = slide("Imagem e texto", CAPA, "Imagem sangrada à esquerda. Boa para fotos de pessoas, lugares e produtos.");
+s = slide("Imagem e texto", ESCURO, "Imagem sangrada à esquerda. Boa para fotos de pessoas, lugares e produtos.");
 s.addText("Imagem e texto", { placeholder: "title" });
 s.addText(bullets(["A imagem ocupa a altura inteira", "O texto fica na metade direita", "Use fotos com boa resolução (mínimo 1000 px de altura)"]), { placeholder: "body" });
+
+s = slide("Três imagens", ESCURO, "Três imagens com legenda: passos de um fluxo, antes e depois, ou telas de um app. Corte cada captura para mostrar só o que importa: a tela inteira encolhida vira texto que ninguém lê.");
+s.addText("Três passos na tela", { placeholder: "title" });
+["1. Abra o terminal", "2. Rode o comando", "3. Veja o resultado"].forEach((t, i) => s.addText(t, { placeholder: `caption${i + 1}` }));
 
 const SAMPLE_CODE = `@dataclass
 class Palestra:
@@ -357,23 +476,42 @@ function codeSlide(layout, section, tip) {
   sl.addText(highlightCode(SAMPLE_CODE, "python"), { placeholder: "code" });
   sl.addText(tip, { placeholder: "note" });
 }
-codeSlide("Código", CAPA, [
+codeSlide("Código", ESCURO, [
   { text: "Dica: ", options: { bold: true } },
   { text: "gere o código colorido no slidesnippet.com, tema Monokai, fundo #1A1A1A." },
 ]);
 
-s = slide("Citação", CAPA, "Citação. Até três linhas; coloque a fonte embaixo. As aspas verdes fazem parte do texto: ao trocar a citação, mantenha as duas.");
+s = slide("Código lado a lado", ESCURO, "Dois trechos lado a lado: antes e depois de uma refatoração, ou duas formas de resolver o mesmo problema. Cada cartão aceita até 8 linhas e cerca de 30 colunas. " + CODE_NOTES.slice(CODE_NOTES.indexOf("Para ter")));
+s.addText("Refatoração", { placeholder: "title" });
+s.addText("Antes", { placeholder: "leftTitle" });
+s.addText(highlightCode(`total = 0
+for p in palestras:
+    if p.trilha == "web":
+        total += p.duracao
+`), { placeholder: "codeLeft" });
+s.addText("Depois", { placeholder: "rightTitle" });
+s.addText(highlightCode(`total = sum(
+    p.duracao
+    for p in palestras
+    if p.trilha == "web"
+)
+`), { placeholder: "codeRight" });
+
+s = slide("Citação", ESCURO, "Citação. Até três linhas; coloque a fonte embaixo. As aspas verdes fazem parte do texto: ao trocar a citação, mantenha as duas.");
 s.addText(quoted("Simples é melhor que complexo. Complexo é melhor que complicado.", LIME), { placeholder: "quote" });
 s.addText("Tim Peters, The Zen of Python", { placeholder: "author" });
 
-s = slide("Números em destaque", CAPA, "Números. Três no máximo; o rótulo diz o que o número mede.");
+s = slide("Frase", ESCURO, "Uma frase só, para a ideia que o público deve levar para casa ou para mudar de assunto. Se a frase passar de duas linhas, ela é um slide de conteúdo.");
+s.addText("Teste o projetor antes da sua palestra.", { placeholder: "title" });
+
+s = slide("Números em destaque", ESCURO, "Números. Três no máximo; o rótulo diz o que o número mede.");
 s.addText("A Python Brasil 2026 em números", { placeholder: "title" });
 [["44", "palestras"], ["8", "tutoriais"], ["6", "dias de evento"]].forEach(([v, l], i) => {
   s.addText(v, { placeholder: `value${i + 1}` });
   s.addText(l, { placeholder: `label${i + 1}` });
 });
 
-s = slide("Três cartões", CAPA, "Três cartões. O primeiro parágrafo de cada cartão é o título. Este exemplo traz dicas para o dia da palestra: apague o slide da sua apresentação.");
+s = slide("Três cartões", ESCURO, "Três cartões, cada um com título e texto. Este exemplo traz dicas para o dia da palestra: apague o slide da sua apresentação.");
 s.addText("Antes de subir no palco", { placeholder: "title" });
 [
   ["Live coding", "Tenha um plano B: capturas de tela ou um vídeo gravado da demo."],
@@ -384,12 +522,12 @@ s.addText("Antes de subir no palco", { placeholder: "title" });
   s.addText(t, { placeholder: `card${i + 1}` });
 });
 
-s = slide("Palestrante", CAPA, "Apresentação da pessoa palestrante, para a abertura ou para a organização apresentar keynotes. Quem abre a sessão costuma apresentar você antes da palestra. Se o tempo estiver curto, o slide \"Sobre mim\" pode sair, ou virar uma linha na capa.");
+s = slide("Palestrante", ESCURO, "Apresentação da pessoa palestrante, para a abertura ou para a organização apresentar keynotes. Quem abre a sessão costuma apresentar você antes da palestra. Se o tempo estiver curto, o slide \"Sobre mim\" pode sair, ou virar uma linha na capa.");
 s.addText("Nome da pessoa", { placeholder: "title" });
 s.addText("Engenharia de software · Python Floripa", { placeholder: "role" });
 s.addText(bullets(["Trabalha com Python desde 2015", "Mantém um projeto open source", "Primeira Python Brasil foi em 2018"]), { placeholder: "bio" });
 
-s = slide("Somente título", CAPA, "Somente título: espaço livre para tabelas, gráficos e diagramas. Aqui, uma tabela nativa com a programação do dia.");
+s = slide("Somente título", ESCURO, "Somente título: espaço livre para tabelas, gráficos e diagramas. Aqui, uma tabela nativa com a programação do dia.");
 s.addText("Programação: quinta, 15 de outubro", { placeholder: "title" });
 const tableHead = { bold: true, color: HEX.dk1, fill: { color: HEX.accent1 } };
 const tableCell = { color: HEX.lt1, fill: { color: DARK.cardHex } };
@@ -405,15 +543,34 @@ s.addTable(
   { x: M, y: BODY.y, w: W - 2 * M, colW: [1.6, 5.4, 2.0], fontSize: 18, fontFace: THEME.bodyFontFace, rowH: 0.48, border: { type: "solid", pt: 1, color: HEX.dk1 }, margin: 0.08, valign: "middle", lang: LANG }
 );
 
-s = slide("Imagem cheia", CAPA, "Imagem de fundo com legenda. Clique com o botão direito na imagem > Substituir imagem. A faixa inferior é translúcida para a legenda ficar legível sobre qualquer foto. Duplique este slide para manter a faixa.");
+chartSlide(DARK, ESCURO, CHART_NOTES);
+
+s = slide("Imagem cheia", ESCURO, "Imagem de fundo com legenda. Clique com o botão direito na imagem > Substituir imagem. A faixa inferior é translúcida para a legenda ficar legível sobre qualquer foto. Duplique este slide para manter a faixa.");
 // The sample image fills the placeholder; an empty placeholder would be drawn above the caption.
 s.addImage({ placeholder: "image", path: path.join(BRAND, "sample-fullbleed.png"), x: 0, y: 0, w: W, h: H, altText: "Imagem de exemplo: dragão da Python Brasil 2026 sobre fundo escuro" });
 s.addShape(pres.ShapeType.rect, { x: 0, y: H - 0.9, w: W, h: 0.9, fill: { color: HEX.dk1, transparency: 25 }, line: { color: HEX.dk1, width: 0 }, objectName: "Faixa da legenda" });
 s.addText("Legenda ou crédito da imagem", { x: M, y: H - 0.75, w: W - 2 * M, h: 0.6, fontSize: 14, color: HEX.lt1, valign: "middle", isTextBox: true, margin: 0, lang: LANG });
 
+s = slide("Referências", ESCURO, "Referências. Um material por linha: o nome e o endereço curto. Links longos ninguém copia da tela; junte tudo numa página e mostre o QR code no encerramento.");
+s.addText("Referências", { placeholder: "title" });
+const reference = ([name, url], i, all) => [
+  { text: name + "  ", options: {} },
+  { text: url, options: { fontFace: THEME.headFontFace, color: DARK.mutedHex, breakLine: i < all.length - 1 } },
+];
+s.addText([
+  ["The Zen of Python", "peps.python.org/pep-0020"],
+  ["Guia de estilo", "peps.python.org/pep-0008"],
+  ["Tutorial oficial", "docs.python.org/pt-br/3/tutorial"],
+  ["Python Brasil", "python.org.br"],
+].flatMap(reference), { placeholder: "body" });
+
+closingSlide(DARK, ESCURO, "Perguntas?");
+
 // ----- light variants -----
-const CLARO = "Conteúdo (claro)";
+const CLARO = "Layouts claros";
 pres.addSection({ title: CLARO });
+
+coverSlide(LIGHT, CLARO);
 
 s = slide("Seção (claro)", CLARO, "Divisor de seção, versão clara.");
 s.addText("02", { placeholder: "number" });
@@ -452,6 +609,9 @@ s = slide("Citação (claro)", CLARO, "Citação, versão clara.");
 s.addText(quoted("Legibilidade conta.", HEX.accent3), { placeholder: "quote" });
 s.addText("PEP 20", { placeholder: "author" });
 
+s = slide("Frase (claro)", CLARO, "Uma frase só, versão clara.");
+s.addText("Menos texto, letra maior.", { placeholder: "title" });
+
 s = slide("Números em destaque (claro)", CLARO, "Números, versão clara. Os números ficam em oliva.");
 s.addText("Resultados", { placeholder: "title" });
 [["3x", "mais rápido"], ["40%", "menos código"], ["0", "incidentes"]].forEach(([v, l], i) => {
@@ -463,7 +623,7 @@ s = slide("Três cartões (claro)", CLARO, "Três cartões, versão clara. Este 
 s.addText("Para a última fileira também ler", { placeholder: "title" });
 [
   ["Menos texto", "Se o texto só cabe com fonte menor, divida em dois slides."],
-  ["Fonte grande", "Nada abaixo de 18\u00A0pt. Quem está no fundo da sala agradece."],
+  ["Fonte grande", "Nada abaixo de 18 pt. Quem está no fundo da sala agradece."],
   ["Você é a palestra", "O slide apoia a sua fala. O resto vai para as notas."],
 ].forEach(([h, t], i) => {
   s.addText(h, { placeholder: `card${i + 1}Title` });
@@ -475,63 +635,19 @@ s.addText("Nome da pessoa", { placeholder: "title" });
 s.addText("Ciência de dados · Python Nordeste", { placeholder: "role" });
 s.addText(bullets(["Dá aulas de Python para iniciantes", "Organiza meetups desde 2021", "Gosta de pandas e de gatos"]), { placeholder: "bio" });
 
-s = slide("Somente título (claro)", CLARO, "Somente título, versão clara, com um gráfico nativo. No PowerPoint e no LibreOffice, edite os dados com o botão direito > Editar dados. O Google Slides converte este gráfico em imagem na importação; lá, crie o gráfico em Inserir > Gráfico. Os números são de exemplo.");
-s.addText("Gráfico nativo (dados de exemplo)", { placeholder: "title" });
-s.addChart(
-  pres.ChartType.bar,
-  [{ name: "Inscrições", labels: ["2022", "2023", "2024", "2025", "2026"], values: [520, 640, 710, 830, 900] }],
-  {
-    x: M, y: BODY.y, w: W - 2 * M, h: BODY.h,
-    barDir: "col",
-    chartColors: [HEX.accent3],
-    showValue: true,
-    dataLabelPosition: "outEnd",
-    dataLabelColor: HEX.dk1,
-    dataLabelFontSize: 14,
-    dataLabelFontBold: true,
-    dataLabelFontFace: THEME.bodyFontFace,
-    catAxisLabelColor: HEX.dk1,
-    catAxisLabelFontSize: 14,
-    catAxisLabelFontFace: THEME.bodyFontFace,
-    valAxisHidden: true,
-    valGridLine: { style: "none" },
-    catGridLine: { style: "none" },
-    showLegend: false,
-    showTitle: false,
-  }
-);
+chartSlide(LIGHT, CLARO, "Gráfico, versão clara: as barras ficam oliva. " + CHART_NOTES);
 
-// ----- organization -----
-const ORG = "Organização";
-pres.addSection({ title: ORG });
-
-s = slide("Somente título", ORG, "Patrocinadores. Insira os logos sobre os retângulos claros (logos coloridos funcionam melhor sobre fundo claro). Mantenha o alinhamento da grade.");
-s.addText("Patrocinadores", { placeholder: "title" });
-const tileCols = 4, tileRows = 2, tileGap = 0.3;
-const tileW = (W - 2 * M - (tileCols - 1) * tileGap) / tileCols;
-const tileH = (BODY.h - (tileRows - 1) * tileGap) / tileRows;
-for (let r = 0; r < tileRows; r++) {
-  for (let c = 0; c < tileCols; c++) {
-    const x = M + c * (tileW + tileGap);
-    const y = BODY.y + r * (tileH + tileGap);
-    s.addShape(pres.ShapeType.roundRect, { x, y, w: tileW, h: tileH, fill: { color: HEX.lt1 }, rectRadius: 0.1, objectName: `Espaço para logo ${r * tileCols + c + 1}` });
-    s.addText("Logo", { x, y, w: tileW, h: tileH, fontSize: 12, color: HEX.accent6, align: "center", valign: "middle", isTextBox: true, margin: 0, lang: LANG });
-  }
-}
-
-s = slide("Encerramento", ORG, "Slide final. Deixe-o aberto durante as perguntas: contatos e link dos slides.");
-s.addText("Obrigado!", { placeholder: "title" });
-s.addText([
-  { text: "Perguntas?", options: { bold: true, breakLine: true } },
-  { text: "@usuario · pessoa@exemplo.com.br", options: { fontFace: THEME.headFontFace, fontSize: 16, breakLine: true } },
-  { text: "Slides em: exemplo.com.br/slides", options: { fontFace: THEME.headFontFace, fontSize: 16 } },
-], { placeholder: "body" });
+closingSlide(LIGHT, CLARO, "Obrigado!");
 
 // ---------- write ----------
 (async () => {
   fs.mkdirSync(DIST, { recursive: true });
+  fs.mkdirSync(BUILD, { recursive: true });
+  // pptxgenjs reads image files only when it writes the deck, so the QR code can be made here.
+  await QRCode.toFile(QR_PATH, QR_URL, { margin: 2, width: 800, color: { dark: "#0F0F0FFF", light: "#FFFFFFFF" } });
   await pres.writeFile({ fileName: OUT });
   await applyTheme(OUT, THEME);
+  await continueNumbering(OUT);
   console.log(`wrote ${path.relative(ROOT, OUT)}`);
 })().catch((e) => {
   console.error(e);
