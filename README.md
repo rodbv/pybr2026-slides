@@ -2,13 +2,11 @@
 
 Modelo de apresentação para palestrantes e organização da [Python Brasil 2026](https://2026.pythonbrasil.org.br/), em Florianópolis, de 14 a 19 de outubro de 2026. Funciona no LibreOffice Impress, no Google Slides e no PowerPoint, em Linux, macOS e Windows.
 
-![Visão geral dos 35 slides de exemplo](dist/preview/overview.png)
-
-## Usar no Google Slides
-
 **[Fazer uma cópia no Google Slides](https://docs.google.com/presentation/d/1zizefDaTGhI7EMGmI7DzBC1K--fyTgi4n1zIDSFAwvU/copy)**
 
-O link cria uma cópia editável no seu Google Drive, com todos os layouts. Não precisa baixar nada nem instalar fontes.
+O link cria uma cópia editável no seu Google Drive, com todos os layouts. Não precisa baixar nada nem instalar fontes. Para usar no LibreOffice ou no PowerPoint, veja [Baixar](#baixar).
+
+![Visão geral dos 35 slides de exemplo](dist/preview/overview.png)
 
 ## Baixar
 
