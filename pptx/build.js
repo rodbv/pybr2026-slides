@@ -524,6 +524,13 @@ coverSlide(DARK, ESCURO,
 let s = slide("Frase", ESCURO);
 fill(s, { title: "A sala está torcendo por você." });
 
+s = slide("Palestrante", ESCURO);
+fill(s, {
+  title: "Seu nome aqui",
+  role: "O que você faz · onde",
+  bio: bullets(["Quem abre a sessão costuma apresentar você", "Com o tempo curto, este slide pode sair", "Uma autodescrição ajuda quem não vê"]),
+});
+
 s = slide("Citação", ESCURO);
 fill(s, {
   quote: quoted("A praticidade vence a pureza.", LIME),
@@ -543,13 +550,6 @@ fill(s, {
   ]),
 });
 
-s = slide("Palestrante", ESCURO);
-fill(s, {
-  title: "Seu nome aqui",
-  role: "O que você faz · onde",
-  bio: bullets(["Quem abre a sessão costuma apresentar você", "Com o tempo curto, este slide pode sair", "Uma autodescrição ajuda quem não vê"]),
-});
-
 s = slide("Agenda", ESCURO);
 fill(s, {
   title: "Agenda",
@@ -557,7 +557,7 @@ fill(s, {
     "Mostra ao público o caminho da palestra",
     "Três a cinco partes costumam bastar",
     "Pode voltar entre uma parte e outra",
-    "Cada parte também pode abrir com uma Seção",
+    "Cada parte também pode abrir com uma seção",
     "Opcional: pode sair se o tempo for curto",
   ]),
 });
@@ -664,11 +664,11 @@ s.addText("Três números que ajudam", { placeholder: "title" });
 s.addImage({ path: path.join(BRAND, "pixel-circle.png"), x: 4.2, y: 2.2, w: 1.6, h: 1.0, altText: "Círculo pixelado limão em volta do número 8" });
 
 s = slide("Três cartões", ESCURO);
-s.addText("Antes de subir no palco", { placeholder: "title" });
+s.addText("O código de conduta no palco", { placeholder: "title" });
 [
-  ["Live coding", "Um plano B ajuda: capturas de tela ou um vídeo gravado da demo."],
-  ["Internet", "A rede pode cair. Vídeos e páginas baixados não dependem dela."],
-  ["Arquivo", "Uma cópia em PDF num pendrive abre em qualquer computador."],
+  ["Todo público", "O público inclui crianças, então o conteúdo é para todas as idades."],
+  ["Respeito", "Humor sem alvo e exemplos que incluem todo mundo."],
+  ["Dúvidas", "Na dúvida sobre algum conteúdo, a organização ajuda."],
 ].forEach(([h, t], i) => fill(s, { [`card${i + 1}Title`]: h, [`card${i + 1}`]: t }));
 
 s = slide("Somente título", ESCURO);
@@ -681,9 +681,10 @@ s.addTable(
     row(["Quando", "Sugestão"], tableHead),
     ...[
       ["Antes do evento", "Tirar dúvidas no grupo de palestrantes no Telegram"],
-      ["No dia", "Chegar cedo, conhecer o lugar, conversar"],
-      ["Na sala", "Se houver intervalo, testar projetor e som; microfone a um palmo da boca"],
-      ["15 min antes", "Dar um oi para quem é da organização na sala"],
+      ["Na véspera", "Evitar exageros: voz e descanso em dia"],
+      ["No dia", "Chegar cedo e testar o notebook no projetor da sala"],
+      ["15 min antes", "Dar um oi ao voluntariado da sala"],
+      ["Na palestra", "Microfone a um palmo da boca"],
       ["Depois", "Publicar os slides no link do QR code"],
     ].map((cells) => row(cells, tableCell)),
   ],
@@ -696,7 +697,7 @@ s = slide("Imagem cheia", ESCURO);
 // The sample image fills the placeholder; an empty placeholder would be drawn above the caption.
 s.addImage({ placeholder: "image", path: path.join(BRAND, "sample-fullbleed.png"), x: 0, y: 0, w: W, h: H, altText: "Imagem de exemplo: dragão da Python Brasil 2026 sobre fundo escuro" });
 s.addShape(pres.ShapeType.rect, { x: 0, y: H - 0.9, w: W, h: 0.9, fill: { color: HEX.dk1, transparency: 25 }, line: { color: HEX.dk1, width: 0 }, objectName: "Faixa da legenda" });
-s.addText("Foto: Nome da Pessoa · CC BY 4.0", { x: M, y: H - 0.75, w: W - 2 * M, h: 0.6, fontSize: 14, color: DARK.textHex, valign: "middle", isTextBox: true, margin: 0, lang: LANG });
+s.addText("Imagem cheia com legenda. Foto: Nome da Pessoa · CC BY 4.0", { x: M, y: H - 0.75, w: W - 2 * M, h: 0.6, fontSize: 14, color: DARK.textHex, valign: "middle", isTextBox: true, margin: 0, lang: LANG });
 
 s = slide("Referências", ESCURO);
 s.addText("Referências", { placeholder: "title" });
@@ -780,11 +781,11 @@ s.addText("Acessibilidade em números", { placeholder: "title" });
 });
 
 s = slide("Três cartões (claro)", CLARO);
-s.addText("O código de conduta no palco", { placeholder: "title" });
+s.addText("Antes de subir no palco", { placeholder: "title" });
 [
-  ["Todo público", "O público inclui crianças, então o conteúdo é para todas as idades."],
-  ["Respeito", "Humor sem alvo e exemplos que incluem todo mundo."],
-  ["Dúvidas", "Na dúvida sobre algum conteúdo, a organização ajuda."],
+  ["Live coding", "Um plano B ajuda: capturas de tela ou um vídeo gravado da demo."],
+  ["Internet", "A rede pode cair. Vídeos e páginas baixados não dependem dela."],
+  ["Arquivo", "Uma cópia em PDF num pendrive abre em qualquer computador."],
 ].forEach(([h, t], i) => fill(s, { [`card${i + 1}Title`]: h, [`card${i + 1}`]: t }));
 
 s = slide("Palestrante (claro)", CLARO);

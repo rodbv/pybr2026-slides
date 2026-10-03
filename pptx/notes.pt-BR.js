@@ -13,21 +13,21 @@ module.exports = [
     "Quase toda pessoa palestrante fica nervosa. Se bater o nervosismo, fale para um rosto amigo na plateia.",
     "Se algo falhar, comente com calma o que aconteceu e siga em frente: a sala esquece em minutos.",
   ],
-  // 3 Citação
+  // 3 Palestrante
+  [
+    "Quem abre a sessão costuma apresentar você; com o tempo curto, este slide pode sair.",
+    "Uma autodescrição ajuda quem não vê, por exemplo: \"Sou a Maria, tenho 1,60 m, cabelo preto solto, óculos verdes e uma camiseta da PyLadies.\"",
+  ],
+  // 4 Citação
   [
     "Até três linhas, com quem disse e onde. Vale conferir a autoria numa fonte primária.",
     "As aspas verdes fazem parte do texto: ao trocar a citação, mantenha as duas.",
     "O seu jeito de falar vale mais do que qualquer dica deste modelo.",
   ],
-  // 4 Título e conteúdo
+  // 5 Título e conteúdo
   [
     "De três a cinco tópicos por slide. Se o programa diminuir a fonte para caber, dois slides leem melhor.",
     "Chegar cedo ao local dá tempo de conhecer a sala, respirar e conversar.",
-  ],
-  // 5 Palestrante
-  [
-    "Quem abre a sessão costuma apresentar você; com o tempo curto, este slide pode sair.",
-    "Uma autodescrição ajuda quem não vê, por exemplo: \"Sou a Maria, tenho 1,60 m, cabelo preto solto, óculos verdes e uma camiseta da PyLadies.\"",
   ],
   // 6 Agenda
   [
@@ -78,9 +78,8 @@ module.exports = [
   ],
   // 15 Três cartões
   [
-    "Escolha o plano B que combina com a sua palestra e teste a troca no seu computador antes.",
-    "Com palestras emendadas, nem sempre dá para testar o som; um vídeo legendado funciona sem áudio.",
-    "Se algo falhar mesmo assim, a sala entende: acontece em toda conferência.",
+    "O código de conduta da Python Brasil vale para todas as pessoas no evento, inclusive no palco: python.org.br/cdc.",
+    "Se você sofrer ou presenciar assédio, discriminação ou humilhação, procure a Equipe de Resposta.",
   ],
   // 16 Somente título, com tabela
   [
@@ -161,8 +160,9 @@ module.exports = [
   ],
   // 31 Três cartões claro
   [
-    "O código de conduta da Python Brasil vale para todas as pessoas no evento, inclusive no palco: python.org.br/cdc.",
-    "Se você sofrer ou presenciar assédio, discriminação ou humilhação, procure a Equipe de Resposta.",
+    "Escolha o plano B que combina com a sua palestra e teste a troca no seu computador antes.",
+    "Com palestras emendadas, nem sempre dá para testar o som; um vídeo legendado funciona sem áudio.",
+    "Se algo falhar mesmo assim, a sala entende: acontece em toda conferência.",
   ],
   // 32 Palestrante claro
   [
