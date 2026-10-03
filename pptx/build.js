@@ -445,7 +445,8 @@ const CLOSING_NOTES =
   "Encerramento, para \"Valeu!\", \"Obrigada!\", \"Obrigado!\" ou \"Perguntas?\". Este slide pode ficar na tela durante as perguntas. " +
   "Com o QR code, o público abre os seus slides pelo celular, sem copiar o link da tela. Ele funciona melhor apontando para uma página só, com slides, código, referências e contatos: o README de um repositório no GitHub, um gist, uma página no GitHub Pages ou um Linktree. Assim você troca os links depois sem mudar o QR code. " +
   "Para trocar o QR code: no LibreOffice, Inserir > Objeto > Código QR e de barras; no Google Slides e no PowerPoint, gere a imagem num gerador de QR code e substitua a de exemplo. " +
-  "Com o link escrito embaixo, quem está sem a câmera à mão também chega lá. Vale testar a leitura com o celular a alguns metros da tela. " +
+  "Com o link escrito embaixo, quem está sem a câmera à mão também chega lá. Vale testar a leitura com o celular a alguns metros da tela.";
+const QUESTIONS_NOTES =
   "Uns 5 minutos para perguntas costumam bastar; combinar com quem modera como avisar o fim do tempo ajuda. " +
   "Repetir a pergunta no microfone ajuda a sala e a gravação, que não ouvem quem perguntou. " +
   "Tudo bem não saber uma resposta. \"Não sei, posso ver e te respondo depois\" é uma resposta honesta, e o contato no slide ajuda a continuar a conversa. " +
@@ -527,13 +528,14 @@ coverSlide(DARK, ESCURO,
 
 let s = slide("Frase", ESCURO,
   "Frase: uma ideia só, grande, para a mensagem principal ou para mudar de assunto. Se a frase passar de duas linhas, o layout Título e conteúdo costuma servir melhor. " +
+  "Uma pergunta para começar a montar a palestra: o que o público deve levar da sala, numa frase só? Os outros slides servem a essa frase. " +
   "Quase toda pessoa palestrante fica nervosa, inclusive quem palestra há anos. O público escolheu a sua sala porque quer ouvir você e torce para dar certo. " +
   "Se bater o nervosismo, procure um rosto amigo na plateia e fale para essa pessoa, como numa conversa. Dá até para combinar antes com uma pessoa amiga para sentar na frente. " +
   "Se algo falhar no palco, comente com calma o que aconteceu e siga em frente: a sala esquece em minutos.");
 fill(s, { title: "A sala está torcendo por você." });
 
 s = slide("Citação", ESCURO,
-  "Estas são dicas, não regras. O seu jeito de falar, o seu humor e a sua criatividade valem mais do que qualquer coisa neste modelo. " +
+  "O seu jeito de falar, o seu humor e a sua criatividade valem mais do que qualquer coisa neste modelo. " +
   "Citação: até três linhas, com a fonte embaixo, quem disse e onde. Vale conferir a autoria numa fonte primária: muita frase famosa circula com o nome errado. " +
   "As aspas verdes fazem parte do texto: ao trocar a citação, mantenha as duas.");
 fill(s, {
@@ -545,8 +547,7 @@ s.addText([{ text: "Dicas, " }, marked("não regras"), { text: ": use as que ser
 
 s = slide("Título e conteúdo", ESCURO,
   "Chegue cedo ao local da palestra. Com tempo para conhecer a sala, respirar e conversar com as pessoas, você sobe ao palco com mais calma. " +
-  "Título e conteúdo: de três a cinco tópicos por slide. O texto começa em 20 pt; se o programa diminuir a fonte para caber, dois slides costumam ficar mais legíveis. " +
-  "As fontes Inter e Cascadia Mono são gratuitas, em fonts.google.com; com as duas instaladas, os títulos ficam como aqui.");
+  "Título e conteúdo: de três a cinco tópicos por slide. O texto começa em 20 pt; se o programa diminuir a fonte para caber, dois slides costumam ficar mais legíveis.");
 fill(s, {
   title: "Na hora de começar",
   body: bullets([
@@ -604,9 +605,7 @@ fill(s, {
 
 s = slide("Imagem e texto", ESCURO,
   "Imagem sangrada à esquerda, texto à direita. Boa para fotos de pessoas, lugares e produtos. " +
-  "Fotos de bancos como Unsplash e Wikimedia Commons têm licenças diferentes: vale conferir se a licença de cada foto permite o uso numa palestra gravada, e creditar a autoria como a licença pede. " +
-  "CC BY pede o crédito; CC0 e domínio público não pedem, mas creditar é gentil; bancos de fotos gratuitas às vezes têm licença própria. " +
-  "Um formato de crédito que cabe em qualquer slide: Foto: nome da pessoa, licença, site.");
+  "Fotos de bancos como Unsplash e Wikimedia Commons têm licenças diferentes: vale conferir se a licença permite o uso numa palestra gravada e dar o crédito, por exemplo: Foto: nome da pessoa, licença, site.");
 fill(s, {
   title: "Licença e crédito",
   body: bullets(["Fotos suas ou de licença livre", "A licença permite este uso?", "Crédito da autoria no slide", "Pelo menos 1000 px de altura"]),
@@ -641,8 +640,8 @@ const CODE_NOTES =
   "Outra opção popular é o carbon.now.sh: escolha o tema Monokai, exporte em PNG ou SVG e insira a imagem no slide, em qualquer programa. " +
   "Em imagens, escreva o código no texto alternativo (botão direito > Descrição, ou Texto alternativo), para leitores de tela.";
 
-function codeSlide(layout, section, tip) {
-  const sl = slide(layout, section, CODE_NOTES);
+function codeSlide(layout, section, tip, notes = CODE_NOTES) {
+  const sl = slide(layout, section, notes);
   fill(sl, { title: "Código: 8 linhas cabem bem", code: highlightCode(SAMPLE_CODE, "python"), note: tip });
   return sl;
 }
@@ -680,7 +679,7 @@ const tiny = (runs) => runs.map((r) => ({ ...r, options: { ...r.options, fontSiz
 s = slide("Código lado a lado", ESCURO,
   "Dois trechos lado a lado: antes e depois de uma refatoração, ou duas formas de resolver o mesmo problema. Cada cartão aceita até 8 linhas e cerca de 30 colunas. " +
   "Neste exemplo, a esquerda mostra a classe inteira, que só cabe em letra miúda; a direita mostra só a parte que a explicação usa. " +
-  CODE_NOTES.slice(CODE_NOTES.indexOf("Para ter")));
+  "Para gerar o código colorido, veja as anotações do slide 12.");
 fill(s, {
   title: "Um exemplo menor também ensina",
   leftTitle: "20 linhas, letra miúda :(",
@@ -704,7 +703,7 @@ s.addText("Três números que ajudam", { placeholder: "title" });
 s.addImage({ path: path.join(BRAND, "pixel-circle.png"), x: 4.2, y: 2.2, w: 1.6, h: 1.0, altText: "Círculo pixelado limão em volta do número 8" });
 
 s = slide("Três cartões", ESCURO, "Três cartões, cada um com título e texto. " +
-  "Vídeo com som: nem sempre o áudio do computador sai nas caixas da sala. Teste o som antes; como plano B, um vídeo legendado ou narrado por você ao vivo funciona sem áudio. " +
+  "Vídeo com som: nem sempre o áudio do computador sai nas caixas da sala. Com uma palestra emendada na outra, nem sempre dá para testar o som antes; como plano B, um vídeo legendado ou narrado por você ao vivo funciona sem áudio. " +
   "Live coding: com um vídeo da demo funcionando, ou capturas de cada passo salvas no computador, você troca para a gravação se algo falhar no palco e segue a palestra. " +
   "Internet: com centenas de pessoas na mesma rede, a conexão fica lenta ou cai; vídeos, páginas e notebooks baixados antes não dependem dela. " +
   "Arquivo: se o seu computador não funcionar com o projetor, o PDF abre em qualquer outro, com as fontes certas. Se algo falhar mesmo assim, a sala entende: acontece em toda conferência.");
@@ -730,7 +729,7 @@ s.addTable(
     ...[
       ["Antes do evento", "Tirar dúvidas no grupo de palestrantes no Telegram"],
       ["No dia", "Chegar cedo, conhecer o lugar, conversar"],
-      ["Na sala", "Testar projetor, microfone e som"],
+      ["Na sala", "Se houver intervalo, testar projetor e som; microfone a um palmo da boca"],
       ["15 min antes", "Dar um oi para quem é da organização na sala"],
       ["Depois", "Publicar os slides no link do QR code"],
     ].map((cells) => row(cells, tableCell)),
@@ -762,7 +761,7 @@ s.addText([
   ["Verificador de contraste", "webaim.org/resources/contrastchecker"],
 ].flatMap(reference), { placeholder: "body" });
 
-s = closingSlide(DARK, ESCURO, "Perguntas?", CONTACTS, "Este não é o último slide do modelo: a seguir vem a versão clara dos layouts, com ainda mais dicas. " + CLOSING_NOTES);
+s = closingSlide(DARK, ESCURO, "Perguntas?", CONTACTS, "Este não é o último slide do modelo: a seguir vem a versão clara dos layouts, com ainda mais dicas. " + CLOSING_NOTES + " As dicas para a hora das perguntas estão nas anotações do último slide claro.");
 // Readers who skip the notes would stop here, so the slide itself says the deck goes on.
 s.addText("Continua: versão clara com mais dicas →", { x: M, y: 4.45, w: 5.2, h: 0.4, fontSize: 16, bold: true, color: LIME, fontFace: THEME.headFontFace, margin: 0, valign: "middle", isTextBox: true, lang: LANG, objectName: "Aviso: o modelo continua" });
 
@@ -813,13 +812,13 @@ fill(s, {
 s = slide("Imagem e texto (claro)", CLARO, "Imagem e texto, versão clara. As anotações do slide aparecem só para você durante a apresentação (LibreOffice: Console do apresentador; Google Slides: Visualização do apresentador; PowerPoint: Modo de Exibição do Apresentador).");
 fill(s, {
   title: "Olho no olho",
-  body: bullets(["Olhar para o público, não para a tela", "As anotações do slide como apoio", "Apontar com palavras, não com o mouse"]),
+  body: bullets(["Olhar para uma pessoa amiga, não só para a tela", "As anotações do slide como apoio", "Apontar com palavras, não com o mouse"]),
 });
 
 codeSlide("Código (claro)", CLARO, [
   { text: "Dica: ", options: { bold: true } },
   { text: "no LibreOffice, baixe o SVG do slidesnippet.com e arraste para o slide." },
-]);
+], "Código, versão clara: o cartão continua escuro, para o código ter o mesmo contraste. Para gerar o código colorido, veja as anotações do slide 12.");
 
 s = slide("Citação (claro)", CLARO, "Citação, versão clara, com a fonte embaixo: aqui, a PEP 20, que você também vê com import this.");
 // Light slides mark the key word with the lime highlight, as the brand's light pages do.
@@ -853,14 +852,14 @@ fill(s, {
   bio: bullets(["Onde o público encontra você", "Três fatos, não um currículo", "Uma foto recente"]),
 });
 
-chartSlide(LIGHT, CLARO, "Gráfico, versão clara. " + CHART_NOTES, [["Texto", LIGHT.textHex], ["Cinza", LIGHT.mutedHex]]);
+chartSlide(LIGHT, CLARO, "Gráfico, versão clara. Para editar os dados, veja as anotações do slide 17.", [["Texto", LIGHT.textHex], ["Cinza", LIGHT.mutedHex]]);
 
 // The deck ends with the organization's message to the speaker.
 closingSlide(LIGHT, CLARO, "Valeu!", [
   { text: "Ficamos muito felizes por ter você na Python Brasil 2026.", options: { bold: true, breakLine: true } },
   { text: "Conte com a gente: estamos aqui para apoiar e torcer por você.", options: { breakLine: true } },
   { text: "Organização da Python Brasil 2026", options: { fontFace: THEME.headFontFace, fontSize: 18, color: LIGHT.mutedHex } },
-], "Uma mensagem da organização para você, no layout de encerramento. Antes do evento, a organização responde no grupo de palestrantes no Telegram. Na sua palestra, troque o texto pelos seus contatos e o QR code pelo link dos seus slides. " + CLOSING_NOTES);
+], "Uma mensagem da organização para você, no layout de encerramento. Na sua palestra, troque o texto pelos seus contatos e o QR code pelo link dos seus slides; as dicas de QR code estão no slide Perguntas?, no fim da parte escura. " + QUESTIONS_NOTES);
 
 // ----- stickers -----
 const FIGURINHAS = "Figurinhas";
