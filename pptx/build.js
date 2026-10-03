@@ -318,8 +318,10 @@ class Palestra:
 `;
 const CODE_NOTES =
   "Código com o tema Monokai. O cartão escuro aceita até 8 linhas de 15 pt. " +
-  "Para colar o seu código com as mesmas cores: no VS Code, escolha o tema Monokai (Ctrl+K Ctrl+T, ou Cmd+K Cmd+T no Mac), copie o trecho e cole no cartão. O VS Code copia as cores junto. " +
-  "Se preferir imagem, gere no carbon.now.sh com o tema Monokai e escreva o código no texto alternativo da imagem. " +
+  "Para ter as mesmas cores no seu código, use o slidesnippet.com com: tema Monokai, fundo #1A1A1A, fonte de 20px e altura de linha 1.2. " +
+  "Google Slides e PowerPoint: clique em Copy styled, clique dentro do cartão e cole. No Google, cole pelo menu Editar > Colar para manter as cores. " +
+  "LibreOffice: clique em Download SVG e arraste o arquivo para o slide, sobre o cartão. " +
+  "Em imagens, escreva o código no texto alternativo (botão direito > Descrição, ou Texto alternativo), para leitores de tela. " +
   "Se for fazer live coding, prepare um plano B: capturas de tela de cada passo ou um vídeo gravado da demo, salvos no computador, para o caso de algo falhar no palco ou a internet cair.";
 
 function codeSlide(layout, section, tip) {
@@ -330,7 +332,7 @@ function codeSlide(layout, section, tip) {
 }
 codeSlide("Código", CAPA, [
   { text: "Dica: ", options: { bold: true } },
-  { text: "copie do VS Code com o tema Monokai e cole aqui. As cores vêm junto." },
+  { text: "gere o código colorido no slidesnippet.com, tema Monokai, fundo #1A1A1A." },
 ]);
 
 s = slide("Citação", CAPA, "Citação. Até quatro linhas; coloque a fonte embaixo.");
@@ -413,7 +415,7 @@ s.addText(bullets(["Imagem sangrada à esquerda", "Texto na metade direita"]), {
 
 codeSlide("Código (claro)", CLARO, [
   { text: "Dica: ", options: { bold: true } },
-  { text: "prefere imagem? Gere no carbon.now.sh com o tema Monokai." },
+  { text: "no LibreOffice, baixe o SVG do slidesnippet.com e arraste para o slide." },
 ]);
 
 s = slide("Citação (claro)", CLARO, "Citação, versão clara.");
