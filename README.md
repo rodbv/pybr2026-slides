@@ -6,7 +6,7 @@ Modelo de apresentação para palestrantes e organização da [Python Brasil 202
 
 ## Usar no Google Slides
 
-**[Fazer uma cópia no Google Slides](https://docs.google.com/presentation/d/1IIdQNW3mwgIDROzhOyWOpeeAarsza7Ljb_2SUg4gcZ0/copy)**
+**[Fazer uma cópia no Google Slides](https://docs.google.com/presentation/d/1zizefDaTGhI7EMGmI7DzBC1K--fyTgi4n1zIDSFAwvU/copy)**
 
 O link cria uma cópia editável no seu Google Drive, com todos os layouts. Não precisa baixar nada nem instalar fontes.
 
