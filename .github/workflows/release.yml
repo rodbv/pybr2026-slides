@@ -47,12 +47,10 @@ jobs:
           for ext in pptx odp; do
             cp "dist/pybr2026-template.$ext" "dist/pybr2026-template-$GITHUB_REF_NAME.$ext"
           done
-          (cd marp && zip -qr ../dist/pybr2026-marp.zip .)
           gh release create "$GITHUB_REF_NAME" --verify-tag --generate-notes \
             "dist/pybr2026-template-$GITHUB_REF_NAME.pptx" \
             "dist/pybr2026-template-$GITHUB_REF_NAME.odp" \
             dist/pybr2026-template.pptx \
             dist/pybr2026-template.odp \
-            dist/pybr2026-marp.zip \
             dist/preview/tour.gif \
             dist/preview/overview.png
