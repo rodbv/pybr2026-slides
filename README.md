@@ -100,7 +100,7 @@ Todos existem em versão escura e clara, exceto a imagem cheia, que é só escur
 | Somente título | Espaço livre para tabelas, gráficos e diagramas |
 | Imagem cheia | Foto de fundo com faixa de legenda |
 | Referências | Um material por linha, com nome e endereço curto |
-| Encerramento | "Valeu!" ou "Perguntas?", contatos, um QR code grande com o link dos slides e o lema "pessoas > tecnologia" |
+| Encerramento | "Valeu!" ou "Perguntas?", contatos e um QR code grande com o link dos slides |
 | Em branco | Só o nome do evento e o número do slide |
 
 ## Cores e contraste

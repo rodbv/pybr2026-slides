@@ -220,9 +220,6 @@ for (const mode of [DARK, LIGHT]) {
     title: "Encerramento" + mode.suffix,
     background: { color: mode.bg },
     objects: [
-      ...brandFooter(mode),
-      // The event's motto, in the code notation the brand uses for it.
-      { text: { text: "pessoas > tecnologia", options: { x: M + BRAND_LOCKUP_W + 0.3, y: H - 0.25 - 0.3, w: 3, h: 0.3, fontSize: 12, color: mode.mutedHex, fontFace: THEME.headFontFace, margin: 0, valign: "bottom", lang: LANG } } },
       ph("title", "title", { x: M, y: 0.8, w: closeW, h: 1.4 }, "Valeu!", { fontSize: 44, bold: true, color: mode.accent, align: "left", valign: "bottom", fit: "shrink" }),
       bodyPh(mode, "body", { x: M, y: 2.4, w: closeW, h: 2.3 }, "Contatos: handle, e-mail, site", { bullet: false }),
       // On white slides the QR code's own white margin frames it, so a green outline would show as a stray line.
@@ -384,6 +381,9 @@ for (const mode of [DARK, LIGHT]) {
   });
 
   if (mode === DARK) {
+    // The stickers slide closes the deck: title only, no footer or slide number.
+    pres.defineSlideMaster({ title: "Figurinhas", background: { color: mode.bg }, objects: [titleRule(mode), titlePh(mode)] });
+
     pres.defineSlideMaster({
       title: "Imagem cheia",
       background: { color: mode.bg },
@@ -805,7 +805,7 @@ codeSlide("Código (claro)", CLARO, [
 s = slide("Citação (claro)", CLARO);
 // Light slides mark the key word with the lime highlight, as the brand's light pages do.
 const [open, , close] = quoted("", HEX.dk1);
-fill(s, { quote: [open, marked("Legibilidade"), { text: " conta." }, close], author: "PEP 20" });
+fill(s, { quote: [open, marked("Pessoas"), { text: " > Tecnologia" }, close], author: "Comunidade Python Brasil, 2016" });
 
 s = slide("Frase (claro)", CLARO);
 fill(s, { title: "Menos texto, letra maior." });
@@ -855,7 +855,7 @@ closingSlide(LIGHT, CLARO, "Valeu!", [
 // ----- stickers -----
 const FIGURINHAS = "Figurinhas";
 pres.addSection({ title: FIGURINHAS });
-s = slide("Somente título", FIGURINHAS);
+s = slide("Figurinhas", FIGURINHAS);
 s.addText("Figurinhas", { placeholder: "title" });
 // A Florianópolis greeting for whoever reads the template to the end.
 s.addText("Dazumbanho! Chegasse ao fim, ixtepô!", { x: W - M - 6.2, y: 0.45, w: 6.2, h: 0.6, fontSize: 20, bold: true, color: LIME, fontFace: THEME.headFontFace, align: "right", valign: "middle", margin: 0, isTextBox: true, lang: LANG, objectName: "Fim do modelo" });

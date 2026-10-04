@@ -158,7 +158,7 @@ module.exports = [
   // 30 Citação clara
   [
     "Destaque a palavra principal com o marca-texto limão.",
-    "A PEP 20 aparece no terminal com import this.",
+    "O lema da comunidade Python Brasil desde 2016.",
   ],
   // 31 Frase clara
   [
