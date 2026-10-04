@@ -509,6 +509,35 @@ function chartSlide(mode, section, colors) {
   ], { x: M, y: BODY.y + BODY.h - 0.4, w: W - 2 * M, h: 0.4, fontSize: 16, color: mode.textHex, fontFace: THEME.bodyFontFace, margin: 0, valign: "middle", isTextBox: true, lang: LANG });
 }
 
+// Flowchart: plain shapes, so a step is added by duplicating a box and an arrow.
+function flowSlide(mode, section, title, steps) {
+  const sl = slide("Somente título" + mode.suffix, section);
+  sl.addText(title, { placeholder: "title" });
+  const gap = 0.55;
+  const w = (W - 2 * M - (steps.length - 1) * gap) / steps.length;
+  const h = 1.3;
+  const y = 2.45;
+  // Arrows take the accent color: lime on dark, black on white.
+  const arrowHex = mode === DARK ? LIME : LIGHT.textHex;
+  steps.forEach((step, i) => {
+    const x = M + i * (w + gap);
+    // The last step carries the lime, as the outcome of the flow.
+    const last = i === steps.length - 1;
+    sl.addText(step, {
+      shape: pres.ShapeType.roundRect, x, y, w, h, rectRadius: 0.12,
+      fill: { color: last ? LIME : mode.cardHex }, line: { color: last ? LIME : mode.outlineHex, width: 1.5 },
+      fontSize: 18, bold: last, color: last ? ON_LIME : mode.textHex, fontFace: THEME.bodyFontFace, align: "center", valign: "middle", margin: 0.1, lang: LANG,
+      objectName: `Passo ${i + 1}`,
+    });
+    if (!last) {
+      sl.addShape(pres.ShapeType.line, {
+        x: x + w + 0.08, y: y + h / 2, w: gap - 0.16, h: 0,
+        line: { color: arrowHex, width: 2.5, endArrowType: "triangle" }, objectName: `Seta ${i + 1}`,
+      });
+    }
+  });
+}
+
 const ESCURO = "Layouts escuros";
 pres.addSection({ title: ESCURO });
 
@@ -688,6 +717,8 @@ s.addTable(
 
 chartSlide(DARK, ESCURO, [["Texto", DARK.textHex], ["Limão", LIME], ["Cinza", DARK.mutedHex]]);
 
+flowSlide(DARK, ESCURO, "Um dia de evento", ["Palestras", "Coffee break", "Lightning talks", "PyBar"]);
+
 s = slide("Imagem cheia", ESCURO);
 // The sample image fills the placeholder; an empty placeholder would be drawn above the caption.
 s.addImage({ placeholder: "image", path: path.join(BRAND, "sample-fullbleed.png"), x: 0, y: 0, w: W, h: H, altText: "Imagem de exemplo: dragão da Python Brasil 2026 sobre fundo escuro" });
@@ -810,31 +841,7 @@ fill(s, {
   bio: bullets(["Onde o público encontra você", "Três fatos, não um currículo", "Uma foto recente"]),
 });
 
-// Flowchart: plain shapes, so a step is added by duplicating a box and an arrow.
-s = slide("Somente título (claro)", CLARO);
-s.addText("Do rascunho ao palco", { placeholder: "title" });
-const FLOW_STEPS = ["Escrever os slides", "Ensaiar em voz alta", "Exportar em PDF", "Apresentar"];
-const flowGap = 0.55;
-const flowW = (W - 2 * M - (FLOW_STEPS.length - 1) * flowGap) / FLOW_STEPS.length;
-const flowH = 1.3;
-const flowY = 2.45;
-FLOW_STEPS.forEach((step, i) => {
-  const x = M + i * (flowW + flowGap);
-  // The last step carries the lime, as the outcome of the flow.
-  const last = i === FLOW_STEPS.length - 1;
-  s.addText(step, {
-    shape: pres.ShapeType.roundRect, x, y: flowY, w: flowW, h: flowH, rectRadius: 0.12,
-    fill: { color: last ? LIME : LIGHT.cardHex }, line: { color: last ? LIME : LIGHT.outlineHex, width: 1.5 },
-    fontSize: 18, bold: last, color: ON_LIME, fontFace: THEME.bodyFontFace, align: "center", valign: "middle", margin: 0.1, lang: LANG,
-    objectName: `Passo ${i + 1}`,
-  });
-  if (!last) {
-    s.addShape(pres.ShapeType.line, {
-      x: x + flowW + 0.08, y: flowY + flowH / 2, w: flowGap - 0.16, h: 0,
-      line: { color: LIGHT.textHex, width: 2.5, endArrowType: "triangle" }, objectName: `Seta ${i + 1}`,
-    });
-  }
-});
+flowSlide(LIGHT, CLARO, "Do rascunho ao palco", ["Escrever os slides", "Ensaiar em voz alta", "Exportar em PDF", "Apresentar"]);
 
 chartSlide(LIGHT, CLARO, [["Texto", LIGHT.textHex], ["Cinza", LIGHT.mutedHex]]);
 

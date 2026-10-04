@@ -10,12 +10,12 @@ Também dá para baixar o [`.pptx`](https://github.com/rodbv/pybr2026-slides/rel
 
 Prefere escrever os slides em Markdown, conversando com um agente de IA? Use o [modelo em Markdown com o Marp](https://github.com/rodbv/pybr2026-marp).
 
-![Alguns slides do modelo, um a cada 2,5 segundos: capa, frase, palestrante, agenda, imagem, código, números, gráfico de contraste, destaque, perguntas, capa clara, fluxo e figurinhas](https://github.com/rodbv/pybr2026-slides/releases/latest/download/tour.gif)
+![Alguns slides do modelo, um a cada 2,5 segundos: capa, frase, palestrante, agenda, imagem, código, números, gráfico de contraste, fluxo, destaque, perguntas, capa clara e figurinhas](https://github.com/rodbv/pybr2026-slides/releases/latest/download/tour.gif)
 
 <details>
-<summary>Ver os 38 slides de uma vez</summary>
+<summary>Ver os 39 slides de uma vez</summary>
 
-![Visão geral dos 38 slides de exemplo](https://github.com/rodbv/pybr2026-slides/releases/latest/download/overview.png)
+![Visão geral dos 39 slides de exemplo](https://github.com/rodbv/pybr2026-slides/releases/latest/download/overview.png)
 
 </details>
 

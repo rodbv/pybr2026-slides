@@ -94,109 +94,114 @@ module.exports = [
     "O Google Slides transforma o gráfico em imagem; lá, crie o gráfico em Inserir > Gráfico.",
     "Se usar outras cores, confira o contraste em webaim.org/resources/contrastchecker.",
   ],
-  // 18 Imagem cheia
+  // 18 Fluxo
+  [
+    "Um fluxo mostra uma sequência: os passos de um processo, as etapas de um pipeline, a programação do dia.",
+    "Conte o fluxo da esquerda para a direita, apontando com palavras: primeiro, depois, no fim.",
+  ],
+  // 19 Imagem cheia
   [
     "Botão direito na imagem > Substituir imagem. Para usar a faixa da legenda em outra foto, duplique este slide.",
     "Dê o crédito da foto na legenda, como no exemplo.",
   ],
-  // 19 Destaque, código de conduta
+  // 20 Destaque, código de conduta
   [
     "O código de conduta da Python Brasil vale para todas as pessoas no evento, inclusive no palco: python.org.br/cdc.",
     "Se você sofrer ou presenciar assédio, discriminação ou humilhação, procure a Equipe de Resposta.",
   ],
-  // 20 Referências
+  // 21 Referências
   [
     "Um material por linha, com o nome e o endereço curto.",
     "Uma página só com todos os links (um README, um gist ou um Linktree) cabe num QR code no encerramento.",
   ],
-  // 21 Encerramento escuro
+  // 22 Encerramento escuro
   [
     "O QR code leva o público aos seus slides pelo celular. Com uma página só, você troca os links depois sem mudar o QR code.",
     "Para trocar o QR code no LibreOffice: Inserir > Objeto > Código QR e de barras. Nos outros programas, substitua a imagem.",
     "Este não é o último slide: a versão clara dos layouts vem a seguir, com mais dicas.",
   ],
-  // 22 Capa clara
+  // 23 Capa clara
   [
     "Em sala muito iluminada ou com projetor fraco, o fundo claro fica mais legível.",
     "Pergunte à organização como é a sua sala.",
   ],
-  // 23 Seção clara
+  // 24 Seção clara
   [
     "Entre uma parte e outra, faça uma pausa: respire e beba um gole de água.",
     "A pausa parece longa para quem fala e curta para quem ouve.",
   ],
-  // 24 Título e conteúdo claro
+  // 25 Título e conteúdo claro
   [
     "O telão mostra tudo o que aparece na sua tela: ative o modo Não perturbe antes de subir ao palco.",
     "Numa janela anônima, o navegador não sugere endereços do histórico.",
   ],
-  // 25 Duas colunas claro
+  // 26 Duas colunas claro
   [
     "Um ensaio completo em voz alta mostra quanto tempo a palestra leva.",
     "Ensaiada só na cabeça, a palestra costuma passar do tempo.",
   ],
-  // 26 Texto e imagem claro
+  // 27 Texto e imagem claro
   [
     "Parte do público tem daltonismo ou baixa visão.",
     "Junte a cor a um rótulo ou ícone: em vez de uma bolinha verde e uma vermelha, escreva também \"passou\" e \"falhou\".",
   ],
-  // 27 Imagem e texto claro
+  // 28 Imagem e texto claro
   [
     "As anotações aparecem só para você no modo apresentador.",
     "LibreOffice: Console do apresentador. Google Slides: Visualização do apresentador. PowerPoint: Modo de Exibição do Apresentador.",
   ],
-  // 28 Código claro
+  // 29 Código claro
   [
     "O cartão continua escuro, para o código ter o mesmo contraste.",
     "Para gerar o código colorido, veja as anotações do slide 12.",
   ],
-  // 29 Citação clara
+  // 30 Citação clara
   [
     "Destaque a palavra principal com o marca-texto limão.",
     "A PEP 20 aparece no terminal com import this.",
   ],
-  // 30 Frase clara
+  // 31 Frase clara
   [
     "Com menos texto no slide, a letra fica maior e a atenção do público fica em você.",
   ],
-  // 31 Destaque claro
+  // 32 Destaque claro
   [
     "O painel limão guarda a mensagem que a sala não pode perder; até quatro tópicos curtos ao lado.",
     "Para quem está começando, “é só” e “todo mundo sabe” soam como “você deveria saber”.",
     "Muita gente chega à Python Brasil na primeira conferência; um exemplo do dia a dia ajuda quem chegou agora.",
   ],
-  // 32 Números claros
+  // 33 Números claros
   [
     "No fundo branco, use o limão como marca-texto atrás do texto preto, e não como cor do texto.",
     "Uma ideia por slide ajuda quem lê devagar ou usa leitor de tela.",
   ],
-  // 33 Três cartões claro
+  // 34 Três cartões claro
   [
     "Publicar os slides no mesmo dia ajuda quem quer rever o conteúdo.",
     "Muita gente prefere perguntar no corredor; vale ficar um pouco por perto.",
     "Cansaço depois de palestrar é normal: descanse e aproveite o resto do evento.",
   ],
-  // 34 Palestrante claro
+  // 35 Palestrante claro
   [
     "Com os pronomes no slide, quem cita a sua palestra depois acerta.",
     "Uma foto recente ajuda o público a encontrar você nos intervalos.",
   ],
-  // 35 Fluxo claro
+  // 36 Fluxo claro
   [
     "Cada caixa e cada seta são formas: para um passo a mais, duplique uma caixa e uma seta e arraste para o lugar.",
     "De três a cinco passos cabem numa linha. Para um fluxo com ramos, divida em dois slides.",
   ],
-  // 36 Gráfico claro
+  // 37 Gráfico claro
   [
     "Para editar os dados, veja as anotações do slide 17.",
   ],
-  // 37 Encerramento claro
+  // 38 Encerramento claro
   [
     "Na sua palestra, troque o texto pelos seus contatos e o QR code pelo link dos seus slides.",
     "Nas perguntas, repita cada pergunta no microfone, para a sala e a gravação.",
     "\"Não sei, posso ver e te respondo depois\" é uma boa resposta. Uma pergunta que desrespeita o código de conduta não precisa de resposta.",
   ],
-  // 38 Figurinhas
+  // 39 Figurinhas
   [
     "Copie uma figurinha e cole no seu slide. Para mudar o tamanho sem deformar, arraste um canto segurando Shift.",
     "O marca-texto é o realce do texto: troque a palavra, ou escolha o realce limão #B7FF06 numa palavra sua.",
