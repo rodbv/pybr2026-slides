@@ -206,7 +206,7 @@ for (const mode of [DARK, LIGHT]) {
       // The date sits in its own text box: an ellipse only lays text out in its inscribed rectangle.
       shape("ellipse", { x: W - M - dateD, y: 0.3, w: dateD, h: dateD }, LIME),
       { text: { text: "14 a 19\nde outubro\nde 2026\n{Floripa/SC}", options: { x: W - M - dateD, y: 0.3, w: dateD, h: dateD, fontSize: 13, bold: true, fontFace: THEME.headFontFace, color: ON_LIME, align: "center", valign: "middle", margin: 0, isTextBox: true, lang: LANG } } },
-      ph("title", "title", { x: M, y: 0.9, w: 4.6, h: 2.3 }, "Título da palestra", { fontSize: 36, bold: true, color: mode.accent, align: "left", valign: "bottom", fit: "shrink" }),
+      ph("title", "title", { x: M, y: 0.6, w: 4.6, h: 2.6 }, "Título da palestra", { fontSize: 36, bold: true, color: mode.accent, align: "left", valign: "bottom", fit: "shrink" }),
       ph("subtitle", "body", { x: M, y: 3.35, w: 4.6, h: 0.5 }, "Subtítulo ou frase de efeito", { fontSize: 20, color: mode.text, fit: "shrink" }),
       ph("speaker", "body", { x: M, y: 4.0, w: 4.6, h: 0.5 }, "Nome da pessoa palestrante · @usuario", { fontSize: 18, bold: true, color: mode.text, fit: "shrink" }),
     ],
@@ -542,8 +542,8 @@ const ESCURO = "Layouts escuros";
 pres.addSection({ title: ESCURO });
 
 coverSlide(DARK, ESCURO,
-  "Que bom que você vai palestrar na Python Brasil 2026",
-  "Mais dicas nas anotações de cada slide");
+  "Que bom que você vai palestrar!",
+  "Mais dicas nas anotações");
 
 let s = slide("Frase", ESCURO);
 fill(s, { title: "A sala está torcendo por você." });
