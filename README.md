@@ -1,5 +1,7 @@
 # Modelo de slides da Python Brasil 2026
 
+Português · [English](README.en.md) · [Español](README.es.md)
+
 Um modelo de apresentação pronto para quem vai palestrar na [Python Brasil 2026](https://2026.pythonbrasil.org.br/), em Florianópolis, de 14 a 19 de outubro. Você abre, troca o texto de exemplo pelo seu e apresenta.
 
 ## Escolha como vai editar
