@@ -8,7 +8,7 @@ Um modelo de apresentação pronto para quem vai palestrar na [Python Brasil 202
 
 | Você usa | Faça isto |
 |---|---|
-| Google Slides | **[Fazer uma cópia no Google Slides](https://docs.google.com/presentation/d/1Wy1BdlDfRLMqblnBwGq42-O9-O1lEkB04zzoWlSeAUE/copy)**. A cópia vai para o seu Google Drive. |
+| Google Slides | **[Fazer uma cópia no Google Slides](https://docs.google.com/presentation/d/1LQZIauikHcRz-kbtwXgXqEaAjwqFKrtijFkz4NQCjps/copy)**. A cópia vai para o seu Google Drive. |
 | PowerPoint ou Keynote | Baixe o [`.pptx`](https://github.com/rodbv/pybr2026-slides/releases/latest/download/pybr2026-template.pptx) e [instale as fontes](#preciso-instalar-fontes). |
 | LibreOffice | Baixe o [`.odp`](https://github.com/rodbv/pybr2026-slides/releases/latest/download/pybr2026-template.odp). As fontes já vêm dentro do arquivo. |
 | Um editor de texto | Use o [modelo em Markdown](https://github.com/rodbv/pybr2026-marp): você escreve os slides em texto e um agente de IA, como o Copilot ou o Claude, aplica o visual. |

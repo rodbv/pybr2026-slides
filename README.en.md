@@ -8,7 +8,7 @@ A ready-to-use presentation template for speakers at [Python Brasil 2026](https:
 
 | You use | Do this |
 |---|---|
-| Google Slides | **[Make a copy in Google Slides](https://docs.google.com/presentation/d/1Wy1BdlDfRLMqblnBwGq42-O9-O1lEkB04zzoWlSeAUE/copy)**. The copy goes to your Google Drive. |
+| Google Slides | **[Make a copy in Google Slides](https://docs.google.com/presentation/d/1LQZIauikHcRz-kbtwXgXqEaAjwqFKrtijFkz4NQCjps/copy)**. The copy goes to your Google Drive. |
 | PowerPoint or Keynote | Download the [`.pptx`](https://github.com/rodbv/pybr2026-slides/releases/latest/download/pybr2026-template.pptx) and [install the fonts](#do-i-need-to-install-fonts). |
 | LibreOffice | Download the [`.odp`](https://github.com/rodbv/pybr2026-slides/releases/latest/download/pybr2026-template.odp). The fonts are inside the file. |
 | A text editor | Use the [Markdown template](https://github.com/rodbv/pybr2026-marp), which also has example slides in English and Spanish. You write the slides as text, and an AI agent such as Copilot or Claude applies the visual style. |
