@@ -19,26 +19,27 @@ const OUT = path.join(DIST, "pybr2026-template.pptx");
 const THEME = {
   name: "Python Brasil 2026",
   headFontFace: "Cascadia Mono",
-  bodyFontFace: "Inter",
+  // Cores do brandboard: preto, off white, verde cítrico e violeta, com os tons de apoio.
+  bodyFontFace: "Roboto",
   colors: {
     dk1: "0F0F0F", // preto (fundo escuro, texto no claro)
-    lt1: "F0F8FF", // gelo (texto no escuro, cartões no claro)
+    lt1: "FFFFFF", // branco (fundo claro)
     dk2: "1A1A1A", // cartão de código
-    lt2: "E8F4BA", // verde claro (cartões no claro)
-    accent1: "B7FF06", // verde limão: texto só sobre escuro; preenchimento com texto preto em ambos
-    accent2: "C95FB4", // roxo: só sobre fundo escuro
-    accent3: "3F6300", // oliva: texto em destaque sobre fundo claro
-    accent4: "7A2F6B", // ameixa: roxo sobre fundo claro
-    accent5: "A8A8A8", // texto secundário sobre fundo escuro
-    accent6: "4A4A4A", // texto secundário sobre fundo claro
-    hlink: "DE35D0", // magenta dos links do site: links sobre fundo escuro
-    folHlink: "7A2F6B",
+    lt2: "E8F4BA", // off white (texto no escuro, cartões no claro)
+    accent1: "B7FF06", // verde cítrico: texto só sobre escuro; preenchimento com texto preto em ambos
+    accent2: "BF2EB2", // violeta: links e destaques sobre fundo claro (4,9:1)
+    accent3: "D26CC9", // violeta claro do brandboard: links sobre fundo escuro (6,1:1)
+    accent4: "E7E7E7", // cinza claro de apoio
+    accent5: "ABABAB", // cinza: texto secundário sobre fundo escuro
+    accent6: "4A4A4A", // grafite: texto secundário sobre fundo claro
+    hlink: "D26CC9",
+    folHlink: "BF2EB2",
   },
 };
 const HEX = THEME.colors;
-// Links follow the event site: underlined magenta on dark; on white the magenta falls to 3.8:1, so links use the plum.
-const LINK_ON_DARK = HEX.hlink;
-const LINK_ON_LIGHT = HEX.accent4;
+// Links are underlined brand violet. On black the violet falls to 3.9:1, so dark slides use its light tint.
+const LINK_ON_DARK = HEX.accent3;
+const LINK_ON_LIGHT = HEX.accent2;
 
 const W = 10;
 const H = 5.625;
@@ -83,14 +84,9 @@ const DARK = {
   outlineHex: "3A3A3A",
   accent: C.accent1,
   accentHex: HEX.accent1,
-  logo: path.join(BRAND, "logo-light-on-dark.png"),
-  dragon: path.join(BRAND, "dragon-lime.png"),
-  footerLogo: resized(path.join(BRAND, "logo-light-on-dark.png"), { width: 480 }),
-  footerWitch: resized(path.join(BRAND, "witch-light.png"), { height: 140 }),
   watermark: resized(path.join(BRAND, "witch-light.png"), { height: 700 }),
   lockup: resized(path.join(BRAND, "lockup-on-dark.png"), { width: 1600 }),
-  emFloripa: path.join(BRAND, "em-floripa-on-dark.png"),
-  year: path.join(BRAND, "year-on-dark.png"),
+  lockupSmall: resized(path.join(BRAND, "lockup-on-dark.png"), { width: 440 }),
 };
 const LIGHT = {
   suffix: " (claro)",
@@ -104,39 +100,30 @@ const LIGHT = {
   // On white, the brand's own pages use black text with lime fills, so the accent is black.
   accent: C.text1,
   accentHex: HEX.dk1,
-  logo: path.join(BRAND, "logo-dark-on-light.png"),
-  dragon: path.join(BRAND, "dragon-dark.png"),
-  footerLogo: resized(path.join(BRAND, "logo-dark-on-light.png"), { width: 480 }),
-  footerWitch: resized(path.join(BRAND, "witch-dark.png"), { height: 140 }),
   watermark: resized(path.join(BRAND, "witch-dark.png"), { height: 700 }),
   lockup: resized(path.join(BRAND, "lockup-on-light.png"), { width: 1600 }),
-  emFloripa: path.join(BRAND, "em-floripa-on-light.png"),
-  year: path.join(BRAND, "year-on-light.png"),
+  lockupSmall: resized(path.join(BRAND, "lockup-on-light.png"), { width: 440 }),
 };
 const LIME = HEX.accent1;
 const ON_LIME = HEX.dk1;
 
 // ---------- layout building blocks ----------
 
-const LOGO_RATIO = 262 / 1653;
-function logo(mode, { x = M, y = FOOTER_Y, w = 1.5, src = mode.footerLogo, transparency = 0 } = {}) {
-  return { image: { x, y, w, h: w * LOGO_RATIO, path: src, transparency } };
+const MAGO_RATIO = 1520 / 1982;
+const WITCH_RATIO = 1600 / 1374;
+const LOCKUP_RATIO = 1190 / 2400;
+const PIXEL_CIRCLE_RATIO = 350 / 650;
+
+// Content slides carry the event name as quiet text; the logo itself appears only on the
+// cover, section and closing slides, where it does not compete with the content.
+function footer(mode, x = M) {
+  return [{ text: { text: "Python Brasil 2026", options: { x, y: FOOTER_Y - 0.07, w: 3, h: 0.3, fontSize: 10, color: mode.mutedHex, fontFace: THEME.headFontFace, margin: 0, valign: "middle", lang: LANG } } }];
 }
 
-const MAGO_RATIO = 2580 / 3381;
-const WITCH_RATIO = 2234 / 2012;
-
-// Footer: a small, translucent signature, the witch beside the logo on the logo's center line.
-const FOOTER_LOGO_W = 1.0;
-const FOOTER_WITCH_H = 0.3;
-const FOOTER_TRANSPARENCY = 35;
-function footer(mode, x = M) {
-  const witchW = FOOTER_WITCH_H * WITCH_RATIO;
-  const logoH = FOOTER_LOGO_W * LOGO_RATIO;
-  return [
-    { image: { x, y: FOOTER_Y + logoH / 2 - FOOTER_WITCH_H / 2, w: witchW, h: FOOTER_WITCH_H, path: mode.footerWitch, transparency: FOOTER_TRANSPARENCY } },
-    logo(mode, { x: x + witchW + 0.06, w: FOOTER_LOGO_W, transparency: FOOTER_TRANSPARENCY }),
-  ];
+const BRAND_LOCKUP_W = 1.1;
+function brandFooter(mode) {
+  const h = BRAND_LOCKUP_W * LOCKUP_RATIO;
+  return [{ image: { x: M, y: H - 0.25 - h, w: BRAND_LOCKUP_W, h, path: mode.lockupSmall, altText: "python brasil 2026" } }];
 }
 
 function slideNumber(mode) {
@@ -191,6 +178,12 @@ function defineLayout(name, mode, objects, extra = {}) {
   });
 }
 
+// Cover, section and closing slides open or close a part of the talk: they show the logo
+// and leave the slide number out.
+function defineBrandLayout(name, mode, objects) {
+  pres.defineSlideMaster({ title: name + mode.suffix, background: { color: mode.bg }, objects: [...brandFooter(mode), ...objects] });
+}
+
 // A layout whose first object is the slide title gets the rule below it.
 function defineTitledLayout(name, mode, objects) {
   defineLayout(name, mode, [titleRule(mode), ...objects]);
@@ -198,25 +191,11 @@ function defineTitledLayout(name, mode, objects) {
 
 // ---------- layouts ----------
 
-const DRAGON_RATIO = 664 / 841;
-const LOCKUP_RATIO = 1638 / 3128;
-
-// The stacked lockup as the site's hero shows it: "em floripa" under "brasil" and
-// "2026" beside it, both sized and placed as fractions of the lockup's width.
-function coverLockup(mode, { x = W - M - 4.2, y = 2.15, w = 4.2 } = {}) {
-  const h = w * LOCKUP_RATIO;
-  const tagY = y + h + 0.06;
-  return [
-    { image: { x, y, w, h, path: mode.lockup, altText: "python brasil" } },
-    { image: { x, y: tagY, w: w * 0.18, h: w * 0.18 * (101 / 546), path: mode.emFloripa } },
-    { image: { x: x + w * 0.295, y: tagY + 0.01, w: w * 0.075, h: w * 0.075 * (75 / 218), path: mode.year } },
-  ];
+function coverLockup(mode, { x = W - M - 4.0, y = 2.2, w = 4.0 } = {}) {
+  return [{ image: { x, y, w, h: w * LOCKUP_RATIO, path: mode.lockup, altText: "python brasil 2026" } }];
 }
 
 for (const mode of [DARK, LIGHT]) {
-  const dragonH = 4.3;
-  const dragonW = dragonH * DRAGON_RATIO;
-
   // Capa: o disco limão com a data repete o selo da página do evento
   const dateD = 1.7;
   pres.defineSlideMaster({
@@ -240,9 +219,10 @@ for (const mode of [DARK, LIGHT]) {
   pres.defineSlideMaster({
     title: "Encerramento" + mode.suffix,
     background: { color: mode.bg },
-    slideNumber: slideNumber(mode),
     objects: [
-      ...footer(mode),
+      ...brandFooter(mode),
+      // The event's motto, in the code notation the brand uses for it.
+      { text: { text: "pessoas > tecnologia", options: { x: M + BRAND_LOCKUP_W + 0.3, y: H - 0.25 - 0.3, w: 3, h: 0.3, fontSize: 12, color: mode.mutedHex, fontFace: THEME.headFontFace, margin: 0, valign: "bottom", lang: LANG } } },
       ph("title", "title", { x: M, y: 0.8, w: closeW, h: 1.4 }, "Valeu!", { fontSize: 44, bold: true, color: mode.accent, align: "left", valign: "bottom", fit: "shrink" }),
       bodyPh(mode, "body", { x: M, y: 2.4, w: closeW, h: 2.3 }, "Contatos: handle, e-mail, site", { bullet: false }),
       // On white slides the QR code's own white margin frames it, so a green outline would show as a stray line.
@@ -260,7 +240,7 @@ for (const mode of [DARK, LIGHT]) {
   const secD = 1.9;
   const markH = 3.3;
   const watermark = { image: { x: W - markH * WITCH_RATIO + 0.5, y: H - markH + 0.25, w: markH * WITCH_RATIO, h: markH, path: mode.watermark, transparency: 88 } };
-  defineLayout("Seção", mode, [
+  defineBrandLayout("Seção", mode, [
     watermark,
     shape("ellipse", { x: M, y: 1.85, w: secD, h: secD }, LIME),
     ph("number", "body", { x: M, y: 1.85, w: secD, h: secD }, "01", { fontSize: 40, bold: true, color: ON_LIME, align: "center", valign: "middle", fontFace: THEME.headFontFace }),
@@ -676,14 +656,14 @@ s.addText("Três números que ajudam", { placeholder: "title" });
   fill(s, { [`value${i + 1}`]: v, [`label${i + 1}`]: l });
 });
 // The pixel circle from the stickers slide, around the middle number, as an example of use.
-s.addImage({ path: path.join(BRAND, "pixel-circle.png"), x: 4.2, y: 2.2, w: 1.6, h: 1.0, altText: "Círculo pixelado limão em volta do número 8" });
+s.addImage({ path: path.join(BRAND, "pixel-circle.png"), x: 4.1, y: 2.1, w: 1.8, h: 1.2, altText: "Círculo pixelado limão em volta do número 8" });
 
 s = slide("Três cartões", ESCURO);
 s.addText("Antes de subir no palco", { placeholder: "title" });
 [
-  ["Live coding", "Um plano B ajuda: capturas de tela ou um vídeo gravado da demo."],
-  ["Internet", "A rede pode cair. Vídeos e páginas baixados não dependem dela."],
-  ["Arquivo", "Uma cópia em PDF num pendrive abre em qualquer computador."],
+  ["Live coding", "Plano B: capturas de tela ou um vídeo da demo."],
+  ["Internet", "A rede pode cair: baixe vídeos e páginas antes."],
+  ["Arquivo", "Leve os slides em PDF num pendrive."],
 ].forEach(([h, t], i) => fill(s, { [`card${i + 1}Title`]: h, [`card${i + 1}`]: t }));
 
 s = slide("Somente título", ESCURO);
@@ -733,7 +713,7 @@ const reference = ([name, url], i, all) => [
 s.addText([
   ["Código de conduta da Python Brasil", "python.org.br/cdc"],
   ["Código colorido para slides", "slidesnippet.com"],
-  ["Fontes Inter e Cascadia Mono", "fonts.google.com"],
+  ["Fontes Roboto e Cascadia Mono", "fonts.google.com"],
   ["Verificador de contraste", "webaim.org/resources/contrastchecker"],
 ].flatMap(reference), { placeholder: "body" });
 
@@ -818,9 +798,9 @@ s.addText("Acessibilidade em números", { placeholder: "title" });
 s = slide("Três cartões (claro)", CLARO);
 s.addText("Depois da palestra", { placeholder: "title" });
 [
-  ["Slides", "Publique os slides no link do QR code, de preferência no mesmo dia."],
-  ["Conversa", "Fique um pouco por perto: muita pergunta chega no corredor."],
-  ["Descanso", "Beba água e aproveite o resto do evento. Você mereceu."],
+  ["Slides", "Publique os slides no link do QR code no mesmo dia."],
+  ["Conversa", "Fique por perto: muita pergunta chega no corredor."],
+  ["Descanso", "Beba água e aproveite o evento. Você mereceu."],
 ].forEach(([h, t], i) => fill(s, { [`card${i + 1}Title`]: h, [`card${i + 1}`]: t }));
 
 s = slide("Palestrante (claro)", CLARO);
@@ -847,17 +827,19 @@ s.addText("Figurinhas", { placeholder: "title" });
 // A Florianópolis greeting for whoever reads the template to the end.
 s.addText("Dazumbanho! Chegasse ao fim, ixtepô!", { x: W - M - 6.2, y: 0.45, w: 6.2, h: 0.6, fontSize: 20, bold: true, color: LIME, fontFace: THEME.headFontFace, align: "right", valign: "middle", margin: 0, isTextBox: true, lang: LANG, objectName: "Fim do modelo" });
 const sticker = (file, box, altText) => s.addImage({ path: resized(path.join(BRAND, file), { width: 900 }), ...box, altText });
-sticker("lockup-on-dark.png", { x: M, y: 1.7, w: 2.6, h: 2.6 * LOCKUP_RATIO }, "Logo python brasil com o dragão, versão clara");
-sticker("sticker-witch.png", { x: 3.55, y: 1.6, w: 1.6, h: 1.6 * (2132 / 2354) }, "Adesivo da bruxinha surfista com contorno limão");
-sticker("witch-light.png", { x: 5.5, y: 1.7, w: 1.45, h: 1.45 / WITCH_RATIO }, "Bruxinha surfista, versão clara");
-sticker("dragon-lime.png", { x: 7.5, y: 1.55, w: 1.2, h: 1.2 / DRAGON_RATIO }, "Dragão da Python Brasil 2026");
-s.addShape(pres.ShapeType.roundRect, { x: M, y: 3.35, w: 2.6, h: 1.5, fill: { color: "FFFFFF" }, line: { color: "FFFFFF", width: 0 }, rectRadius: 0.08, objectName: "Fundo claro do logo" });
-sticker("lockup-on-light.png", { x: M + 0.2, y: 3.45, w: 2.2, h: 2.2 * LOCKUP_RATIO }, "Logo python brasil com o dragão, versão escura");
-s.addImage({ path: path.join(BRAND, "pixel-circle.png"), x: 3.45, y: 3.45, w: 2.1, h: 2.1 * (420 / 700), altText: "Círculo pixelado limão para marcar uma palavra" });
-s.addText("olha aqui", { x: 3.45, y: 3.45, w: 2.1, h: 2.1 * (420 / 700), fontSize: 20, bold: true, color: DARK.textHex, fontFace: THEME.headFontFace, align: "center", valign: "middle", margin: 0, isTextBox: true, lang: LANG });
-sticker("sticker-mago.png", { x: 8.3, y: 3.3, w: 1.6 * MAGO_RATIO, h: 1.6 }, "Figurinha do mago digitando no teclado, com contorno limão");
+const ICON_RATIO = 1058 / 1200;
+sticker("lockup-on-dark.png", { x: M, y: 1.7, w: 2.3, h: 2.3 * LOCKUP_RATIO }, "Logo python brasil 2026 com o dragão");
+sticker("sticker-witch.png", { x: 3.0, y: 1.55, w: 1.4 * (1520 / 1322), h: 1.4 }, "Figurinha da bruxinha surfista com contorno limão");
+sticker("sticker-mago-ola.png", { x: 4.8, y: 1.55, w: 1.4 * (1720 / 1282), h: 1.4 }, "Figurinha do mago dizendo Olá, mundo!, com contorno limão");
+sticker("sticker-mago.png", { x: 6.95, y: 1.5, w: 1.5 * MAGO_RATIO, h: 1.5 }, "Figurinha do mago digitando no teclado, com contorno limão");
+sticker("magia-explosao.png", { x: 8.45, y: 1.75, w: 1.0, h: 1.0 }, "Explosão de magia limão");
+sticker("logo-assinatura.png", { x: M, y: 3.45, w: 2.3, h: 2.3 * (570 / 1200) }, "Assinatura PythonBrasil com o dragão");
+s.addImage({ path: path.join(BRAND, "pixel-circle.png"), x: 3.0, y: 3.45, w: 2.0, h: 2.0 * PIXEL_CIRCLE_RATIO, altText: "Círculo pixelado limão para marcar uma palavra" });
+s.addText("olha aqui", { x: 3.0, y: 3.45, w: 2.0, h: 2.0 * PIXEL_CIRCLE_RATIO, fontSize: 20, bold: true, color: DARK.textHex, fontFace: THEME.headFontFace, align: "center", valign: "middle", margin: 0, isTextBox: true, lang: LANG });
+sticker("icone-seta.png", { x: 7.9, y: 3.6, w: 0.75, h: 0.75 * ICON_RATIO }, "Ícone de seta pixelada sobre quadrado limão");
+sticker("icone-codigo.png", { x: 8.75, y: 3.6, w: 0.75, h: 0.75 * ICON_RATIO }, "Ícone de código pixelado sobre quadrado limão");
 // The marker is the native text highlight, black on lime, so it follows edits and reads on dark and on white slides.
-s.addText([marked("marca-texto")], { x: 5.6, y: 3.8, w: 2.6, h: 0.6, fontSize: 26, fontFace: THEME.headFontFace, align: "center", valign: "middle", margin: 0, isTextBox: true, lang: LANG, objectName: "Marca-texto limão" });
+s.addText([marked("marca-texto")], { x: 5.15, y: 3.65, w: 2.6, h: 0.6, fontSize: 26, fontFace: THEME.headFontFace, align: "center", valign: "middle", margin: 0, isTextBox: true, lang: LANG, objectName: "Marca-texto limão" });
 
 // ---------- write ----------
 (async () => {
