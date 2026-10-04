@@ -4,3 +4,4 @@ build/
 *.pdf
 .~lock.*#
 dist/
+assets/brandboard/
