@@ -34,7 +34,7 @@ The example slides show each layout and have tips in the speaker notes. Use the 
 
 A 25-minute talk usually fits in 15 to 25 slides: cover, agenda, one section for each part, the content and the closing slide, with about 5 minutes for questions.
 
-Before you present, search the file for what is left of the template: "Seu nome aqui", "@seu_usuario", "voce@exemplo.com.br", gray boxes, "Dados de exemplo" and "Troque pelo QR code".
+Before you present, search the file for what is left of the template: "Seu nome aqui", "@seu_usuario", "voce@exemplo.com.br", gray boxes, "Dados de exemplo" and "Troque pelo seu QR code".
 
 The template is a starting point: change anything you like. To keep the look of the event, use the colors and fonts below. The [visual identity summary](docs/referencia.md#identidade-visual) (in Portuguese) has the rest: logos, stickers and contrast rules.
 
@@ -60,7 +60,7 @@ First talk? Great. The Python Brasil audience is on your side, and these tips ar
 
 - **Text:** at 18 pt or more, people in the back row can read the slide too. If the text does not fit, split the slide in two and move the rest to the speaker notes.
 - **Code:** up to 8 lines and about 60 columns per slide. If the snippet is longer, split it across slides or show only the part that matters.
-- **Link to your slides:** replace the QR code on the closing slide with a QR code for the link to your slides. Write the link below it too.
+- **QR code:** replace the QR code on the closing slide with yours, linking to your contact, your slides or a page with all of them. Write the link below it too.
 - **Questions:** keep about 5 minutes for questions. Repeat each question into the microphone before you answer, for the room and the recording.
 - **Live coding:** have a plan B, such as a video of the working demo or screenshots of each step.
 - **Internet:** with the videos, pages and notebooks downloaded, you do not depend on the event network.

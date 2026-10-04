@@ -34,7 +34,7 @@ Os slides de exemplo mostram cada layout e trazem dicas nas anotações. Use as 
 
 Uma palestra de 25 minutos costuma caber em 15 a 25 slides: capa, agenda, uma seção para cada parte, o conteúdo e o encerramento, com uns 5 minutos para perguntas.
 
-Antes de apresentar, procure no arquivo o que ficou do modelo: "Seu nome aqui", "@seu_usuario", "voce@exemplo.com.br", caixas cinza, "Dados de exemplo" e "Troque pelo QR code".
+Antes de apresentar, procure no arquivo o que ficou do modelo: "Seu nome aqui", "@seu_usuario", "voce@exemplo.com.br", caixas cinza, "Dados de exemplo" e "Troque pelo seu QR code".
 
 O modelo é um ponto de partida: mude o que quiser. Para manter a cara do evento, use as cores e as fontes abaixo. O [resumo da identidade visual](docs/referencia.md#identidade-visual) traz o resto: logos, figurinhas e regras de contraste.
 
@@ -60,7 +60,7 @@ Primeira palestra? Que bom. A plateia da Python Brasil torce por você, e estas 
 
 - **Texto:** com 18 pt ou mais, quem senta no fundo da sala também lê o slide. Se o texto não couber, divida o slide em dois e leve o resto para as anotações.
 - **Código:** até 8 linhas e cerca de 60 colunas por slide. Se o trecho for maior, divida em mais slides ou mostre só a parte que importa.
-- **Link dos slides:** troque o QR code do encerramento pelo QR code do link dos seus slides. Escreva o link embaixo dele também.
+- **QR code:** troque o QR code do encerramento pelo seu, com o link do seu contato, dos seus slides ou de uma página com tudo isso. Escreva o link embaixo dele também.
 - **Perguntas:** reserve uns 5 minutos para perguntas. Repita cada pergunta no microfone antes de responder, para a sala e a gravação.
 - **Live coding:** tenha um plano B, como um vídeo da demo funcionando ou capturas de tela de cada passo.
 - **Internet:** com os vídeos, as páginas e os notebooks baixados, você não depende da rede do evento.

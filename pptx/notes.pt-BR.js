@@ -116,7 +116,7 @@ module.exports = [
   ],
   // 22 Encerramento escuro
   [
-    "O QR code leva o público aos seus slides pelo celular. Com uma página só, você troca os links depois sem mudar o QR code.",
+    "O QR code pode levar ao seu contato, aos seus slides ou a uma página com tudo isso. Com uma página só, você troca os links depois sem mudar o QR code.",
     "Para gerar o QR code no LibreOffice: Inserir > Objeto > Código QR e de barras. Nos outros programas, gere a imagem num site de QR code e substitua esta. Depois, troque a legenda pelo link.",
     "Você já tem o necessário. Os próximos slides repetem os layouts na versão clara, com dicas opcionais.",
   ],

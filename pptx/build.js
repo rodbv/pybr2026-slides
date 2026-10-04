@@ -472,7 +472,7 @@ const contacts = (mode) => [
 function closingSlide(mode, section, title, body = contacts(mode)) {
   const sl = slide("Encerramento" + mode.suffix, section);
   // The caption tells the speaker to replace the QR code; on their slides it holds the link.
-  fill(sl, { title, body, qrCaption: "Troque pelo QR code\ndo link dos seus slides" });
+  fill(sl, { title, body, qrCaption: "Troque pelo seu QR code:\ncontato, slides ou site" });
   sl.addImage({ placeholder: "qr", path: QR_PATH, ...QR_BOX, altText: `QR code para ${QR_URL}` });
   return sl;
 }

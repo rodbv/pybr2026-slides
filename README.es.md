@@ -34,7 +34,7 @@ Las diapositivas de ejemplo muestran cada diseño y tienen consejos en las notas
 
 Una charla de 25 minutos suele caber en 15 a 25 diapositivas: portada, agenda, una sección para cada parte, el contenido y el cierre, con unos 5 minutos para preguntas.
 
-Antes de presentar, busca en el archivo lo que quedó de la plantilla: "Seu nome aqui", "@seu_usuario", "voce@exemplo.com.br", cajas grises, "Dados de exemplo" y "Troque pelo QR code".
+Antes de presentar, busca en el archivo lo que quedó de la plantilla: "Seu nome aqui", "@seu_usuario", "voce@exemplo.com.br", cajas grises, "Dados de exemplo" y "Troque pelo seu QR code".
 
 La plantilla es un punto de partida: cambia lo que quieras. Para mantener el estilo del evento, usa los colores y las fuentes de abajo. El [resumen de la identidad visual](docs/referencia.md#identidade-visual) (en portugués) tiene el resto: logos, stickers y reglas de contraste.
 
@@ -60,7 +60,7 @@ La plantilla es un punto de partida: cambia lo que quieras. Para mantener el est
 
 - **Texto:** con 18 pt o más, quien se sienta al fondo de la sala también lee la diapositiva. Si el texto no cabe, divide la diapositiva en dos y pasa el resto a las notas.
 - **Código:** hasta 8 líneas y unas 60 columnas por diapositiva. Si el fragmento es más largo, divídelo en varias diapositivas o muestra solo la parte que importa.
-- **Enlace a tus diapositivas:** cambia el código QR del cierre por un código QR con el enlace a tus diapositivas. Escribe también el enlace debajo.
+- **Código QR:** cambia el código QR del cierre por el tuyo, con el enlace a tu contacto, a tus diapositivas o a una página con todo. Escribe también el enlace debajo.
 - **Preguntas:** reserva unos 5 minutos para preguntas. Repite cada pregunta en el micrófono antes de responder, para la sala y la grabación.
 - **Live coding:** ten un plan B, como un video de la demo funcionando o capturas de pantalla de cada paso.
 - **Internet:** con los videos, las páginas y los notebooks descargados, no dependes de la red del evento.
