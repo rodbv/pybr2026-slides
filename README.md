@@ -23,8 +23,39 @@ Também dá para baixar o [`.pptx`](https://github.com/rodbv/pybr2026-slides/rel
 |---|---|
 | [`pybr2026-template.odp`](https://github.com/rodbv/pybr2026-slides/releases/latest/download/pybr2026-template.odp) | LibreOffice e OpenOffice |
 | [`pybr2026-template.pptx`](https://github.com/rodbv/pybr2026-slides/releases/latest/download/pybr2026-template.pptx) | PowerPoint, Keynote e também LibreOffice |
+| [`pybr2026-marp.zip`](https://github.com/rodbv/pybr2026-slides/releases/latest/download/pybr2026-marp.zip) | Slides em Markdown com o [Marp](https://marp.app/), veja [abaixo](#slides-em-markdown-marp) |
 
 Os links baixam a versão mais recente. As versões anteriores ficam em [Releases](https://github.com/rodbv/pybr2026-slides/releases). Os dois arquivos têm o mesmo conteúdo. O `.odp` foi gerado pelo LibreOffice a partir do `.pptx` e leva as fontes dentro do arquivo: abre certo mesmo sem as fontes instaladas.
+
+## Slides em Markdown (Marp)
+
+Para quem prefere escrever os slides em Markdown, o [`pybr2026-marp.zip`](https://github.com/rodbv/pybr2026-slides/releases/latest/download/pybr2026-marp.zip) traz um tema do [Marp](https://marp.app/) com as mesmas cores, fontes e layouts principais do modelo. Não precisa rodar nenhum comando:
+
+1. Descompacte o arquivo numa pasta.
+2. No VS Code, instale a extensão [Marp for VS Code](https://marketplace.visualstudio.com/items?itemName=marp-team.marp-vscode) e abra a pasta. O tema já vem configurado.
+3. Abra o `exemplo.md` e clique no botão de visualização. Escreva a sua palestra nesse arquivo, ou num `.md` novo na mesma pasta.
+4. Para apresentar, use "Marp: Export Slide Deck" na paleta de comandos e escolha HTML, PDF ou PPTX. O HTML abre em qualquer navegador; o PDF e o PPTX precisam do Chrome, do Edge ou do Firefox instalado.
+
+No HTML, aperte F para tela cheia e P para ver as anotações do apresentador. As anotações são comentários HTML no Markdown, como no `exemplo.md`.
+
+Cada slide escolhe o layout com um comentário no topo, como `<!-- _class: secao -->`:
+
+| Classe | Layout |
+|---|---|
+| (nenhuma) | Título e conteúdo, fundo escuro |
+| `capa` | Capa com o logo e o selo da data |
+| `secao` | Divisor com o número no disco limão: `# _01_ Título da seção` |
+| `frase` | Uma frase só, grande |
+| `destaque` | Painel limão com o título à esquerda e tópicos à direita |
+| `light` | Fundo claro; combina com as outras, como `<!-- _class: light frase -->` |
+
+Mantenha a pasta `img/` ao lado do arquivo da palestra: o tema busca o logo nela. As fontes vêm do Google Fonts, então a primeira visualização precisa de internet.
+
+Quem prefere o terminal pode gerar o PDF com o [Marp CLI](https://github.com/marp-team/marp-cli):
+
+```sh
+npx @marp-team/marp-cli --theme-set pybr2026.css --html --allow-local-files --pdf exemplo.md
+```
 
 ## Fontes
 
@@ -224,7 +255,7 @@ git tag v3.0
 git push origin v3.0
 ```
 
-A Action `.github/workflows/release.yml` gera os arquivos e cria uma Release com o `.pptx`, o `.odp`, o GIF e a visão geral. O README aponta sempre para a Release mais recente.
+A Action `.github/workflows/release.yml` gera os arquivos e cria uma Release com o `.pptx`, o `.odp`, o tema do Marp em `.zip`, o GIF e a visão geral. O tema do Marp fica na pasta `marp/`. O README aponta sempre para a Release mais recente.
 
 ### Atualizar a cópia no Google Slides
 
