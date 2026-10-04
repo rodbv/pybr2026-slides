@@ -16,19 +16,25 @@ Una plantilla de presentación lista para quienes dan una charla en la [Python B
 ![Algunas diapositivas de la plantilla, una cada 2,5 segundos: portada, frase, ponente, agenda, imagen, código, números, gráfico, flujo, destacado, preguntas, portada clara y stickers](https://github.com/rodbv/pybr2026-slides/releases/latest/download/tour.gif)
 
 <details>
-<summary>Ver las 39 diapositivas a la vez</summary>
+<summary>Ver las 38 diapositivas a la vez</summary>
 
-![Vista general de las 39 diapositivas de ejemplo](https://github.com/rodbv/pybr2026-slides/releases/latest/download/overview.png)
+![Vista general de las 38 diapositivas de ejemplo](https://github.com/rodbv/pybr2026-slides/releases/latest/download/overview.png)
 
 </details>
 
 ## Después de abrirla
 
-1. Guarda una copia con el nombre de tu charla.
-2. Duplica las diapositivas que vas a usar y borra las demás. Las diapositivas de ejemplo muestran cada diseño, primero en la versión oscura y después en la clara.
-3. Lee las notas de cada diapositiva: tienen consejos para tu charla.
+Las diapositivas de ejemplo muestran cada diseño y tienen consejos en las notas. Usa los consejos que te sirvan.
 
-Las cajas grises marcan el lugar de las imágenes. Haz clic derecho en una caja y elige "Reemplazar imagen" ("Cambiar imagen" en PowerPoint).
+1. Guarda una copia de la plantilla sin cambios, para consultar los consejos después.
+2. En una segunda copia, con el nombre de tu charla, elige la versión oscura o la clara y borra la otra mitad.
+3. Duplica las diapositivas que vas a usar y borra las demás. Para una diapositiva nueva, usa Diapositiva > Nueva diapositiva y elige el diseño.
+4. Cambia el texto y las imágenes. Las cajas grises marcan el lugar de las imágenes: haz clic derecho y elige "Reemplazar imagen" ("Cambiar imagen" en PowerPoint).
+5. Borra las notas de los ejemplos y escribe las tuyas.
+
+Una charla de 25 minutos suele caber en 15 a 25 diapositivas: portada, agenda, una sección para cada parte, el contenido y el cierre, con unos 5 minutos para preguntas.
+
+Antes de presentar, busca en el archivo lo que quedó de la plantilla: "Seu nome aqui", "@seu_usuario", "voce@exemplo.com.br", cajas grises, "Dados de exemplo" y "Troque pelo QR code".
 
 La plantilla es un punto de partida: cambia lo que quieras. Para mantener el estilo del evento, usa los colores y las fuentes de abajo. El [resumen de la identidad visual](docs/referencia.md#identidade-visual) (en portugués) tiene el resto: logos, stickers y reglas de contraste.
 
@@ -38,7 +44,7 @@ La plantilla es un punto de partida: cambia lo que quieras. Para mantener el est
 |---|---|---|---|---|
 | ![Muestra de negro](docs/cores/0F0F0F.png) | Negro | `#0F0F0F` | 15, 15, 15 | Fondo oscuro, texto sobre fondo claro |
 | ![Muestra de blanco roto](docs/cores/E8F4BA.png) | Blanco roto | `#E8F4BA` | 232, 244, 186 | Texto sobre fondo oscuro |
-| ![Muestra de verde cítrico](docs/cores/B7FF06.png) | Verde cítrico | `#B7FF06` | 183, 255, 6 | Destacado; como color de texto, solo sobre fondo oscuro |
+| ![Muestra de verde lima](docs/cores/B7FF06.png) | Verde lima | `#B7FF06` | 183, 255, 6 | Destacado; como color de texto, solo sobre fondo oscuro |
 | ![Muestra de violeta](docs/cores/BF2EB2.png) | Violeta | `#BF2EB2` | 191, 46, 178 | Enlaces sobre fondo claro |
 
 | Fuente | Uso |
@@ -50,13 +56,15 @@ La plantilla es un punto de partida: cambia lo que quieras. Para mantener el est
 
 ## Antes de presentar
 
-- **Texto:** quien se sienta al fondo de la sala también necesita leer la diapositiva. Nada por debajo de 18 pt. Si el texto no cabe, divide la diapositiva en dos y pasa el resto a las notas.
+¿Primera charla? Qué bien. El público de la Python Brasil está de tu lado, y estos consejos son sugerencias, no reglas.
+
+- **Texto:** con 18 pt o más, quien se sienta al fondo de la sala también lee la diapositiva. Si el texto no cabe, divide la diapositiva en dos y pasa el resto a las notas.
 - **Código:** hasta 8 líneas y unas 60 columnas por diapositiva. Si el fragmento es más largo, divídelo en varias diapositivas o muestra solo la parte que importa.
 - **Enlace a tus diapositivas:** cambia el código QR del cierre por un código QR con el enlace a tus diapositivas. Escribe también el enlace debajo.
 - **Preguntas:** reserva unos 5 minutos para preguntas. Repite cada pregunta en el micrófono antes de responder, para la sala y la grabación.
 - **Live coding:** ten un plan B, como un video de la demo funcionando o capturas de pantalla de cada paso.
-- **Internet:** la red del evento puede fallar. Descarga antes los videos, las páginas y los notebooks que vas a mostrar.
-- **PDF:** exporta tus diapositivas en PDF (Archivo > Exportar o Descargar > PDF) y llévalo en un pendrive. El PDF abre en cualquier computadora, con las fuentes correctas.
+- **Internet:** con los videos, las páginas y los notebooks descargados, no dependes de la red del evento.
+- **PDF:** exporta tus diapositivas en PDF y llévalo en un pendrive. El PDF abre en cualquier computadora, con las fuentes correctas. Google Slides: Archivo > Descargar > Documento PDF. PowerPoint: Archivo > Exportar. LibreOffice: Archivo > Exportar como > Exportar como PDF.
 
 ## Preguntas frecuentes
 
@@ -85,14 +93,22 @@ Para crear el código QR en LibreOffice, usa Insertar > Objeto OLE > Código QR 
 <details>
 <summary>¿Cómo pongo código con colores?</summary>
 
-Los programas de presentación no colorean el código. Pega tu fragmento en [SlideSnippet](https://www.slidesnippet.com/), elige el tema Monokai y copia el resultado en la tarjeta de la diapositiva "Código". Las opciones para cada programa están en la [referencia](docs/referencia.md#código-nos-slides) (en portugués).
+Los programas de presentación no colorean el código. Pega tu fragmento en [SlideSnippet](https://www.slidesnippet.com/) y elige el tema Monokai. Después:
+
+- **Google Slides:** haz clic en "Copy styled" y pega en la tarjeta de la diapositiva "Código" con Editar > Pegar.
+- **PowerPoint:** haz clic en "Copy styled" y pega con "Mantener formato de origen".
+- **LibreOffice:** haz clic en "Download SVG" y arrastra el archivo a la tarjeta.
+
+La [referencia](docs/referencia.md#código-nos-slides) (en portugués) tiene todas las opciones.
 
 </details>
 
 <details>
 <summary>¿Cómo cambio los datos del gráfico?</summary>
 
-En PowerPoint y LibreOffice, haz doble clic en el gráfico y cambia los nombres y los números en la hoja de cálculo. Google Slides importa el gráfico como imagen: allí, crea el tuyo con Insertar > Gráfico.
+- **PowerPoint:** haz clic derecho en el gráfico y elige "Editar datos".
+- **LibreOffice:** haz doble clic en el gráfico y usa Ver > Tabla de datos.
+- **Google Slides:** la importación convierte el gráfico en imagen. Crea el tuyo con Insertar > Gráfico.
 
 </details>
 

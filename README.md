@@ -16,19 +16,25 @@ Um modelo de apresentação pronto para quem vai palestrar na [Python Brasil 202
 ![Alguns slides do modelo, um a cada 2,5 segundos: capa, frase, palestrante, agenda, imagem, código, números, gráfico, fluxo, destaque, perguntas, capa clara e figurinhas](https://github.com/rodbv/pybr2026-slides/releases/latest/download/tour.gif)
 
 <details>
-<summary>Ver os 39 slides de uma vez</summary>
+<summary>Ver os 38 slides de uma vez</summary>
 
-![Visão geral dos 39 slides de exemplo](https://github.com/rodbv/pybr2026-slides/releases/latest/download/overview.png)
+![Visão geral dos 38 slides de exemplo](https://github.com/rodbv/pybr2026-slides/releases/latest/download/overview.png)
 
 </details>
 
 ## Depois de abrir
 
-1. Salve uma cópia com o nome da sua palestra.
-2. Duplique os slides que você vai usar e apague os outros. Os slides de exemplo mostram cada layout, primeiro na versão escura e depois na clara.
-3. Leia as anotações de cada slide: elas trazem dicas para a palestra.
+Os slides de exemplo mostram cada layout e trazem dicas nas anotações. Use as dicas que servirem para você.
 
-As caixas cinza marcam o lugar das imagens. Clique com o botão direito numa caixa e escolha "Substituir imagem".
+1. Guarde uma cópia do modelo sem mudanças, para consultar as dicas depois.
+2. Numa segunda cópia, com o nome da sua palestra, escolha a versão escura ou a clara e apague a outra metade.
+3. Duplique os slides que você vai usar e apague os outros. Para um slide novo, use Slide > Novo slide e escolha o layout.
+4. Troque o texto e as imagens. As caixas cinza marcam o lugar das imagens: clique com o botão direito e escolha "Substituir imagem" (no PowerPoint, "Alterar Imagem").
+5. Apague as anotações dos exemplos e escreva as suas.
+
+Uma palestra de 25 minutos costuma caber em 15 a 25 slides: capa, agenda, uma seção para cada parte, o conteúdo e o encerramento, com uns 5 minutos para perguntas.
+
+Antes de apresentar, procure no arquivo o que ficou do modelo: "Seu nome aqui", "@seu_usuario", "voce@exemplo.com.br", caixas cinza, "Dados de exemplo" e "Troque pelo QR code".
 
 O modelo é um ponto de partida: mude o que quiser. Para manter a cara do evento, use as cores e as fontes abaixo. O [resumo da identidade visual](docs/referencia.md#identidade-visual) traz o resto: logos, figurinhas e regras de contraste.
 
@@ -38,7 +44,7 @@ O modelo é um ponto de partida: mude o que quiser. Para manter a cara do evento
 |---|---|---|---|---|
 | ![Amostra de preto](docs/cores/0F0F0F.png) | Preto | `#0F0F0F` | 15, 15, 15 | Fundo escuro, texto no fundo claro |
 | ![Amostra de off white](docs/cores/E8F4BA.png) | Off white | `#E8F4BA` | 232, 244, 186 | Texto no fundo escuro |
-| ![Amostra de verde cítrico](docs/cores/B7FF06.png) | Verde cítrico | `#B7FF06` | 183, 255, 6 | Destaque; como cor de texto, só no fundo escuro |
+| ![Amostra de verde limão](docs/cores/B7FF06.png) | Verde limão | `#B7FF06` | 183, 255, 6 | Destaque; como cor de texto, só no fundo escuro |
 | ![Amostra de violeta](docs/cores/BF2EB2.png) | Violeta | `#BF2EB2` | 191, 46, 178 | Links no fundo claro |
 
 | Fonte | Uso |
@@ -50,13 +56,15 @@ Vai criar material com um agente de IA? Peça que ele leia o [`AGENTS.md`](AGENT
 
 ## Antes de apresentar
 
-- **Texto:** quem senta no fundo da sala precisa ler o slide também. Nada abaixo de 18 pt. Se o texto não couber, divida o slide em dois e leve o resto para as anotações.
+Primeira palestra? Que bom. A plateia da Python Brasil torce por você, e estas dicas são sugestões, não regras.
+
+- **Texto:** com 18 pt ou mais, quem senta no fundo da sala também lê o slide. Se o texto não couber, divida o slide em dois e leve o resto para as anotações.
 - **Código:** até 8 linhas e cerca de 60 colunas por slide. Se o trecho for maior, divida em mais slides ou mostre só a parte que importa.
 - **Link dos slides:** troque o QR code do encerramento pelo QR code do link dos seus slides. Escreva o link embaixo dele também.
 - **Perguntas:** reserve uns 5 minutos para perguntas. Repita cada pergunta no microfone antes de responder, para a sala e a gravação.
 - **Live coding:** tenha um plano B, como um vídeo da demo funcionando ou capturas de tela de cada passo.
-- **Internet:** a rede do evento pode cair. Baixe antes os vídeos, as páginas e os notebooks que vai mostrar.
-- **PDF:** exporte os slides em PDF (Arquivo > Exportar ou Baixar > PDF) e leve num pendrive. O PDF abre em qualquer computador, com as fontes certas.
+- **Internet:** com os vídeos, as páginas e os notebooks baixados, você não depende da rede do evento.
+- **PDF:** exporte os slides em PDF e leve num pendrive. O PDF abre em qualquer computador, com as fontes certas. Google Slides: Arquivo > Fazer download > Documento PDF. PowerPoint: Arquivo > Exportar. LibreOffice: Arquivo > Exportar como > Exportar como PDF.
 
 ## Dúvidas frequentes
 
@@ -76,7 +84,7 @@ Sem as fontes, o programa usa outra fonte no lugar. O texto continua legível, m
 <details>
 <summary>Como troco uma imagem ou o QR code?</summary>
 
-Clique com o botão direito na caixa cinza ou no QR code e escolha "Substituir imagem". O tamanho escrito na caixa é o tamanho que preenche o espaço numa tela Full HD.
+Clique com o botão direito na caixa cinza ou no QR code e escolha "Substituir imagem" (no PowerPoint, "Alterar Imagem"). O tamanho escrito na caixa é o tamanho que preenche o espaço numa tela Full HD.
 
 Para gerar o QR code no LibreOffice, use Inserir > Objeto > Código QR e de barras. Nos outros programas, gere a imagem num site de QR code. Teste a leitura com o celular a alguns metros da tela.
 
@@ -85,14 +93,22 @@ Para gerar o QR code no LibreOffice, use Inserir > Objeto > Código QR e de barr
 <details>
 <summary>Como coloco código colorido?</summary>
 
-Os programas de apresentação não colorem código. Cole o seu trecho no [SlideSnippet](https://www.slidesnippet.com/), escolha o tema Monokai e copie o resultado para o cartão do slide "Código". As opções para cada programa estão na [referência](docs/referencia.md#código-nos-slides).
+Os programas de apresentação não colorem código. Cole o seu trecho no [SlideSnippet](https://www.slidesnippet.com/) e escolha o tema Monokai. Depois:
+
+- **Google Slides:** clique em "Copy styled" e cole no cartão do slide "Código" pelo menu Editar > Colar.
+- **PowerPoint:** clique em "Copy styled" e cole com "Manter Formatação Original".
+- **LibreOffice:** clique em "Download SVG" e arraste o arquivo para o cartão.
+
+A [referência](docs/referencia.md#código-nos-slides) traz as opções completas.
 
 </details>
 
 <details>
 <summary>Como troco os dados do gráfico?</summary>
 
-No PowerPoint e no LibreOffice, clique duas vezes no gráfico e troque os nomes e os números na planilha. O Google Slides importa o gráfico como imagem: lá, crie o seu em Inserir > Gráfico.
+- **PowerPoint:** clique com o botão direito no gráfico e escolha "Editar Dados".
+- **LibreOffice:** clique duas vezes no gráfico e use Exibir > Tabela de dados.
+- **Google Slides:** o gráfico vira imagem na importação. Crie o seu em Inserir > Gráfico.
 
 </details>
 

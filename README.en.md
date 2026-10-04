@@ -16,19 +16,25 @@ A ready-to-use presentation template for speakers at [Python Brasil 2026](https:
 ![Some slides of the template, one every 2.5 seconds: cover, quote, speaker, agenda, image, code, numbers, chart, flow, highlight, questions, light cover and stickers](https://github.com/rodbv/pybr2026-slides/releases/latest/download/tour.gif)
 
 <details>
-<summary>See all 39 slides at once</summary>
+<summary>See all 38 slides at once</summary>
 
-![Overview of the 39 example slides](https://github.com/rodbv/pybr2026-slides/releases/latest/download/overview.png)
+![Overview of the 38 example slides](https://github.com/rodbv/pybr2026-slides/releases/latest/download/overview.png)
 
 </details>
 
 ## After you open it
 
-1. Save a copy with the name of your talk.
-2. Duplicate the slides you will use and delete the others. The example slides show each layout, first in the dark version and then in the light one.
-3. Read the speaker notes of each slide: they have tips for your talk.
+The example slides show each layout and have tips in the speaker notes. Use the tips that work for you.
 
-The gray boxes mark where images go. Right-click a box and choose "Replace image" ("Change Picture" in PowerPoint).
+1. Keep an unchanged copy of the template, to read the tips later.
+2. In a second copy, named after your talk, choose the dark or the light version and delete the other half.
+3. Duplicate the slides you will use and delete the others. For a new slide, use Slide > New slide and choose the layout.
+4. Replace the text and the images. The gray boxes mark where images go: right-click a box and choose "Replace image" ("Change Picture" in PowerPoint).
+5. Delete the notes of the examples and write your own.
+
+A 25-minute talk usually fits in 15 to 25 slides: cover, agenda, one section for each part, the content and the closing slide, with about 5 minutes for questions.
+
+Before you present, search the file for what is left of the template: "Seu nome aqui", "@seu_usuario", "voce@exemplo.com.br", gray boxes, "Dados de exemplo" and "Troque pelo QR code".
 
 The template is a starting point: change anything you like. To keep the look of the event, use the colors and fonts below. The [visual identity summary](docs/referencia.md#identidade-visual) (in Portuguese) has the rest: logos, stickers and contrast rules.
 
@@ -38,7 +44,7 @@ The template is a starting point: change anything you like. To keep the look of 
 |---|---|---|---|---|
 | ![Black sample](docs/cores/0F0F0F.png) | Black | `#0F0F0F` | 15, 15, 15 | Dark background, text on light background |
 | ![Off white sample](docs/cores/E8F4BA.png) | Off white | `#E8F4BA` | 232, 244, 186 | Text on dark background |
-| ![Citrus green sample](docs/cores/B7FF06.png) | Citrus green | `#B7FF06` | 183, 255, 6 | Highlight; as a text color, only on dark background |
+| ![Lime green sample](docs/cores/B7FF06.png) | Lime green | `#B7FF06` | 183, 255, 6 | Highlight; as a text color, only on dark background |
 | ![Violet sample](docs/cores/BF2EB2.png) | Violet | `#BF2EB2` | 191, 46, 178 | Links on light background |
 
 | Font | Use |
@@ -50,13 +56,15 @@ Will you create material with an AI agent? Ask it to read [`AGENTS.md`](AGENTS.m
 
 ## Before you present
 
-- **Text:** people in the back row need to read the slide too. Nothing below 18 pt. If the text does not fit, split the slide in two and move the rest to the speaker notes.
+First talk? Great. The Python Brasil audience is on your side, and these tips are suggestions, not rules.
+
+- **Text:** at 18 pt or more, people in the back row can read the slide too. If the text does not fit, split the slide in two and move the rest to the speaker notes.
 - **Code:** up to 8 lines and about 60 columns per slide. If the snippet is longer, split it across slides or show only the part that matters.
 - **Link to your slides:** replace the QR code on the closing slide with a QR code for the link to your slides. Write the link below it too.
 - **Questions:** keep about 5 minutes for questions. Repeat each question into the microphone before you answer, for the room and the recording.
 - **Live coding:** have a plan B, such as a video of the working demo or screenshots of each step.
-- **Internet:** the event network can fail. Download the videos, pages and notebooks you will show before the talk.
-- **PDF:** export your slides as PDF (File > Export or Download > PDF) and bring it on a USB drive. The PDF opens on any computer, with the right fonts.
+- **Internet:** with the videos, pages and notebooks downloaded, you do not depend on the event network.
+- **PDF:** export your slides as PDF and bring it on a USB drive. The PDF opens on any computer, with the right fonts. Google Slides: File > Download > PDF Document. PowerPoint: File > Export. LibreOffice: File > Export as > Export as PDF.
 
 ## Frequently asked questions
 
@@ -85,14 +93,22 @@ To make the QR code in LibreOffice, use Insert > OLE Object > QR and Barcode. In
 <details>
 <summary>How do I add colored code?</summary>
 
-Presentation programs do not color code. Paste your snippet into [SlideSnippet](https://www.slidesnippet.com/), choose the Monokai theme and copy the result into the card on the "Código" slide. The options for each program are in the [reference](docs/referencia.md#código-nos-slides) (in Portuguese).
+Presentation programs do not color code. Paste your snippet into [SlideSnippet](https://www.slidesnippet.com/) and choose the Monokai theme. Then:
+
+- **Google Slides:** click "Copy styled" and paste into the card on the "Código" slide with Edit > Paste.
+- **PowerPoint:** click "Copy styled" and paste with "Keep Source Formatting".
+- **LibreOffice:** click "Download SVG" and drag the file onto the card.
+
+The [reference](docs/referencia.md#código-nos-slides) (in Portuguese) has all the options.
 
 </details>
 
 <details>
 <summary>How do I change the chart data?</summary>
 
-In PowerPoint and LibreOffice, double-click the chart and change the names and numbers in the spreadsheet. Google Slides imports the chart as an image: there, create your own with Insert > Chart.
+- **PowerPoint:** right-click the chart and choose "Edit Data".
+- **LibreOffice:** double-click the chart and use View > Data Table.
+- **Google Slides:** the import turns the chart into an image. Create your own with Insert > Chart.
 
 </details>
 
