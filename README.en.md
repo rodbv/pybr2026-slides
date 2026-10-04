@@ -9,7 +9,7 @@ A ready-to-use presentation template for speakers at [Python Brasil 2026](https:
 | You use | Do this |
 |---|---|
 | Google Slides | **[Make a copy in Google Slides](https://docs.google.com/presentation/d/1glKLpS7_-X5MCBBZMDCs9_b3zl4Jqao8yOxpgpmy204/copy)**. The copy goes to your Google Drive. |
-| PowerPoint or Keynote | Download the [`.pptx`](https://github.com/rodbv/pybr2026-slides/releases/latest/download/pybr2026-template.pptx) and [install the fonts](#do-i-need-to-install-fonts). |
+| PowerPoint or Keynote | Download the [`.pptx`](https://github.com/rodbv/pybr2026-slides/releases/latest/download/pybr2026-template.pptx) and [install the fonts](#frequently-asked-questions). |
 | LibreOffice | Download the [`.odp`](https://github.com/rodbv/pybr2026-slides/releases/latest/download/pybr2026-template.odp). The fonts are inside the file. |
 | A text editor | Use the [Markdown template](https://github.com/rodbv/pybr2026-marp), which also has example slides in English and Spanish. You write the slides as text, and an AI agent such as Copilot or Claude applies the visual style. |
 
@@ -27,30 +27,33 @@ A ready-to-use presentation template for speakers at [Python Brasil 2026](https:
 The example slides show each layout and have tips in the speaker notes. Use the tips that work for you.
 
 1. Keep an unchanged copy of the template, to read the tips later.
-2. In a second copy, named after your talk, choose the dark or the light version and delete the other half. If you are not sure, see [Light or dark theme?](#light-or-dark-theme).
-3. Duplicate the slides you will use and delete the others. For a new slide, use Slide > New slide and choose the layout.
+2. In a second copy, named after your talk, choose the dark or the light version and delete the slides of the other version. If you are not sure, see [Light or dark theme?](#light-or-dark-theme).
+3. Duplicate the slides you will use and delete the others. For a new slide, use Slide > New slide (in PowerPoint, Home > New Slide) and choose the layout.
 4. Replace the text and the images. The gray boxes mark where images go: right-click a box and choose "Replace image" ("Change Picture" in PowerPoint, "Replace..." in LibreOffice).
 5. Delete the notes of the examples and write your own.
 
-A rule of thumb: plan about 1 minute per slide, after you set aside about 5 minutes for questions. The usual structure is title slide, agenda, one section for each part, the content and the closing slide.
+A tip: plan about 1 minute per slide, after you set aside about 5 minutes for questions. A talk usually has a title slide, an agenda, a section slide and content for each part, and a closing slide.
 
-Before you present, search the file for what is left of the template: "Seu nome aqui", "@seu_usuario", "voce@exemplo.com.br", gray boxes, "Dados de exemplo" and "Troque pelo seu QR code".
+Before you present, search the file for what is left of the template: "Título da sua palestra", "Seu nome aqui", "O que você faz · onde", "Nome da pessoa", "@seu_usuario", "voce@exemplo.com.br", gray boxes, "Dados de exemplo" and "Troque pelo seu QR code".
 
 The template is a starting point: change anything you like. To keep the look of the event, use the colors and fonts below. The [visual identity summary](docs/referencia.md#identidade-visual) (in Portuguese) has the rest: logos, stickers and contrast rules.
 
 ## Light or dark theme?
 
-Code sits on a light card in both versions. Dark text on a light background is easier to read, especially at small sizes such as code ([Piepenbrock, Mayr and Buchner, 2014](https://doi.org/10.1177/0018720813515509)). This advantage holds in a dark room and in a lit room ([Buchner and Baumgartner, 2007](https://www.researchgate.net/publication/6321309_Text_-_Background_polarity_affects_performance_irrespective_of_ambient_illumination_and_colour_contrast)). If you prefer code on a dark background, use the Monokai theme and make the font large.
+Code sits on a light card in both versions. Dark text on a light background is easier to read, especially at small sizes such as code ([Piepenbrock, Mayr and Buchner, 2014](https://doi.org/10.1177/0018720813515509)). This advantage holds in a dark room and in a lit room ([Buchner and Baumgartner, 2007](https://doi.org/10.1080/00140130701306413)). If you prefer code on a dark background, use the Monokai theme and make the font large.
 
 For the rest of the slides:
 
 ```mermaid
 flowchart TD
-  screen{"Large LED screen?"} -->|"Yes"| dark["Dark version"]
-  screen -->|"No: smaller screen or projector"| light["Light version"]
+  start(["Which version should I use?"]) --> kind{"What kind of screen?"}
+  kind -->|"Projector"| light1["Light version"]
+  kind -->|"LED screen, TV or monitor"| size{"As big as a wall?"}
+  size -->|"Yes"| dark["Dark version"]
+  size -->|"No"| light2["Light version"]
 ```
 
-On a large LED screen, a dark background does not dazzle the audience, and the speaker does not turn into a silhouette on the recording ([GeoEvent](https://www.geoevent.net/led-wall-brightness-event-viewing/)). On a smaller screen or a projector, use the light version. With a projector, the room light washes out the black of the projection.
+With a projector, the room light turns the black of the projection into gray, and a light background is easier to read. On an LED screen as big as a wall, a dark background is not too bright for the audience. A comfortable screen brightness depends on the room light, and a very bright screen in a dim room tires the eyes ([Zhou and others, 2021](https://doi.org/10.3390/app11094108)). On a smaller screen, such as a TV or a large monitor, the brightness is not too strong for anyone, and the light version is easier to read.
 
 ## Colors and fonts
 
@@ -72,8 +75,8 @@ Using an AI agent? Ask it to read [`AGENTS.md`](AGENTS.md): the file has the col
 
 First talk? Great. The Python Brasil audience is on your side, and these tips are suggestions, not rules.
 
-- **Text:** at 18 pt or more, people in the back row can read the slide too. If the text does not fit, split the slide in two and move the rest to the speaker notes.
-- **Code:** up to 8 lines and about 60 columns per slide. If the snippet is longer, split it across slides or show only the part that matters.
+- **Text:** at 18 pt or more, people in the back row can read the slide more comfortably. If the text does not fit, split the slide in two and move the rest to the speaker notes.
+- **Code:** up to 8 lines per slide and up to 60 characters per line. If the snippet is longer, split it across slides or show only the part that matters.
 - **QR code:** replace the QR code on the closing slide with yours, linking to your contact details, your slides or a page with all of them. Write the link below it too.
 - **Questions:** keep about 5 minutes for questions. Repeat each question into the microphone before you answer, for the room and the recording.
 - **Live coding:** have a plan B, such as a video of the working demo or screenshots of each step.
@@ -100,7 +103,7 @@ Without the fonts, the program uses another font. The text stays readable, but t
 
 Right-click the gray box or the QR code and choose "Replace image" ("Change Picture" in PowerPoint, "Replace..." in LibreOffice). The size written in the box is the size that fills the space on a Full HD screen.
 
-To make the QR code in LibreOffice, use Insert > OLE Object > QR and Barcode. In the other programs, make the image on a QR code website. Test it with your phone a few meters from the screen.
+To make the QR code in LibreOffice, use Insert > Object > QR and Barcode. In the other programs, make the image on a QR code website. Test it with your phone a few meters from the screen.
 
 </details>
 
@@ -109,7 +112,7 @@ To make the QR code in LibreOffice, use Insert > OLE Object > QR and Barcode. In
 
 Presentation programs do not highlight code syntax. Paste your snippet into [SlideSnippet](https://www.slidesnippet.com/) and choose the GitHub Light theme. Then:
 
-- **Google Slides:** click "Copy styled" and paste into the card on the "Código" slide with Edit > Paste.
+- **Google Slides:** click "Copy styled" and paste into the card on the "Código com cores" slide with Edit > Paste.
 - **PowerPoint:** click "Copy styled" and paste with "Keep Source Formatting".
 - **LibreOffice:** click "Download SVG" and drag the file onto the card.
 

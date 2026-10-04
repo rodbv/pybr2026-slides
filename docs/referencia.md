@@ -39,7 +39,7 @@ Todas as combinações de texto e fundo usadas no modelo passam no nível AA do 
 | Uso | Cor | Sobre | Contraste |
 |---|---|---|---|
 | Fundo escuro | `#0F0F0F` | | |
-| Texto no escuro (verde claro) | `#E8F4BA` | `#0F0F0F` | 16,5:1 |
+| Texto no escuro (off-white) | `#E8F4BA` | `#0F0F0F` | 16,5:1 |
 | Destaque no escuro (limão) | `#B7FF06` | `#0F0F0F` | 15,8:1 |
 | Texto secundário no escuro (cinza) | `#ABABAB` | `#0F0F0F` | 8,4:1 |
 | Link no escuro (violeta claro), sublinhado | `#D26CC9` | `#0F0F0F` | 6,1:1 |
@@ -58,24 +58,24 @@ Regras para manter o contraste quando você editar:
 
 - Verde limão `#B7FF06` como cor de texto, só sobre fundo escuro. Sobre fundo branco o contraste é 1,2:1 e o texto some. No fundo claro, destaque a palavra com o limão como cor de realce do texto (marca-texto) e mantenha o texto preto.
 - Discos e retângulos limão aparecem nos dois modos, sempre com texto preto `#0F0F0F`.
-- Cartões têm borda fina: só a cor de fundo deles fica a 1,1:1 do fundo do slide e some em projetor fraco.
+- Os cartões têm borda fina porque a cor de fundo sozinha fica a 1,2:1 do fundo do slide e some num projetor fraco.
 - Se for usar outras cores, confira o contraste no [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/).
 
-Para escolher a versão: em telão de LED grande, use a escura, que não ofusca o público. Em telão menor ou projetor, use a clara. O código fica em fundo claro nas duas. O telão da Python Brasil 2026 é de LED, por isso o modelo começa pelos layouts escuros.
+Para escolher a versão: numa tela de LED do tamanho de uma parede, use a escura, que não ofusca o público. Em projetor, TV ou monitor, use a clara. O código fica em fundo claro nas duas. O telão da Python Brasil 2026 é de LED, por isso o modelo começa pelos layouts escuros.
 
 As cores estão no tema do arquivo. Se você trocar uma cor do tema (LibreOffice: Slide > Mestre; PowerPoint: Exibir > Slide mestre > Cores), todos os slides mudam juntos.
 
 ## Identidade visual
 
-Resumo do brandboard oficial da Python Brasil 2026, criado por [Ana Terhorst](https://anaterhorstdesign.com), para quem cria material novo a partir deste modelo, com ou sem ajuda de uma IA. As regras de contraste da seção anterior valem também aqui.
+Resumo do manual de marca oficial da Python Brasil 2026, criado por [Ana Terhorst](https://anaterhorstdesign.com), para quem cria material novo a partir deste modelo, com ou sem ajuda de uma IA. As regras de contraste da seção anterior valem também aqui.
 
 **Cores principais**
 
 | Nome | Hex | Uso no modelo |
 |---|---|---|
 | Preto | `#0F0F0F` | Fundo escuro, texto no claro, texto sobre o limão |
-| Off white | `#E8F4BA` | Texto no escuro, cartões no claro |
-| Verde cítrico | `#B7FF06` | Destaque: discos, painéis, marca-texto; como cor de texto, só no escuro |
+| Off-white | `#E8F4BA` | Texto no escuro, cartões no claro |
+| Verde limão | `#B7FF06` | Destaque: discos, painéis, marca-texto; como cor de texto, só no escuro |
 | Violeta | `#BF2EB2` | Links no claro (4,9:1 sobre branco). Sobre o preto fica em 3,9:1, abaixo do mínimo para texto |
 
 **Tons de apoio:** `#D26CC9` (violeta claro, links no escuro), `#EFCBEC`, `#CCFF50`, `#EDFFC1`, `#ABABAB` (cinza, texto secundário no escuro) e `#E7E7E7`.
@@ -92,7 +92,7 @@ Resumo do brandboard oficial da Python Brasil 2026, criado por [Ana Terhorst](ht
 - Ilustrações em traço preto: o mago "Olá, mundo!", a bruxinha surfista e o mago digitando.
 - Padrões de chevron, em limão e em preto e branco.
 
-**Frases:** a chamada "Um evento feito pra todo mundo" e o lema "pessoas > tecnologia".
+**Frases:** a chamada "Um evento feito pra todo mundo" e o lema "Pessoas > Tecnologia".
 
 Para manter a marca, use as peças como estão: sem distorcer, sem recolorir fora da paleta e sem efeitos. Para aumentar ou diminuir uma peça, arraste um canto segurando Shift.
 
@@ -125,10 +125,10 @@ Os programas de apresentação não colorem código. Para ter as mesmas cores no
 
 Depois, conforme o programa:
 
-- **Google Slides:** escolha "Optimised for: Google Slides / Docs" e clique em "Copy styled". Clique dentro do cartão do slide "Código" e cole pelo menu Editar > Colar; o Ctrl+V pode perder as cores. O código continua editável.
+- **Google Slides:** escolha "Optimised for: Google Slides / Docs" e clique em "Copy styled". Clique dentro do cartão do slide "Código com cores" e cole pelo menu Editar > Colar; o Ctrl+V pode perder as cores. O código continua editável.
 - **PowerPoint:** escolha "Optimised for: PowerPoint / Word", clique em "Copy styled" e cole com "Manter formatação original".
-- **LibreOffice:** o LibreOffice perde as cores ao colar texto do navegador. Clique em "Download SVG" e arraste o arquivo para o slide, sobre o cartão. O SVG fica nítido em qualquer tamanho. Para código editável, instale a extensão [Code Highlighter 2](https://extensions.libreoffice.org/en/extensions/show/5814) A extensão não tem o GitHub Light: escolha um estilo claro, ou o `monokai` para fundo escuro.
+- **LibreOffice:** o LibreOffice perde as cores ao colar texto do navegador. Clique em "Download SVG" e arraste o arquivo para o slide, sobre o cartão. O SVG fica nítido em qualquer tamanho. Para código editável, instale a extensão [Code Highlighter 2](https://extensions.libreoffice.org/en/extensions/show/5814). A extensão não tem o GitHub Light: escolha um estilo claro, ou o `monokai` para fundo escuro.
 
 Quando o código entrar como imagem, escreva o código no texto alternativo (botão direito > Descrição no LibreOffice, Texto alternativo no Google Slides e no PowerPoint), para leitores de tela.
 
-O cartão aceita até 8 linhas de 15 pt.
+O cartão aceita até 8 linhas e 60 colunas, a 15 pt.

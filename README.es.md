@@ -1,15 +1,15 @@
-# Plantilla de diapositivas de la Python Brasil 2026
+# Plantilla de diapositivas de Python Brasil 2026
 
 [Português](README.md) · [English](README.en.md) · Español
 
-Una plantilla de presentación lista para quienes dan una charla en la [Python Brasil 2026](https://2026.pythonbrasil.org.br/), en Florianópolis, del 14 al 19 de octubre. La abres, cambias el texto de ejemplo por el tuyo y presentas. Las diapositivas de ejemplo y las notas están en portugués.
+Una plantilla de presentación lista para quienes dan una charla en [Python Brasil 2026](https://2026.pythonbrasil.org.br/), en Florianópolis, del 14 al 19 de octubre. La abres, cambias el texto de ejemplo por el tuyo y presentas. Las diapositivas de ejemplo y las notas están en portugués.
 
 ## Elige cómo vas a editar
 
 | Usas | Haz esto |
 |---|---|
-| Google Slides | **[Hacer una copia en Google Slides](https://docs.google.com/presentation/d/1glKLpS7_-X5MCBBZMDCs9_b3zl4Jqao8yOxpgpmy204/copy)**. La copia va a tu Google Drive. |
-| PowerPoint o Keynote | Descarga el [`.pptx`](https://github.com/rodbv/pybr2026-slides/releases/latest/download/pybr2026-template.pptx) e [instala las fuentes](#necesito-instalar-fuentes). |
+| Google Slides | **[Hacer una copia en Google Slides](https://docs.google.com/presentation/d/1glKLpS7_-X5MCBBZMDCs9_b3zl4Jqao8yOxpgpmy204/copy)**. La copia se guarda en tu Google Drive. |
+| PowerPoint o Keynote | Descarga el [`.pptx`](https://github.com/rodbv/pybr2026-slides/releases/latest/download/pybr2026-template.pptx) e [instala las fuentes](#preguntas-frecuentes). |
 | LibreOffice | Descarga el [`.odp`](https://github.com/rodbv/pybr2026-slides/releases/latest/download/pybr2026-template.odp). Las fuentes ya vienen dentro del archivo. |
 | Un editor de texto | Usa la [plantilla en Markdown](https://github.com/rodbv/pybr2026-marp), que también tiene diapositivas de ejemplo en español y en inglés. Escribes las diapositivas como texto y un agente de IA, como Copilot o Claude, aplica el estilo visual. |
 
@@ -28,29 +28,32 @@ Las diapositivas de ejemplo muestran cada diseño y tienen consejos en las notas
 
 1. Guarda una copia de la plantilla sin cambios, para consultar los consejos después.
 2. En una segunda copia, con el nombre de tu charla, elige la versión oscura o la clara y borra la otra mitad. Si tienes dudas, mira [¿Tema claro u oscuro?](#tema-claro-u-oscuro).
-3. Duplica las diapositivas que vas a usar y borra las demás. Para una diapositiva nueva, usa Diapositiva > Nueva diapositiva y elige el diseño.
-4. Cambia el texto y las imágenes. Las cajas grises marcan el lugar de las imágenes: haz clic derecho y elige "Reemplazar imagen" ("Cambiar imagen" en PowerPoint).
+3. Duplica las diapositivas que vas a usar y borra las demás. Para una diapositiva nueva, usa Diapositiva > Nueva diapositiva (en PowerPoint, Inicio > Nueva diapositiva) y elige el diseño.
+4. Cambia el texto y las imágenes. Las cajas grises marcan el lugar de las imágenes: haz clic derecho y elige "Reemplazar imagen" ("Cambiar imagen" en PowerPoint, "Reemplazar..." en LibreOffice).
 5. Borra las notas de los ejemplos y escribe las tuyas.
 
 Un consejo: calcula más o menos 1 minuto por diapositiva, después de reservar unos 5 minutos para preguntas. La estructura suele ser portada, agenda, una sección para cada parte, el contenido y el cierre.
 
-Antes de presentar, busca en el archivo lo que quedó de la plantilla: "Seu nome aqui", "@seu_usuario", "voce@exemplo.com.br", cajas grises, "Dados de exemplo" y "Troque pelo seu QR code".
+Antes de presentar, busca en el archivo lo que quedó de la plantilla: "Título da sua palestra", "Seu nome aqui", "O que você faz · onde", "Nome da pessoa", "@seu_usuario", "voce@exemplo.com.br", cajas grises, "Dados de exemplo" y "Troque pelo seu QR code".
 
 La plantilla es un punto de partida: cambia lo que quieras. Para mantener el estilo del evento, usa los colores y las fuentes de abajo. El [resumen de la identidad visual](docs/referencia.md#identidade-visual) (en portugués) tiene el resto: logos, stickers y reglas de contraste.
 
 ## ¿Tema claro u oscuro?
 
-El código va en una tarjeta clara en las dos versiones. El texto oscuro sobre fondo claro se lee mejor, sobre todo en letra pequeña, como la del código ([Piepenbrock, Mayr y Buchner, 2014](https://doi.org/10.1177/0018720813515509)). Esa ventaja se mantiene con la sala a oscuras y con la sala iluminada ([Buchner y Baumgartner, 2007](https://www.researchgate.net/publication/6321309_Text_-_Background_polarity_affects_performance_irrespective_of_ambient_illumination_and_colour_contrast)). Si prefieres el código sobre fondo oscuro, usa el tema Monokai y pon la letra bien grande.
+El código va en una tarjeta blanca en las dos versiones. El texto oscuro sobre fondo claro se lee mejor, sobre todo en letra pequeña, como la del código ([Piepenbrock, Mayr y Buchner, 2014](https://doi.org/10.1177/0018720813515509)). Esa ventaja se mantiene con la sala a oscuras y con la sala iluminada ([Buchner y Baumgartner, 2007](https://doi.org/10.1080/00140130701306413)). Si prefieres el código sobre fondo oscuro, usa el tema Monokai y pon la letra bien grande.
 
 Para el resto de las diapositivas:
 
 ```mermaid
 flowchart TD
-  pantalla{"¿Pantalla LED grande?"} -->|"Sí"| oscura["Versión oscura"]
-  pantalla -->|"No: pantalla más pequeña o proyector"| clara["Versión clara"]
+  inicio(["¿Qué versión elijo?"]) --> tipo{"¿Qué tipo de pantalla?"}
+  tipo -->|"Proyector"| clara1["Versión clara"]
+  tipo -->|"Pantalla LED, TV o monitor"| tamano{"¿Del tamaño de una pared?"}
+  tamano -->|"Sí"| oscura["Versión oscura"]
+  tamano -->|"No"| clara2["Versión clara"]
 ```
 
-En una pantalla LED grande, el fondo oscuro no deslumbra al público, y quien presenta no queda como una silueta en la grabación ([GeoEvent](https://www.geoevent.net/led-wall-brightness-event-viewing/)). En una pantalla más pequeña o con proyector, usa la versión clara. Con proyector, la luz de la sala apaga el negro de la proyección.
+Con proyector, la luz de la sala aclara el negro de la proyección, y el fondo claro se lee mejor. En una pantalla LED del tamaño de una pared, el fondo oscuro no deslumbra al público. El brillo cómodo de una pantalla depende de la luz del ambiente, y una pantalla muy clara en una sala con poca luz cansa la vista ([Zhou y otros, 2021](https://doi.org/10.3390/app11094108)). En una pantalla más pequeña, como una TV o un monitor grande, el brillo no llega a deslumbrar, y la versión clara se lee mejor.
 
 ## Colores y fuentes
 
@@ -70,15 +73,15 @@ En una pantalla LED grande, el fondo oscuro no deslumbra al público, y quien pr
 
 ## Antes de presentar
 
-¿Primera charla? Qué bien. El público de la Python Brasil está de tu lado, y estos consejos son sugerencias, no reglas.
+¿Primera charla? ¡Qué bien! El público de Python Brasil está de tu lado, y estos consejos son sugerencias, no reglas.
 
-- **Texto:** con 18 pt o más, quien se sienta al fondo de la sala también lee la diapositiva. Si el texto no cabe, divide la diapositiva en dos y pasa el resto a las notas.
-- **Código:** hasta 8 líneas y unas 60 columnas por diapositiva. Si el fragmento es más largo, divídelo en varias diapositivas o muestra solo la parte que importa.
+- **Texto:** con 18 pt o más, quien se sienta al fondo de la sala puede leer la diapositiva con más comodidad. Si el texto no cabe, divide la diapositiva en dos y pasa el resto a las notas.
+- **Código:** hasta 8 líneas de unos 60 caracteres por diapositiva. Si el fragmento es más largo, divídelo en varias diapositivas o muestra solo la parte que importa.
 - **Código QR:** cambia el código QR del cierre por el tuyo, con el enlace a tu contacto, a tus diapositivas o a una página con todo. Escribe también el enlace debajo.
-- **Preguntas:** reserva unos 5 minutos para preguntas. Repite cada pregunta en el micrófono antes de responder, para la sala y la grabación.
+- **Preguntas:** reserva unos 5 minutos para preguntas. Repite cada pregunta por el micrófono antes de responder, para la sala y la grabación.
 - **Live coding:** ten un plan B, como un video de la demo funcionando o capturas de pantalla de cada paso.
 - **Internet:** con los videos, las páginas y los notebooks descargados, no dependes de la red del evento.
-- **PDF:** exporta tus diapositivas en PDF y llévalo en un pendrive. El PDF abre en cualquier computadora, con las fuentes correctas. Google Slides: Archivo > Descargar > Documento PDF. PowerPoint: Archivo > Exportar. LibreOffice: Archivo > Exportar como > Exportar como PDF.
+- **PDF:** exporta tus diapositivas a PDF y llévalo en una memoria USB. El PDF se abre en cualquier computadora, con las fuentes correctas. Google Slides: Archivo > Descargar > Documento PDF. PowerPoint: Archivo > Exportar. LibreOffice: Archivo > Exportar como > Exportar como PDF.
 
 ## Preguntas frecuentes
 
@@ -91,16 +94,16 @@ Solo para el `.pptx`. Google Slides encuentra las fuentes por sí mismo y el `.o
 - **macOS:** abre cada archivo `.ttf` y haz clic en "Instalar tipo de letra".
 - **Linux:** copia los archivos `.ttf` a `~/.local/share/fonts/` y ejecuta `fc-cache -f`.
 
-Sin las fuentes, el programa usa otra fuente. El texto sigue legible, pero los títulos pueden cortarse en lugares distintos.
+Sin las fuentes, el programa usa otra fuente. El texto sigue legible, pero los saltos de línea de los títulos pueden cambiar.
 
 </details>
 
 <details>
 <summary>¿Cómo cambio una imagen o el código QR?</summary>
 
-Haz clic derecho en la caja gris o en el código QR y elige "Reemplazar imagen" ("Cambiar imagen" en PowerPoint). El tamaño escrito en la caja es el tamaño que llena el espacio en una pantalla Full HD.
+Haz clic derecho en la caja gris o en el código QR y elige "Reemplazar imagen" ("Cambiar imagen" en PowerPoint, "Reemplazar..." en LibreOffice). El tamaño escrito en la caja es el tamaño que llena el espacio en una pantalla Full HD.
 
-Para crear el código QR en LibreOffice, usa Insertar > Objeto OLE > Código QR y de barras. En los otros programas, crea la imagen en un sitio de códigos QR. Prueba la lectura con el celular a unos metros de la pantalla.
+Para crear el código QR en LibreOffice, usa Insertar > Objeto > Código QR y de barras. En los otros programas, crea la imagen en un sitio de códigos QR. Comprueba que el celular lo lee a unos metros de la pantalla.
 
 </details>
 
@@ -109,7 +112,7 @@ Para crear el código QR en LibreOffice, usa Insertar > Objeto OLE > Código QR 
 
 Los programas de presentación no colorean el código. Pega tu fragmento en [SlideSnippet](https://www.slidesnippet.com/) y elige el tema GitHub Light. Después:
 
-- **Google Slides:** haz clic en "Copy styled" y pega en la tarjeta de la diapositiva "Código" con Editar > Pegar.
+- **Google Slides:** haz clic en "Copy styled" y pega en la tarjeta de la diapositiva "Código com cores" con Editar > Pegar.
 - **PowerPoint:** haz clic en "Copy styled" y pega con "Mantener formato de origen".
 - **LibreOffice:** haz clic en "Download SVG" y arrastra el archivo a la tarjeta.
 
@@ -140,5 +143,5 @@ Estas páginas están en portugués:
 ## Licencias
 
 - Plantilla, textos de ejemplo y código de este repositorio: [CC0 1.0](LICENSE) (dominio público). Úsalos, cámbialos y compártelos sin pedir permiso ni dar crédito.
-- Logo, ilustraciones e identidad visual: Python Brasil 2026 y APyB, del brandboard oficial del evento, creado por [Ana Terhorst](https://anaterhorstdesign.com).
+- Logo, ilustraciones e identidad visual: Python Brasil 2026 y APyB, del manual de marca oficial del evento, creado por [Ana Terhorst](https://anaterhorstdesign.com).
 - Fuentes Roboto y Cascadia Mono: SIL Open Font License 1.1, en `fonts/`.

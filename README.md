@@ -9,7 +9,7 @@ Um modelo de apresentação pronto para quem vai palestrar na [Python Brasil 202
 | Você usa | Faça isto |
 |---|---|
 | Google Slides | **[Fazer uma cópia no Google Slides](https://docs.google.com/presentation/d/1glKLpS7_-X5MCBBZMDCs9_b3zl4Jqao8yOxpgpmy204/copy)**. A cópia vai para o seu Google Drive. |
-| PowerPoint ou Keynote | Baixe o [`.pptx`](https://github.com/rodbv/pybr2026-slides/releases/latest/download/pybr2026-template.pptx) e [instale as fontes](#preciso-instalar-fontes). |
+| PowerPoint ou Keynote | Baixe o [`.pptx`](https://github.com/rodbv/pybr2026-slides/releases/latest/download/pybr2026-template.pptx) e [instale as fontes](#dúvidas-frequentes). |
 | LibreOffice | Baixe o [`.odp`](https://github.com/rodbv/pybr2026-slides/releases/latest/download/pybr2026-template.odp). As fontes já vêm dentro do arquivo. |
 | Um editor de texto | Use o [modelo em Markdown](https://github.com/rodbv/pybr2026-marp): você escreve os slides em texto e um agente de IA, como o Copilot ou o Claude, aplica o visual. |
 
@@ -28,19 +28,19 @@ Os slides de exemplo mostram cada layout e trazem dicas nas anotações. Use as 
 
 1. Guarde uma cópia do modelo sem mudanças, para consultar as dicas depois.
 2. Numa segunda cópia, com o nome da sua palestra, escolha a versão escura ou a clara e apague a outra metade. Na dúvida, veja [Tema claro ou escuro?](#tema-claro-ou-escuro).
-3. Duplique os slides que você vai usar e apague os outros. Para um slide novo, use Slide > Novo slide e escolha o layout.
-4. Troque o texto e as imagens. As caixas cinza marcam o lugar das imagens: clique com o botão direito e escolha "Substituir imagem" (no PowerPoint, "Alterar Imagem").
+3. Duplique os slides que você vai usar e apague os outros. Para um slide novo, use Slide > Novo slide (no PowerPoint, Página Inicial > Novo Slide) e escolha o layout.
+4. Troque o texto e as imagens. As caixas cinza marcam o lugar das imagens: clique com o botão direito e escolha "Substituir imagem" (no PowerPoint, "Alterar Imagem"; no LibreOffice, "Substituir...").
 5. Apague as anotações dos exemplos e escreva as suas.
 
 Uma dica: conte mais ou menos 1 minuto por slide, depois de separar uns 5 minutos para perguntas. A estrutura costuma ser capa, agenda, uma seção para cada parte, o conteúdo e o encerramento.
 
-Antes de apresentar, procure no arquivo o que ficou do modelo: "Seu nome aqui", "@seu_usuario", "voce@exemplo.com.br", caixas cinza, "Dados de exemplo" e "Troque pelo seu QR code".
+Antes de apresentar, procure no arquivo o que ficou do modelo: "Título da sua palestra", "Seu nome aqui", "O que você faz · onde", "Nome da pessoa", "@seu_usuario", "voce@exemplo.com.br", caixas cinza, "Dados de exemplo" e "Troque pelo seu QR code".
 
 O modelo é um ponto de partida: mude o que quiser. Para manter a cara do evento, use as cores e as fontes abaixo. O [resumo da identidade visual](docs/referencia.md#identidade-visual) traz o resto: logos, figurinhas e regras de contraste.
 
 ## Tema claro ou escuro?
 
-O código fica num cartão claro nas duas versões. Texto escuro sobre fundo claro se lê melhor, em especial em letra pequena, como a do código ([Piepenbrock, Mayr e Buchner, 2014](https://doi.org/10.1177/0018720813515509)). Essa vantagem aparece com a sala escura e com a sala iluminada ([Buchner e Baumgartner, 2007](https://www.researchgate.net/publication/6321309_Text_-_Background_polarity_affects_performance_irrespective_of_ambient_illumination_and_colour_contrast)). Se preferir código em fundo escuro, use o tema Monokai e deixe a fonte bem grande.
+O código fica num cartão claro nas duas versões. Texto escuro sobre fundo claro se lê melhor, em especial em letra pequena, como a do código ([Piepenbrock, Mayr e Buchner, 2014](https://doi.org/10.1177/0018720813515509)). Essa vantagem aparece com a sala escura e com a sala iluminada ([Buchner e Baumgartner, 2007](https://doi.org/10.1080/00140130701306413)). Se preferir código em fundo escuro, use o tema Monokai e deixe a fonte bem grande.
 
 Para o resto dos slides:
 
@@ -53,7 +53,7 @@ flowchart TD
   tamanho -->|"Não"| claro2["Versão clara"]
 ```
 
-No projetor, a luz da sala apaga o preto da projeção, e o fundo claro se lê melhor. Numa tela de LED do tamanho de uma parede, o fundo escuro não ofusca o público, e quem fala não vira silhueta na gravação ([GeoEvent](https://www.geoevent.net/led-wall-brightness-event-viewing/)). Numa tela menor, como uma TV ou um monitor grande, o brilho não chega a ofuscar, e a versão clara se lê melhor.
+No projetor, a luz da sala apaga o preto da projeção, e o fundo claro se lê melhor. Numa tela de LED do tamanho de uma parede, o fundo escuro não ofusca o público. O brilho confortável de uma tela acompanha a luz do ambiente, e uma tela muito clara numa sala com pouca luz cansa a vista ([Zhou e outros, 2021](https://doi.org/10.3390/app11094108)). Numa tela menor, como uma TV ou um monitor grande, o brilho não chega a ofuscar, e a versão clara se lê melhor.
 
 ## Cores e fontes
 
@@ -75,8 +75,8 @@ Vai criar material com um agente de IA? Peça que ele leia o [`AGENTS.md`](AGENT
 
 Primeira palestra? Que bom. A plateia da Python Brasil torce por você, e estas dicas são sugestões, não regras.
 
-- **Texto:** com 18 pt ou mais, quem senta no fundo da sala também lê o slide. Se o texto não couber, divida o slide em dois e leve o resto para as anotações.
-- **Código:** até 8 linhas e cerca de 60 colunas por slide. Se o trecho for maior, divida em mais slides ou mostre só a parte que importa.
+- **Texto:** com 18 pt ou mais, quem senta no fundo da sala consegue ler o slide com mais conforto. Se o texto não couber, divida o slide em dois e leve o resto para as anotações.
+- **Código:** até 8 linhas e 60 colunas por slide. Se o trecho for maior, divida em mais slides ou mostre só a parte que importa.
 - **QR code:** troque o QR code do encerramento pelo seu, com o link do seu contato, dos seus slides ou de uma página com tudo isso. Escreva o link embaixo dele também.
 - **Perguntas:** reserve uns 5 minutos para perguntas. Repita cada pergunta no microfone antes de responder, para a sala e a gravação.
 - **Live coding:** tenha um plano B, como um vídeo da demo funcionando ou capturas de tela de cada passo.
@@ -101,7 +101,7 @@ Sem as fontes, o programa usa outra fonte no lugar. O texto continua legível, m
 <details>
 <summary>Como troco uma imagem ou o QR code?</summary>
 
-Clique com o botão direito na caixa cinza ou no QR code e escolha "Substituir imagem" (no PowerPoint, "Alterar Imagem"). O tamanho escrito na caixa é o tamanho que preenche o espaço numa tela Full HD.
+Clique com o botão direito na caixa cinza ou no QR code e escolha "Substituir imagem" (no PowerPoint, "Alterar Imagem"; no LibreOffice, "Substituir..."). O tamanho escrito na caixa é o tamanho que preenche o espaço numa tela Full HD.
 
 Para gerar o QR code no LibreOffice, use Inserir > Objeto > Código QR e de barras. Nos outros programas, gere a imagem num site de QR code. Teste a leitura com o celular a alguns metros da tela.
 
@@ -112,7 +112,7 @@ Para gerar o QR code no LibreOffice, use Inserir > Objeto > Código QR e de barr
 
 Os programas de apresentação não colorem código. Cole o seu trecho no [SlideSnippet](https://www.slidesnippet.com/) e escolha o tema GitHub Light. Depois:
 
-- **Google Slides:** clique em "Copy styled" e cole no cartão do slide "Código" pelo menu Editar > Colar.
+- **Google Slides:** clique em "Copy styled" e cole no cartão do slide "Código com cores" pelo menu Editar > Colar.
 - **PowerPoint:** clique em "Copy styled" e cole com "Manter Formatação Original".
 - **LibreOffice:** clique em "Download SVG" e arraste o arquivo para o cartão.
 
@@ -141,5 +141,5 @@ Abra uma [issue no GitHub](https://github.com/rodbv/pybr2026-slides/issues) cont
 ## Licenças
 
 - Modelo, textos de exemplo e código deste repositório: [CC0 1.0](LICENSE) (domínio público). Use, mude e compartilhe sem pedir permissão nem dar crédito.
-- Logo, ilustrações e identidade visual: Python Brasil 2026 e APyB, do brandboard oficial do evento, criado por [Ana Terhorst](https://anaterhorstdesign.com).
+- Logo, ilustrações e identidade visual: Python Brasil 2026 e APyB, do manual de marca oficial do evento, criado por [Ana Terhorst](https://anaterhorstdesign.com).
 - Fontes Roboto e Cascadia Mono: SIL Open Font License 1.1, em `fonts/`.

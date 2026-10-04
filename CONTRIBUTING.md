@@ -20,7 +20,7 @@ O `.odp` é gerado pelo LibreOffice a partir do `.pptx` e leva as fontes dentro 
 
 As imagens de exemplo (caixas cinza com o tamanho de cada espaço) vêm do [imgplaceholdr.com](https://imgplaceholdr.com); `python3 assets/make_examples.py` baixa as imagens de novo.
 
-As figurinhas saem do brandboard oficial em PDF, que não fica no repositório. `assets/extract_brandboard.sh` recorta as peças do PDF em PNG transparente a 600 dpi, na pasta `assets/brandboard/` (fora do git), e `assets/make_brand_assets.sh` gera a partir delas as versões usadas no modelo, em `assets/brand/` (precisa de poppler e ImageMagick 7).
+As figurinhas saem do manual de marca oficial em PDF, que não fica no repositório. `assets/extract_brandboard.sh` recorta as peças do PDF em PNG transparente a 600 dpi, na pasta `assets/brandboard/` (fora do git), e `assets/make_brand_assets.sh` gera a partir delas as versões usadas no modelo, em `assets/brand/` (precisa de poppler e ImageMagick 7).
 
 ## Publicar uma versão
 
