@@ -43,7 +43,7 @@ O modelo é um ponto de partida: mude o que quiser. Para manter a cara do evento
 | | Cor | Hex | RGB | Uso |
 |---|---|---|---|---|
 | ![Amostra de preto](docs/cores/0F0F0F.png) | Preto | `#0F0F0F` | 15, 15, 15 | Fundo escuro, texto no fundo claro |
-| ![Amostra de off white](docs/cores/E8F4BA.png) | Off white | `#E8F4BA` | 232, 244, 186 | Texto no fundo escuro |
+| ![Amostra de off-white](docs/cores/E8F4BA.png) | Off-white | `#E8F4BA` | 232, 244, 186 | Texto no fundo escuro |
 | ![Amostra de verde limão](docs/cores/B7FF06.png) | Verde limão | `#B7FF06` | 183, 255, 6 | Destaque; como cor de texto, só no fundo escuro |
 | ![Amostra de violeta](docs/cores/BF2EB2.png) | Violeta | `#BF2EB2` | 191, 46, 178 | Links no fundo claro |
 

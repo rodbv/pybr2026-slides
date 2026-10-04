@@ -43,7 +43,7 @@ The template is a starting point: change anything you like. To keep the look of 
 | | Color | Hex | RGB | Use |
 |---|---|---|---|---|
 | ![Black sample](docs/cores/0F0F0F.png) | Black | `#0F0F0F` | 15, 15, 15 | Dark background, text on light background |
-| ![Off white sample](docs/cores/E8F4BA.png) | Off-white | `#E8F4BA` | 232, 244, 186 | Text on dark background |
+| ![Off-white sample](docs/cores/E8F4BA.png) | Off-white | `#E8F4BA` | 232, 244, 186 | Text on dark background |
 | ![Lime green sample](docs/cores/B7FF06.png) | Lime green | `#B7FF06` | 183, 255, 6 | Highlight; as a text color, only on dark background |
 | ![Violet sample](docs/cores/BF2EB2.png) | Violet | `#BF2EB2` | 191, 46, 178 | Links on light background |
 
