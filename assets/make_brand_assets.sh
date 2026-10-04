@@ -41,7 +41,7 @@ tint mago-teclado "$BLACK" 1600x mago-dark.png
 sticker mago-teclado 1400x sticker-mago.png
 sticker mago-ola-mundo 1600x sticker-mago-ola.png
 
-for piece in logo-assinatura logo-abstracao magia-explosao magia-brilho-violeta magia-estrela icone-seta icone-codigo; do
+for piece in logo-assinatura logo-abstracao magia-explosao magia-brilho-violeta magia-estrela magia-brilhos magia-estrela-pixel icone-seta icone-codigo; do
   magick "$BOARD/$piece.png" -resize '1200x1200>' "$BRAND/$piece.png"
 done
 
