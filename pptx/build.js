@@ -25,7 +25,7 @@ const THEME = {
   colors: {
     dk1: "0F0F0F", // preto (fundo escuro, texto no claro)
     lt1: "FFFFFF", // branco (fundo claro)
-    dk2: "1A1A1A", // cartão de código
+    dk2: "1A1A1A", // quase preto de apoio
     lt2: "E8F4BA", // off white (texto no escuro, cartões no claro)
     accent1: "B7FF06", // verde cítrico: texto só sobre escuro; preenchimento com texto preto em ambos
     accent2: "BF2EB2", // violeta: links e destaques sobre fundo claro (4,9:1)
@@ -304,8 +304,8 @@ for (const mode of [DARK, LIGHT]) {
   }
   defineTitledLayout("Três imagens", mode, [titlePh(mode), ...shots]);
 
-  // Código: cartão escuro em ambos os modos, para o realce de sintaxe ter o mesmo contraste
-  const codeCard = (box) => shape("roundRect", box, HEX.dk2, { rectRadius: 0.1, line: { color: mode === DARK ? DARK.outlineHex : HEX.dk2, width: 1 } });
+  // Código: cartão claro em ambos os modos, porque código se lê melhor em fundo claro
+  const codeCard = (box) => shape("roundRect", box, "FFFFFF", { rectRadius: 0.1, line: { color: "D0D7DE", width: 1 } });
   const codePh = (name, box, text) => ph(name, "body", box, text, { fontSize: 15, color: CODE_TEXT_COLOR, fontFace: THEME.headFontFace, paraSpaceAfter: 0, lineSpacing: 17, fit: "shrink" });
   const codeH = 2.85;
   defineTitledLayout("Código", mode, [
@@ -652,7 +652,7 @@ s = codeSlide("Código", ESCURO, [
   { text: "Dica: ", options: { bold: true } },
   { text: "gere o código colorido no " },
   link("slidesnippet.com", LINK_ON_DARK),
-  { text: ", tema Monokai, fundo #1A1A1A." },
+  { text: ", tema GitHub Light." },
 ]);
 // The wizard sticker from the stickers slide, in the empty corner of the code card, as an example of use.
 s.addImage({ path: resized(path.join(BRAND, "sticker-mago.png"), { width: 600 }), x: 8.2, y: 2.75, w: 1.6 * MAGO_RATIO, h: 1.6, altText: "Figurinha do mago digitando no teclado" });
@@ -771,7 +771,7 @@ pres.addSection({ title: CLARO });
 
 coverSlide(LIGHT, CLARO,
   "Título da sua palestra",
-  "Versão clara, para salas iluminadas");
+  "Versão clara, para projetor");
 
 s = slide("Seção (claro)", CLARO);
 fill(s, { number: "02", title: "Uma pausa para respirar e beber água" });
@@ -811,8 +811,8 @@ fill(s, {
 exampleImage(s, LIGHT, "image", "imagem-lado", IMAGE_LEFT);
 
 codeSlide("Código (claro)", CLARO, [
-  { text: "Dica: ", options: { bold: true } },
-  { text: "o cartão continua escuro no slide claro, para o código ter o mesmo contraste." },
+  { text: "Prefere fundo escuro para o código? ", options: { bold: true } },
+  { text: "Use o tema Monokai e deixe a fonte bem grande." },
 ]);
 
 s = slide("Citação (claro)", CLARO);

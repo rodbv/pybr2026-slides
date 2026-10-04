@@ -63,7 +63,9 @@ module.exports = [
   [
     "Se a sua palestra não tem código, pode pular este slide.",
     "Até 8 linhas e 60 colunas. Se o trecho for maior, divida em slides ou mostre só o que importa.",
-    "Para as mesmas cores, use o slidesnippet.com com o tema Monokai e o fundo #1A1A1A.",
+    "Para as mesmas cores, use o slidesnippet.com com o tema GitHub Light.",
+    "O código fica num cartão claro também no slide escuro. Estudos de legibilidade mostram que texto escuro sobre fundo claro se lê melhor, em especial em letra pequena, como a do código (Piepenbrock, Mayr e Buchner, 2014).",
+    "Se preferir fundo escuro no código, use o tema Monokai com o fundo #1A1A1A e deixe a fonte bem grande.",
     "Google Slides: “Copy styled” e Editar > Colar. PowerPoint: “Copy styled” e colar com Manter Formatação Original. LibreOffice: baixe o SVG e arraste para o cartão.",
   ],
   // 13 Código lado a lado
@@ -122,7 +124,7 @@ module.exports = [
   ],
   // 23 Capa clara
   [
-    "Em sala muito iluminada ou com projetor fraco, o fundo claro fica mais legível.",
+    "Telão de LED grande: use a versão escura, que não ofusca o público. Telão menor ou projetor: use a versão clara. O código fica em fundo claro nas duas.",
   ],
   // 24 Seção clara
   [
