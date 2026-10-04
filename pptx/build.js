@@ -45,14 +45,17 @@ const LINK_ON_LIGHT = HEX.accent2;
 const W = 10;
 const H = 5.625;
 const M = 0.5; // margem lateral
-const TITLE = { x: M, y: 0.42, w: W - 2 * M, h: 1.0 };
-const BODY = { x: M, y: 1.55, w: W - 2 * M, h: 3.3 };
+const TITLE = { x: M, y: 0.3, w: W - 2 * M, h: 0.75 };
+const BODY = { x: M, y: 1.45, w: W - 2 * M, h: 3.3 };
 const TEXT_COL_W = 4.4;
-const IMAGE_RIGHT = { x: M + TEXT_COL_W + 0.4, y: BODY.y, w: W - M - (M + TEXT_COL_W + 0.4), h: BODY.h };
+const IMAGE_RIGHT_W = W - M - (M + TEXT_COL_W + 0.4);
+// 16:10, the ratio of most screenshots and laptop screens.
+const IMAGE_RIGHT = { x: M + TEXT_COL_W + 0.4, y: BODY.y, w: IMAGE_RIGHT_W, h: IMAGE_RIGHT_W / 1.6 };
 const IMAGE_LEFT = { x: 0, y: 0, w: 4.4, h: H };
 const PHOTO = { x: M, y: 1.3, w: 3.0, h: 3.0 };
 const SHOT_GAP = 0.3;
-const SHOT = { w: (W - 2 * M - 2 * SHOT_GAP) / 3, h: 2.45 };
+const SHOT_W = (W - 2 * M - 2 * SHOT_GAP) / 3;
+const SHOT = { w: SHOT_W, h: SHOT_W / 1.6 };
 const shotBox = (i) => ({ x: M + i * (SHOT.w + SHOT_GAP), y: BODY.y, ...SHOT });
 const TEXT_W = 8.0; // keeps body lines under about 60 characters at 20 pt
 const FOOTER_Y = 5.15;
@@ -90,6 +93,7 @@ const DARK = {
   mutedHex: HEX.accent5,
   cardHex: "242424",
   outlineHex: "3A3A3A",
+  limeEdgeHex: HEX.accent1,
   accent: C.accent1,
   accentHex: HEX.accent1,
   watermark: resized(path.join(BRAND, "witch-light.png"), { height: 700 }),
@@ -105,6 +109,8 @@ const LIGHT = {
   mutedHex: HEX.accent6,
   cardHex: HEX.lt2,
   outlineHex: "C9D9A0",
+  // Lime on white is 1.2:1, so lime shapes get a black edge, as the brand's stickers do.
+  limeEdgeHex: HEX.dk1,
   // On white, the brand's own pages use black text with lime fills, so the accent is black.
   accent: C.text1,
   accentHex: HEX.dk1,
@@ -125,7 +131,7 @@ const PIXEL_CIRCLE_RATIO = 350 / 650;
 // Content slides carry the event name as quiet text; the logo itself appears only on the
 // cover, section and closing slides, where it does not compete with the content.
 function footer(mode, x = M) {
-  return [{ text: { text: "Python Brasil 2026", options: { x, y: FOOTER_Y - 0.07, w: 3, h: 0.3, fontSize: 10, color: mode.mutedHex, fontFace: THEME.headFontFace, margin: 0, valign: "middle", lang: LANG } } }];
+  return [{ text: { text: "Python Brasil 2026", options: { x, y: FOOTER_Y - 0.07, w: 3, h: 0.3, fontSize: 12, color: mode.mutedHex, fontFace: THEME.headFontFace, margin: 0, valign: "middle", lang: LANG } } }];
 }
 
 const BRAND_LOCKUP_W = 1.1;
@@ -135,7 +141,7 @@ function brandFooter(mode) {
 }
 
 function slideNumber(mode) {
-  return { x: W - M - 0.6, y: FOOTER_Y - 0.07, w: 0.6, h: 0.3, fontSize: 11, color: mode.mutedHex, align: "right", fontFace: THEME.headFontFace };
+  return { x: W - M - 0.6, y: FOOTER_Y - 0.07, w: 0.6, h: 0.3, fontSize: 12, color: mode.mutedHex, align: "right", fontFace: THEME.headFontFace };
 }
 
 function ph(name, type, box, text, options = {}) {
@@ -144,9 +150,9 @@ function ph(name, type, box, text, options = {}) {
 
 // Content titles go uppercase with a thin rule below, as on the brand's pages. pptxgenjs
 // has no all-caps option, so the 1 pt letter spacing marks these runs for lib/caps.js.
-const TITLE_RULE_Y = 1.38;
+const TITLE_RULE_Y = 1.15;
 function titlePh(mode, box = TITLE, text = "Título do slide") {
-  return ph("title", "title", box, text, { fontSize: 28, bold: true, color: mode.text, align: "left", fit: "shrink", charSpacing: CAPS_SPACING });
+  return ph("title", "title", box, text, { fontSize: 28, bold: true, color: mode.text, align: "left", valign: "bottom", fit: "shrink", charSpacing: CAPS_SPACING });
 }
 
 function titleRule(mode, x = 0) {
@@ -172,7 +178,8 @@ function surface(mode, kind, box, options = {}) {
   return shape(kind, box, mode.cardHex, { line: { color: mode.outlineHex, width: 1 }, ...options });
 }
 
-function imagePh(mode, name, box, text = "Clique no ícone ou arraste uma imagem", outlineHex = mode.outlineHex) {
+// Light slides frame images in gray: the green card outline would tint the photo edge.
+function imagePh(mode, name, box, text = "Clique no ícone ou arraste uma imagem", outlineHex = mode === LIGHT ? "C8C8C8" : mode.outlineHex) {
   return ph(name, "pic", box, text, { fontSize: 14, color: mode.muted, align: "center", valign: "middle", fill: { color: mode.cardHex }, line: { color: outlineHex, width: 1 } });
 }
 
@@ -213,7 +220,7 @@ for (const mode of [DARK, LIGHT]) {
       ...coverLockup(mode),
       // The date sits in its own text box: an ellipse only lays text out in its inscribed rectangle.
       shape("ellipse", { x: W - M - dateD, y: 0.3, w: dateD, h: dateD }, LIME),
-      { text: { text: "14 a 19\nde outubro\nde 2026\n{Floripa/SC}", options: { x: W - M - dateD, y: 0.3, w: dateD, h: dateD, fontSize: 13, bold: true, fontFace: THEME.headFontFace, color: ON_LIME, align: "center", valign: "middle", margin: 0, isTextBox: true, lang: LANG } } },
+      { text: { text: "14 a 19\nde outubro\nde 2026\n{Floripa/SC}", options: { x: W - M - dateD, y: 0.3, w: dateD, h: dateD, fontSize: 14, bold: true, fontFace: THEME.headFontFace, color: ON_LIME, align: "center", valign: "middle", margin: 0, isTextBox: true, lang: LANG } } },
       ph("title", "title", { x: M, y: 0.6, w: 4.6, h: 2.6 }, "Título da palestra", { fontSize: 36, bold: true, color: mode.accent, align: "left", valign: "bottom", fit: "shrink" }),
       ph("subtitle", "body", { x: M, y: 3.35, w: 4.6, h: 0.5 }, "Subtítulo ou frase de efeito", { fontSize: 20, color: mode.text, fit: "shrink" }),
       ph("speaker", "body", { x: M, y: 4.0, w: 4.6, h: 0.5 }, "Nome da pessoa palestrante · @usuario", { fontSize: 18, bold: true, color: mode.text, fit: "shrink" }),
@@ -243,13 +250,13 @@ for (const mode of [DARK, LIGHT]) {
 
   // Seção: disco limão com o número, título à direita, dragão translúcido ao fundo
   const secD = 1.9;
-  const markH = 3.3;
+  const markH = 2.6;
   const watermark = { image: { x: W - markH * WITCH_RATIO + 0.5, y: H - markH + 0.25, w: markH * WITCH_RATIO, h: markH, path: mode.watermark, transparency: 88 } };
   defineBrandLayout("Seção", mode, [
     watermark,
     shape("ellipse", { x: M, y: 1.85, w: secD, h: secD }, LIME),
     ph("number", "body", { x: M, y: 1.85, w: secD, h: secD }, "01", { fontSize: 40, bold: true, color: ON_LIME, align: "center", valign: "middle", fontFace: THEME.headFontFace }),
-    ph("title", "title", { x: M + secD + 0.4, y: 1.6, w: W - M - (M + secD + 0.4), h: 2.4 }, "Título da seção", { fontSize: 34, bold: true, color: mode.text, align: "left", valign: "middle", fit: "shrink" }),
+    ph("title", "title", { x: M + secD + 0.4, y: 1.6, w: 4.6, h: 2.4 }, "Título da seção", { fontSize: 34, bold: true, color: mode.text, align: "left", valign: "middle", fit: "shrink" }),
   ]);
 
   defineTitledLayout("Título e conteúdo", mode, [titlePh(mode), bodyPh(mode, "body", { ...BODY, w: TEXT_W })]);
@@ -305,7 +312,7 @@ for (const mode of [DARK, LIGHT]) {
     titlePh(mode),
     codeCard({ x: M, y: BODY.y, w: W - 2 * M, h: codeH }),
     codePh("code", { x: M + 0.25, y: BODY.y + 0.15, w: W - 2 * M - 0.5, h: codeH - 0.25 }, "# Até 8 linhas e 60 colunas por slide"),
-    bodyPh(mode, "note", { x: M, y: BODY.y + codeH + 0.1, w: W - 2 * M, h: 0.4 }, "O que este trecho mostra", { bullet: false, fontSize: 16, valign: "middle" }),
+    bodyPh(mode, "note", { x: M, y: BODY.y + codeH + 0.1, w: W - 2 * M, h: 0.4 }, "O que este trecho mostra", { bullet: false, fontSize: 18, valign: "middle" }),
   ]);
 
   // Código lado a lado: antes e depois, cada cartão com cerca de 30 colunas
@@ -329,10 +336,11 @@ for (const mode of [DARK, LIGHT]) {
   ]);
 
   // Frase: uma ideia só, grande, como "Perguntas?"
+  // No slide number: the witch watermark fills that corner.
   defineLayout("Frase", mode, [
     watermark,
     ph("title", "title", { x: M, y: 0.9, w: TEXT_W, h: 3.4 }, "Uma frase só", { fontSize: 48, bold: true, color: mode.accent, align: "left", valign: "middle", fit: "shrink" }),
-  ]);
+  ], { slideNumber: undefined });
 
   defineTitledLayout("Referências", mode, [titlePh(mode, TITLE, "Referências"), bodyPh(mode, "body", BODY, "Título do material  endereço.com.br/link", { bullet: false, fontSize: 18, paraSpaceAfter: 12 })]);
 
@@ -344,7 +352,7 @@ for (const mode of [DARK, LIGHT]) {
   ["01", "02", "03"].forEach((n, i) => {
     const x = M + i * (cardW + cardGap);
     cards.push(surface(mode, "roundRect", { x, y: BODY.y, w: cardW, h: BODY.h }, { rectRadius: 0.12 }));
-    cards.push(shape("ellipse", { x: x + 0.3, y: BODY.y + 0.3, w: badgeD, h: badgeD }, LIME, { fontSize: 18, bold: true, fontFace: THEME.headFontFace, color: ON_LIME, align: "center", valign: "middle", margin: 0 }, n));
+    cards.push(shape("ellipse", { x: x + 0.3, y: BODY.y + 0.3, w: badgeD, h: badgeD }, LIME, { fontSize: 18, bold: true, fontFace: THEME.headFontFace, color: ON_LIME, align: "center", valign: "middle", margin: 0, line: { color: mode.limeEdgeHex, width: 1 } }, n));
     cards.push(headingPh(mode, `card${i + 1}Title`, { x: x + 0.3, y: BODY.y + 1.15, w: cardW - 0.6, h: 0.65 }, "Título", { fontSize: 18 }));
     cards.push(bodyPh(mode, `card${i + 1}`, { x: x + 0.3, y: BODY.y + 1.85, w: cardW - 0.6, h: BODY.h - 2.0 }, "Descrição curta", { bullet: false, fontSize: 18, paraSpaceAfter: 6 }));
   });
@@ -365,7 +373,7 @@ for (const mode of [DARK, LIGHT]) {
   defineLayout("Palestrante", mode, [
     imagePh(mode, "photo", PHOTO, "Foto"),
     ph("title", "title", { x: 4.0, y: 1.3, w: W - 4.0 - M, h: 0.9 }, "Nome da pessoa", { fontSize: 30, bold: true, color: mode.text, align: "left", fit: "shrink" }),
-    ph("role", "body", { x: 4.0, y: 2.2, w: W - 4.0 - M, h: 0.7 }, "Cargo, empresa ou comunidade", { fontSize: 16, color: mode.accent, fontFace: THEME.headFontFace, fit: "shrink" }),
+    ph("role", "body", { x: 4.0, y: 2.2, w: W - 4.0 - M, h: 0.7 }, "Cargo, empresa ou comunidade", { fontSize: 18, color: mode.accent, fontFace: THEME.headFontFace, fit: "shrink" }),
     bodyPh(mode, "bio", { x: 4.0, y: 3.0, w: W - 4.0 - M, h: 1.8 }, "Três fatos sobre você", { fontSize: 18 }),
   ]);
 
@@ -454,13 +462,14 @@ const QR_PATH = path.join(BUILD, "qr-exemplo.png");
 const QR_BOX = { x: W - M - 3.3, y: 0.55, w: 3.3, h: 3.3 }; // same box as the layout's qr placeholder
 const QR_URL = "https://2026.pythonbrasil.org.br/";
 
-const CONTACTS = [
-  { text: "Seu nome aqui", options: { bold: true, breakLine: true } },
-  { text: "@seu_usuario", options: { fontFace: THEME.headFontFace, fontSize: 18, breakLine: true } },
-  { text: "voce@exemplo.com.br", options: { fontFace: THEME.headFontFace, fontSize: 18 } },
+// pptxgenjs writes into the options it receives, so each slide gets its own copy.
+const contacts = (mode) => [
+  { text: "Seu nome aqui", options: { bold: true, color: mode.textHex, breakLine: true } },
+  { text: "@seu_usuario", options: { fontFace: THEME.headFontFace, fontSize: 18, color: mode.textHex, breakLine: true } },
+  { text: "voce@exemplo.com.br", options: { fontFace: THEME.headFontFace, fontSize: 18, color: mode.textHex } },
 ];
 
-function closingSlide(mode, section, title, body = CONTACTS) {
+function closingSlide(mode, section, title, body = contacts(mode)) {
   const sl = slide("Encerramento" + mode.suffix, section);
   // The caption tells the speaker to replace the QR code; on their slides it holds the link.
   fill(sl, { title, body, qrCaption: "Troque pelo QR code\ndo link dos seus slides" });
@@ -488,6 +497,7 @@ function chartSlide(mode, section) {
       barDir: "col",
       // Lime bars on both backgrounds: the value labels carry the numbers, so the bars need no text contrast.
       chartColors: [LIME],
+      dataBorder: { pt: 1, color: mode.limeEdgeHex },
       showValue: true,
       dataLabelFormatCode: '0"%"',
       dataLabelPosition: "outEnd",
@@ -506,7 +516,7 @@ function chartSlide(mode, section) {
       showTitle: false,
     }
   );
-  sl.addText("Dados de exemplo: clique duas vezes para editar (PowerPoint e LibreOffice).", { x: M, y: BODY.y + BODY.h - 0.4, w: W - 2 * M, h: 0.4, fontSize: 16, color: mode.mutedHex, fontFace: THEME.bodyFontFace, margin: 0, valign: "middle", isTextBox: true, lang: LANG });
+  sl.addText("Dados de exemplo. Para trocar os dados, veja as anotações deste slide.", { x: M, y: BODY.y + BODY.h - 0.4, w: W - 2 * M, h: 0.4, fontSize: 18, color: mode.mutedHex, fontFace: THEME.bodyFontFace, margin: 0, valign: "middle", isTextBox: true, lang: LANG });
 }
 
 // Flowchart: plain shapes, so a step is added by duplicating a box and an arrow.
@@ -525,7 +535,7 @@ function flowSlide(mode, section, title, steps) {
     const last = i === steps.length - 1;
     sl.addText(step, {
       shape: pres.ShapeType.roundRect, x, y, w, h, rectRadius: 0.12,
-      fill: { color: last ? LIME : mode.cardHex }, line: { color: last ? LIME : mode.outlineHex, width: 1.5 },
+      fill: { color: last ? LIME : mode.cardHex }, line: { color: last ? mode.limeEdgeHex : mode.outlineHex, width: 1.5 },
       fontSize: 18, bold: last, color: last ? ON_LIME : mode.textHex, fontFace: THEME.bodyFontFace, align: "center", valign: "middle", margin: 0.1, lang: LANG,
       objectName: `Passo ${i + 1}`,
     });
@@ -569,9 +579,9 @@ s = slide("Título e conteúdo", ESCURO);
 fill(s, {
   title: "Na hora de começar",
   body: bullets([
-    "Solte o ar devagar e beba um gole de água",
+    "Solte o ar devagar antes da primeira frase",
     "O público está do seu lado",
-    "Fale mais devagar e respire entre as frases",
+    "Fale com calma e respire entre as frases",
     "A palestra é sua, no seu ritmo",
   ]),
 });
@@ -580,10 +590,10 @@ s = slide("Agenda", ESCURO);
 fill(s, {
   title: "Agenda",
   body: numbered([
-    "Mostra ao público o caminho da palestra",
+    "A agenda mostra o caminho da palestra",
     "Três a cinco partes costumam bastar",
-    "Pode voltar entre uma parte e outra",
-    "Cada parte também pode abrir com uma seção",
+    "Volte a este slide entre uma parte e outra",
+    "Cada parte pode abrir com um slide de seção",
     "Opcional: pode sair se o tempo for curto",
   ]),
 });
@@ -635,7 +645,7 @@ class Palestra:
 
 function codeSlide(layout, section, tip) {
   const sl = slide(layout, section);
-  fill(sl, { title: "Código: 8 linhas cabem bem", code: highlightCode(SAMPLE_CODE, "python"), note: tip });
+  fill(sl, { title: "Código com cores", code: highlightCode(SAMPLE_CODE, "python"), note: tip });
   return sl;
 }
 s = codeSlide("Código", ESCURO, [
@@ -674,9 +684,9 @@ const tiny = (runs) => runs.map((r) => ({ ...r, options: { ...r.options, fontSiz
 s = slide("Código lado a lado", ESCURO);
 fill(s, {
   title: "Um exemplo menor também ensina",
-  leftTitle: "20 linhas, letra miúda :(",
+  leftTitle: "20 linhas, letra miúda",
   codeLeft: tiny(highlightCode(LONG_CODE)),
-  rightTitle: "4 linhas, letra grande :)",
+  rightTitle: "4 linhas, letra grande",
   codeRight: highlightCode(`def cabe(palestra, slot):
     # 5 min para perguntas
     fim = palestra.duracao + 5
@@ -686,18 +696,18 @@ fill(s, {
 
 s = slide("Números em destaque", ESCURO);
 s.addText("Três números que ajudam", { placeholder: "title" });
-[["18", "pontos: fonte mínima para quem está longe"], ["8", "linhas de código cabem bem"], ["5", "minutos para perguntas no fim"]].forEach(([v, l], i) => {
+[["18", "pontos de letra: legível do fundo da sala"], ["1", "ensaio em voz alta mostra o tempo real"], ["5", "minutos para perguntas no fim"]].forEach(([v, l], i) => {
   fill(s, { [`value${i + 1}`]: v, [`label${i + 1}`]: l });
 });
 // The pixel circle from the stickers slide, around the middle number, as an example of use.
-s.addImage({ path: path.join(BRAND, "pixel-circle.png"), x: 4.1, y: 2.1, w: 1.8, h: 1.2, altText: "Círculo pixelado limão em volta do número 8" });
+s.addImage({ path: path.join(BRAND, "pixel-circle.png"), x: 4.1, y: 2.0, w: 1.8, h: 1.2, altText: "Círculo pixelado limão em volta do número 1" });
 
 s = slide("Três cartões", ESCURO);
-s.addText("Antes de subir no palco", { placeholder: "title" });
+s.addText("Antes de subir ao palco", { placeholder: "title" });
 [
   ["Live coding", "Plano B: capturas de tela ou um vídeo da demo."],
-  ["Internet", "A rede pode cair: baixe vídeos e páginas antes."],
-  ["Arquivo", "Leve os slides em PDF num pendrive."],
+  ["Internet", "Com vídeos e páginas baixados, você não depende da rede."],
+  ["PDF", "Leve os slides em PDF num pendrive."],
 ].forEach(([h, t], i) => fill(s, { [`card${i + 1}Title`]: h, [`card${i + 1}`]: t }));
 
 s = slide("Somente título", ESCURO);
@@ -710,8 +720,8 @@ s.addTable(
     row(["Quando", "Sugestão"], tableHead),
     ...[
       ["Antes do evento", "Tirar dúvidas no grupo de palestrantes no Telegram"],
-      ["Na véspera", "Pega leve no karaokê! Voz e descanso em dia"],
-      ["No dia", "Chegar cedo e testar o notebook no projetor da sala"],
+      ["Na véspera", "Pega leve no karaokê :P Voz e descanso em dia"],
+      ["No dia", "Chegar cedo e conhecer a sala"],
       ["15 min antes", "Dar um oi ao voluntariado da sala"],
       ["Na palestra", "Microfone perto da boca, mesmo ao olhar para o telão"],
       ["Depois", "Publicar os slides no link do QR code"],
@@ -728,7 +738,7 @@ s = slide("Imagem cheia", ESCURO);
 // The example image fills the placeholder; an empty placeholder would be drawn above the caption.
 exampleImage(s, DARK, "image", "fundo", { x: 0, y: 0, w: W, h: H });
 s.addShape(pres.ShapeType.rect, { x: 0, y: H - 0.9, w: W, h: 0.9, fill: { color: HEX.dk1, transparency: 25 }, line: { color: HEX.dk1, width: 0 }, objectName: "Faixa da legenda" });
-s.addText("Imagem cheia com legenda. Foto: Nome da Pessoa · CC BY 4.0", { x: M, y: H - 0.75, w: W - 2 * M, h: 0.6, fontSize: 14, color: DARK.textHex, valign: "middle", isTextBox: true, margin: 0, lang: LANG });
+s.addText("Legenda da foto. Foto: Nome da Pessoa · CC BY 4.0", { x: M, y: H - 0.75, w: W - 2 * M, h: 0.6, fontSize: 18, color: DARK.textHex, valign: "middle", isTextBox: true, margin: 0, lang: LANG });
 
 s = slide("Destaque", ESCURO);
 fill(s, {
@@ -753,17 +763,15 @@ s.addText([
   ["Verificador de contraste", "webaim.org/resources/contrastchecker"],
 ].flatMap(reference), { placeholder: "body" });
 
-s = closingSlide(DARK, ESCURO, "Perguntas?", CONTACTS);
-// Readers who skip the notes would stop here, so the slide itself says the deck goes on.
-s.addText("Continua: versão clara com mais dicas →", { x: M, y: 4.45, w: 5.2, h: 0.4, fontSize: 16, bold: true, color: LIME, fontFace: THEME.headFontFace, margin: 0, valign: "middle", isTextBox: true, lang: LANG, objectName: "Aviso: o modelo continua" });
+closingSlide(DARK, ESCURO, "Perguntas?");
 
 // ----- light variants -----
 const CLARO = "Layouts claros";
 pres.addSection({ title: CLARO });
 
 coverSlide(LIGHT, CLARO,
-  "Todos os layouts têm versão clara",
-  "Para salas claras ou projetores fracos");
+  "Título da sua palestra",
+  "Versão clara, para salas iluminadas");
 
 s = slide("Seção (claro)", CLARO);
 fill(s, { number: "02", title: "Uma pausa para respirar e beber água" });
@@ -772,7 +780,7 @@ s = slide("Título e conteúdo (claro)", CLARO);
 fill(s, {
   title: "A sua tela no telão",
   body: bullets([
-    "Notificações desligadas (modo Não perturbe)",
+    "Notificações desligadas (modo Não incomodar)",
     "Papel de parede neutro",
     "Só as abas e os programas da palestra",
     "Janela anônima: o histórico não aparece ao digitar endereços",
@@ -783,7 +791,7 @@ s = slide("Duas colunas (claro)", CLARO);
 fill(s, {
   title: "Um ensaio em voz alta ajuda",
   leftTitle: "Ensaiar",
-  left: bullets(["Com cronômetro", "Com alguém assistindo", "No computador do dia"]),
+  left: bullets(["Com cronômetro", "Com alguém assistindo", "No computador da palestra"]),
   rightTitle: "Cortar",
   right: bullets(["O que passar do tempo", "Detalhes que cabem nas anotações", "Slides que você pula ao ensaiar"]),
 });
@@ -791,22 +799,20 @@ fill(s, {
 s = slide("Texto e imagem (claro)", CLARO);
 fill(s, {
   title: "Imagens acessíveis",
-  body: bullets(["Texto alternativo em toda imagem", "Legenda curta se a imagem não for óbvia", "Informação que não depende só da cor"]),
+  body: bullets(["Texto alternativo em toda imagem", "Legenda curta se a imagem não for óbvia", "Informação que não dependa só da cor"]),
 });
 exampleImage(s, LIGHT, "image", "imagem-caixa", IMAGE_RIGHT);
 
 s = slide("Imagem e texto (claro)", CLARO);
 fill(s, {
-  title: "Olho no olho",
-  body: bullets(["Olhar para uma pessoa amiga, não só para a tela", "As anotações do slide como apoio", "Apontar com palavras, não com o mouse"]),
+  title: "Falar com a sala",
+  body: bullets(["Olhar para o público, se for confortável", "As anotações do slide como apoio", "Apontar com palavras, não com o mouse"]),
 });
 exampleImage(s, LIGHT, "image", "imagem-lado", IMAGE_LEFT);
 
 codeSlide("Código (claro)", CLARO, [
   { text: "Dica: ", options: { bold: true } },
-  { text: "no LibreOffice, baixe o SVG do " },
-  link("slidesnippet.com", LINK_ON_LIGHT),
-  { text: " e arraste para o slide." },
+  { text: "o cartão continua escuro no slide claro, para o código ter o mesmo contraste." },
 ]);
 
 s = slide("Citação (claro)", CLARO);
@@ -819,7 +825,7 @@ fill(s, { title: "Menos texto, letra maior." });
 
 s = slide("Destaque (claro)", CLARO);
 fill(s, {
-  title: "Fale de um jeito que acolhe",
+  title: "Fale de um jeito que acolha",
   body: bullets([
     "Mostre o passo a passo em vez de dizer que é fácil",
     "Explique cada sigla na primeira vez",
@@ -827,18 +833,12 @@ fill(s, {
   ]),
 });
 
-s = slide("Números em destaque (claro)", CLARO);
-s.addText("Acessibilidade em números", { placeholder: "title" });
-[["4,5:1", "contraste mínimo do texto"], ["1", "ideia por slide"], ["0", "informações passadas só pela cor"]].forEach(([v, l], i) => {
-  fill(s, { [`value${i + 1}`]: [marked(v)], [`label${i + 1}`]: l });
-});
-
 s = slide("Três cartões (claro)", CLARO);
 s.addText("Depois da palestra", { placeholder: "title" });
 [
-  ["Slides", "Publique os slides no link do QR code no mesmo dia."],
-  ["Conversa", "Fique por perto: muita pergunta chega no corredor."],
-  ["Descanso", "Beba água e aproveite o evento. Você mereceu."],
+  ["Anotações", "Anote o que funcionou, para a próxima palestra."],
+  ["Conversa", "Fique por perto: muitas perguntas aparecem no corredor."],
+  ["Descanso", "Aproveite o resto do evento. Você mereceu."],
 ].forEach(([h, t], i) => fill(s, { [`card${i + 1}Title`]: h, [`card${i + 1}`]: t }));
 
 s = slide("Palestrante (claro)", CLARO);
@@ -853,12 +853,7 @@ flowSlide(LIGHT, CLARO, "Do rascunho ao palco", ["Escrever os slides", "Ensaiar 
 
 chartSlide(LIGHT, CLARO);
 
-// The deck ends with the organization's message to the speaker.
-closingSlide(LIGHT, CLARO, "Valeu!", [
-  { text: "Ficamos muito felizes por ter você na Python Brasil 2026.", options: { bold: true, breakLine: true } },
-  { text: "Conte com a gente: estamos aqui para apoiar e torcer por você.", options: { breakLine: true } },
-  { text: "Organização da Python Brasil 2026", options: { fontFace: THEME.headFontFace, fontSize: 18, color: LIGHT.mutedHex } },
-]);
+closingSlide(LIGHT, CLARO, "Valeu!");
 
 // ----- stickers -----
 const FIGURINHAS = "Figurinhas";
@@ -886,7 +881,7 @@ s.addText(
     link("anaterhorstdesign.com", LINK_ON_DARK),
     { text: ". Valeu, Ana!" },
   ],
-  { x: M, y: 4.62, w: W - 2 * M, h: 0.35, fontSize: 14, color: DARK.textHex, fontFace: THEME.headFontFace, valign: "middle", margin: 0, isTextBox: true, lang: LANG, objectName: "Crédito da identidade visual" },
+  { x: M, y: 4.62, w: W - 2 * M, h: 0.35, fontSize: 16, color: DARK.textHex, fontFace: THEME.headFontFace, valign: "middle", margin: 0, isTextBox: true, lang: LANG, objectName: "Crédito da identidade visual" },
 );
 // The marker is the native text highlight, black on lime, so it follows edits and reads on dark and on white slides.
 s.addText([marked("marca-texto")], { x: 5.15, y: 3.65, w: 2.6, h: 0.6, fontSize: 26, fontFace: THEME.headFontFace, align: "center", valign: "middle", margin: 0, isTextBox: true, lang: LANG, objectName: "Marca-texto limão" });

@@ -3,32 +3,30 @@
 module.exports = [
   // 1 Capa
   [
-    "Que bom que você vai palestrar! Este arquivo é um modelo: os slides de exemplo mostram cada layout, com uma dica de apresentação.",
-    "Para começar: troque a capa, duplique os layouts que quiser usar e apague os exemplos.",
-    "Cada slide traz uma dica; use as que servirem para você. A versão clara dos layouts vem depois do encerramento escuro.",
+    "Que bom que você vai palestrar! O seu jeito de falar vale mais do que qualquer dica deste modelo.",
+    "Este arquivo é um modelo: cada slide de exemplo mostra um layout e traz dicas nas anotações. Use as que servirem para você.",
+    "Para começar: guarde uma cópia sem mudanças, escolha a versão escura ou a clara e duplique os slides que quiser usar.",
+    "Ao reaproveitar um slide, apague estas anotações e escreva as suas.",
   ],
   // 2 Frase
   [
     "Uma ideia por slide, em até duas linhas. Que frase o público deve levar da sala?",
     "Quase toda pessoa palestrante fica nervosa. Se bater o nervosismo, fale para um rosto amigo na plateia.",
-    "Se algo falhar, comente com calma o que aconteceu e siga em frente: a sala esquece em minutos.",
   ],
   // 3 Palestrante
   [
-    "Troque a caixa cinza pela sua foto: botão direito > Substituir imagem.",
+    "Troque a caixa cinza pela sua foto: botão direito > Substituir imagem (no PowerPoint, Alterar Imagem).",
     "Quem abre a sessão costuma apresentar você; com o tempo curto, este slide pode sair.",
-    "Uma autodescrição ajuda quem não vê, por exemplo: \"Sou a Maria, tenho 1,60 m, cabelo preto solto, óculos verdes e uma camiseta da PyLadies.\"",
+    "Uma autodescrição ajuda quem não vê, por exemplo: “Sou a Maria, tenho 1,60 m, cabelo preto solto, óculos verdes e uma camiseta da PyLadies.”",
   ],
   // 4 Citação
   [
     "Até três linhas, com quem disse e onde. Vale conferir a autoria numa fonte primária.",
     "As aspas verdes fazem parte do texto: ao trocar a citação, mantenha as duas.",
-    "O seu jeito de falar vale mais do que qualquer dica deste modelo.",
   ],
   // 5 Título e conteúdo
   [
-    "De três a cinco tópicos por slide. Se o programa diminuir a fonte para caber, dois slides leem melhor.",
-    "Chegar cedo ao local dá tempo de conhecer a sala, respirar e conversar.",
+    "De três a cinco tópicos por slide. Se o programa diminuir a fonte para caber, divida o conteúdo em dois slides.",
   ],
   // 6 Agenda
   [
@@ -37,8 +35,7 @@ module.exports = [
   ],
   // 7 Seção
   [
-    "Edite o número dentro do círculo e o título.",
-    "Repetir o nome da parte da agenda ajuda o público a se localizar.",
+    "Edite o número dentro do círculo e o título. O número acompanha a ordem da agenda.",
   ],
   // 8 Duas colunas
   [
@@ -47,19 +44,18 @@ module.exports = [
   ],
   // 9 Texto e imagem
   [
-    "A caixa cinza com um X marca o lugar da sua imagem. Botão direito nela > Substituir imagem (ou Trocar imagem).",
-    "Preencha o texto alternativo da imagem (botão direito > Descrição, ou Texto alternativo).",
+    "A caixa cinza marca o lugar da sua imagem e mostra o tamanho que preenche o espaço numa tela Full HD. Botão direito > Substituir imagem (no PowerPoint, Alterar Imagem).",
+    "Preencha o texto alternativo da imagem: botão direito > Descrição (LibreOffice), Texto alternativo (Google Slides) ou Editar Texto Alt (PowerPoint).",
     "Na fala, diga o que a imagem mostra, para quem não enxerga e para quem ouve a gravação.",
   ],
   // 10 Imagem e texto
   [
-    "A caixa cinza com um X marca o lugar da foto e mostra o tamanho que preenche o espaço em Full HD. Botão direito > Substituir imagem.",
-    "Fotos de pessoas, lugares e produtos funcionam bem aqui.",
-    "Confira se a licença da foto permite o uso numa palestra gravada e dê o crédito: Foto: nome, licença, site.",
+    "Uma foto na vertical preenche este espaço; uma foto na horizontal aparece recortada nas laterais.",
+    "Confira se a licença da foto permite o uso numa palestra gravada e dê o crédito no formato “Foto: nome, licença, site”.",
   ],
   // 11 Três imagens
   [
-    "Troque cada caixa cinza pela sua captura: botão direito > Substituir imagem.",
+    "Troque cada caixa cinza pela sua captura de tela: botão direito > Substituir imagem (no PowerPoint, Alterar Imagem).",
     "Antes de capturar a tela, aumente o zoom do navegador ou a fonte do terminal.",
     "Confira se a captura mostra senhas, tokens, e-mails, abas ou notificações.",
   ],
@@ -67,12 +63,13 @@ module.exports = [
   [
     "Se a sua palestra não tem código, pode pular este slide.",
     "Até 8 linhas e 60 colunas. Se o trecho for maior, divida em slides ou mostre só o que importa.",
-    "Para as mesmas cores, use o slidesnippet.com ou o carbon.now.sh com o tema Monokai e o fundo #1A1A1A. O passo a passo de cada programa está no README.",
+    "Para as mesmas cores, use o slidesnippet.com com o tema Monokai e o fundo #1A1A1A.",
+    "Google Slides: “Copy styled” e Editar > Colar. PowerPoint: “Copy styled” e colar com Manter Formatação Original. LibreOffice: baixe o SVG e arraste para o cartão.",
   ],
   // 13 Código lado a lado
   [
     "Antes e depois de uma refatoração, ou duas formas de resolver o mesmo problema.",
-    "Cada cartão aceita até 8 linhas e 30 colunas. O cartão da esquerda mostra como fica a letra miúda no telão.",
+    "Cada cartão aceita até 30 colunas. O cartão da esquerda mostra como fica a letra miúda no telão.",
   ],
   // 14 Números em destaque
   [
@@ -81,30 +78,29 @@ module.exports = [
   ],
   // 15 Três cartões
   [
-    "Escolha o plano B que combina com a sua palestra e teste a troca no seu computador antes.",
+    "Escolha o plano B que combina com a sua palestra e ensaie a troca para ele no seu computador.",
     "Com palestras emendadas, nem sempre dá para testar o som; um vídeo legendado funciona sem áudio.",
-    "Se algo falhar mesmo assim, a sala entende: acontece em toda conferência.",
   ],
   // 16 Somente título, com tabela
   [
     "Espaço livre para tabelas, gráficos e diagramas.",
-    "Pode não haver tempo de testar na sala: teste antes o adaptador de vídeo e o espelhamento de tela do seu computador.",
-    "Cada sala tem alguém do voluntariado. Projetor, microfone, coragem: o que falhar, a gente ajuda.",
+    "Testar em casa o adaptador de vídeo e o espelhamento de tela deixa o dia mais tranquilo.",
+    "Cada sala tem alguém do voluntariado. Projetor, microfone, coragem: o que faltar, a gente ajuda.",
   ],
   // 17 Gráfico
   [
-    "No PowerPoint e no LibreOffice, clique duas vezes no gráfico para abrir a planilha e troque os nomes e os números.",
-    "O Google Slides transforma o gráfico em imagem. Lá, crie o seu em Inserir > Gráfico e pinte as barras de limão.",
+    "PowerPoint: botão direito no gráfico > Editar Dados. LibreOffice: clique duas vezes no gráfico e use Exibir > Tabela de dados.",
+    "O Google Slides importa o gráfico como imagem. Lá, crie o seu em Inserir > Gráfico e pinte as barras de verde limão (#B7FF06).",
     "Um gráfico, uma mensagem: diga em voz alta o que o público deve ver nas barras.",
   ],
   // 18 Fluxo
   [
     "Um fluxo mostra uma sequência: os passos de um processo, as etapas de um pipeline, a programação do dia.",
-    "Conte o fluxo da esquerda para a direita, apontando com palavras: primeiro, depois, no fim.",
+    "Conte o fluxo da esquerda para a direita: primeiro, depois, no fim.",
   ],
   // 19 Imagem cheia
   [
-    "Botão direito na imagem > Substituir imagem. Para usar a faixa da legenda em outra foto, duplique este slide.",
+    "Botão direito na imagem > Substituir imagem (no PowerPoint, Alterar Imagem). Para usar a faixa da legenda em outra foto, duplique este slide.",
     "Dê o crédito da foto na legenda, como no exemplo.",
   ],
   // 20 Destaque, código de conduta
@@ -120,14 +116,12 @@ module.exports = [
   // 22 Encerramento escuro
   [
     "O QR code leva o público aos seus slides pelo celular. Com uma página só, você troca os links depois sem mudar o QR code.",
-    "Para gerar o QR code no LibreOffice: Inserir > Objeto > Código QR e de barras. Nos outros programas, gere a imagem num site de QR code e use botão direito > Substituir imagem.",
-    "Depois, troque a legenda pelo link, para quem não consegue ler o QR code.",
-    "Este não é o último slide: a versão clara dos layouts vem a seguir, com mais dicas.",
+    "Para gerar o QR code no LibreOffice: Inserir > Objeto > Código QR e de barras. Nos outros programas, gere a imagem num site de QR code e substitua esta. Depois, troque a legenda pelo link.",
+    "Você já tem o necessário. Os próximos slides repetem os layouts na versão clara, com dicas opcionais.",
   ],
   // 23 Capa clara
   [
     "Em sala muito iluminada ou com projetor fraco, o fundo claro fica mais legível.",
-    "Pergunte à organização como é a sua sala.",
   ],
   // 24 Seção clara
   [
@@ -136,32 +130,31 @@ module.exports = [
   ],
   // 25 Título e conteúdo claro
   [
-    "O telão mostra tudo o que aparece na sua tela: ative o modo Não perturbe antes de subir ao palco.",
+    "O telão mostra tudo o que aparece na sua tela: ative o modo Não incomodar antes de subir ao palco.",
     "Numa janela anônima, o navegador não sugere endereços do histórico.",
   ],
   // 26 Duas colunas claro
   [
-    "Um ensaio completo em voz alta mostra quanto tempo a palestra leva.",
-    "Ensaiada só na cabeça, a palestra costuma passar do tempo.",
+    "Ensaiar em voz alta mostra o tempo real e deixa a fala mais solta.",
   ],
   // 27 Texto e imagem claro
   [
     "Parte do público tem daltonismo ou baixa visão.",
-    "Junte a cor a um rótulo ou ícone: em vez de uma bolinha verde e uma vermelha, escreva também \"passou\" e \"falhou\".",
+    "Junte a cor a um rótulo ou ícone: em vez de uma bolinha verde e uma vermelha, escreva também “passou” e “falhou”.",
+    "Todo texto do modelo tem contraste de 4,5:1 ou mais com o fundo. Ao usar outras cores, confira em webaim.org/resources/contrastchecker.",
   ],
   // 28 Imagem e texto claro
   [
-    "As anotações aparecem só para você no modo apresentador.",
-    "LibreOffice: Console do apresentador. Google Slides: Visualização do apresentador. PowerPoint: Modo de Exibição do Apresentador.",
+    "As anotações aparecem só para você no modo apresentador. Olhar as anotações no palco é normal.",
+    "LibreOffice: Console do apresentador. Google Slides: Modo apresentador. PowerPoint: Modo de Exibição do Apresentador.",
   ],
   // 29 Código claro
   [
-    "O cartão continua escuro, para o código ter o mesmo contraste.",
-    "Para gerar o código colorido, veja as anotações do slide 12.",
+    "Para gerar o código colorido, veja as anotações do slide Código, na parte escura.",
   ],
   // 30 Citação clara
   [
-    "Destaque a palavra principal com o marca-texto limão.",
+    "No fundo branco, destaque a palavra principal com o marca-texto verde limão e mantenha o texto preto.",
     "O lema da comunidade Python Brasil desde 2016.",
   ],
   // 31 Frase clara
@@ -170,45 +163,38 @@ module.exports = [
   ],
   // 32 Destaque claro
   [
-    "O painel limão guarda a mensagem que a sala não pode perder; até quatro tópicos curtos ao lado.",
+    "O painel verde limão guarda a mensagem que a sala não pode perder, com até quatro tópicos curtos ao lado.",
     "Para quem está começando, “é só” e “todo mundo sabe” soam como “você deveria saber”.",
-    "Muita gente chega à Python Brasil na primeira conferência; um exemplo do dia a dia ajuda quem chegou agora.",
+    "Para muita gente, a Python Brasil é a primeira conferência; um exemplo do dia a dia ajuda quem chegou agora.",
   ],
-  // 33 Números claros
+  // 33 Três cartões claro
   [
-    "No fundo branco, use o limão como marca-texto atrás do texto preto, e não como cor do texto.",
-    "Uma ideia por slide ajuda quem lê devagar ou usa leitor de tela.",
-  ],
-  // 34 Três cartões claro
-  [
-    "Publicar os slides no mesmo dia ajuda quem quer rever o conteúdo.",
-    "Muita gente prefere perguntar no corredor; vale ficar um pouco por perto.",
+    "Anotar logo depois o que funcionou ajuda na próxima palestra.",
     "Cansaço depois de palestrar é normal: descanse e aproveite o resto do evento.",
   ],
-  // 35 Palestrante claro
+  // 34 Palestrante claro
   [
-    "Com os pronomes no slide, quem cita a sua palestra depois acerta.",
-    "Uma foto recente ajuda o público a encontrar você nos intervalos.",
+    "Com os pronomes no slide, quem cita a sua palestra acerta como se referir a você.",
   ],
-  // 36 Fluxo claro
+  // 35 Fluxo claro
   [
     "Cada caixa e cada seta são formas: para um passo a mais, duplique uma caixa e uma seta e arraste para o lugar.",
-    "De três a cinco passos cabem numa linha. Para um fluxo com ramos, divida em dois slides.",
+    "De três a cinco passos cabem numa linha. Para um fluxo com ramificações, divida em dois slides.",
   ],
-  // 37 Gráfico claro
+  // 36 Gráfico claro
   [
-    "Para trocar os dados, veja as anotações do slide 17.",
+    "Para trocar os dados, veja as anotações do slide Gráfico, na parte escura.",
   ],
-  // 38 Encerramento claro
+  // 37 Encerramento claro
   [
-    "Na sua palestra, troque o texto pelos seus contatos e o QR code pelo link dos seus slides.",
     "Nas perguntas, repita cada pergunta no microfone, para a sala e a gravação.",
-    "\"Não sei, posso ver e te respondo depois\" é uma boa resposta. Uma pergunta que desrespeita o código de conduta não precisa de resposta.",
+    "“Não sei, posso ver e te respondo depois” é uma boa resposta. Uma pergunta que desrespeita o código de conduta não precisa de resposta.",
+    "Da organização: ficamos muito felizes por ter você na Python Brasil 2026. Conte com a gente: estamos aqui para apoiar você e torcer por você.",
   ],
-  // 39 Figurinhas
+  // 38 Figurinhas
   [
     "Copie uma figurinha e cole no seu slide. Para mudar o tamanho sem deformar, arraste um canto segurando Shift.",
-    "O marca-texto é o realce do texto: troque a palavra, ou escolha o realce limão #B7FF06 numa palavra sua.",
+    "A figurinha marca-texto é um realce: troque a palavra dela ou aplique o realce verde limão #B7FF06 numa palavra sua.",
     "Uma figurinha por slide costuma bastar.",
   ],
 ];

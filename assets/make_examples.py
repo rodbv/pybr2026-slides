@@ -49,9 +49,9 @@ def main() -> None:
     else:
         slots = {
             "imagem-lado": ("imagem", (845, 1080)),
-            "imagem-caixa": ("imagem", (883, 634)),
+            "imagem-caixa": ("imagem", (883, 552)),
             "foto": ("foto", (576, 576)),
-            "captura": ("captura", (538, 470)),
+            "captura": ("captura", (538, 336)),
             "fundo": ("fundo", (1920, 1080)),
         }
         langs = {"pt": ""}
