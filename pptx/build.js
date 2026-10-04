@@ -676,10 +676,10 @@ s.addTable(
     row(["Quando", "Sugestão"], tableHead),
     ...[
       ["Antes do evento", "Tirar dúvidas no grupo de palestrantes no Telegram"],
-      ["Na véspera", "Evitar exageros: voz e descanso em dia"],
+      ["Na véspera", "Pega leve no karaokê! Voz e descanso em dia"],
       ["No dia", "Chegar cedo e testar o notebook no projetor da sala"],
       ["15 min antes", "Dar um oi ao voluntariado da sala"],
-      ["Na palestra", "Microfone a um palmo da boca"],
+      ["Na palestra", "Microfone perto da boca, mesmo ao olhar para o telão"],
       ["Depois", "Publicar os slides no link do QR code"],
     ].map((cells) => row(cells, tableCell)),
   ],
@@ -699,7 +699,7 @@ fill(s, {
   title: "Sua palestra é para todo mundo",
   body: bullets([
     "O público inclui crianças: conteúdo para todas as idades",
-    "Humor sem alvo e exemplos que incluem todo mundo",
+    "Humor sem alvo e exemplos sem estereótipos",
     "Na dúvida sobre algum conteúdo, a organização ajuda",
   ]),
 });
@@ -783,9 +783,9 @@ s = slide("Destaque (claro)", CLARO);
 fill(s, {
   title: "Fale de um jeito que acolhe",
   body: bullets([
-    "Troque “é só” e “é fácil” por um passo a passo",
+    "Mostre o passo a passo em vez de dizer que é fácil",
     "Explique cada sigla na primeira vez",
-    "Pergunte “quem já usou?” em vez de supor",
+    "Pergunte quem já usou em vez de supor",
   ]),
 });
 
@@ -838,6 +838,15 @@ s.addImage({ path: path.join(BRAND, "pixel-circle.png"), x: 3.0, y: 3.45, w: 2.0
 s.addText("olha aqui", { x: 3.0, y: 3.45, w: 2.0, h: 2.0 * PIXEL_CIRCLE_RATIO, fontSize: 20, bold: true, color: DARK.textHex, fontFace: THEME.headFontFace, align: "center", valign: "middle", margin: 0, isTextBox: true, lang: LANG });
 sticker("icone-seta.png", { x: 7.9, y: 3.6, w: 0.75, h: 0.75 * ICON_RATIO }, "Ícone de seta pixelada sobre quadrado limão");
 sticker("icone-codigo.png", { x: 8.75, y: 3.6, w: 0.75, h: 0.75 * ICON_RATIO }, "Ícone de código pixelado sobre quadrado limão");
+// Credit to the designer of the brand identity, with a link to her site.
+s.addText(
+  [
+    { text: "Identidade visual de Ana Terhorst, " },
+    link("anaterhorstdesign.com", LINK_ON_DARK),
+    { text: ". Valeu, Ana!" },
+  ],
+  { x: M, y: 4.62, w: W - 2 * M, h: 0.35, fontSize: 14, color: DARK.textHex, fontFace: THEME.headFontFace, valign: "middle", margin: 0, isTextBox: true, lang: LANG, objectName: "Crédito da identidade visual" },
+);
 // The marker is the native text highlight, black on lime, so it follows edits and reads on dark and on white slides.
 s.addText([marked("marca-texto")], { x: 5.15, y: 3.65, w: 2.6, h: 0.6, fontSize: 26, fontFace: THEME.headFontFace, align: "center", valign: "middle", margin: 0, isTextBox: true, lang: LANG, objectName: "Marca-texto limão" });
 
