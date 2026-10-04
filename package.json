@@ -7,7 +7,7 @@
     "render": "node pptx/render.js",
     "all": "npm run build && npm run render"
   },
-  "license": "MIT",
+  "license": "CC0-1.0",
   "type": "commonjs",
   "dependencies": {
     "pptxgenjs": "^4.0.1",

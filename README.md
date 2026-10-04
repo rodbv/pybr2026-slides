@@ -105,6 +105,6 @@ Abra uma [issue no GitHub](https://github.com/rodbv/pybr2026-slides/issues) cont
 
 ## Licenças
 
-- Código deste repositório: MIT.
+- Modelo, textos de exemplo e código deste repositório: [CC0 1.0](LICENSE) (domínio público). Use, mude e compartilhe sem pedir permissão nem dar crédito.
 - Logo, ilustrações e identidade visual: Python Brasil 2026 e APyB, do brandboard oficial do evento, criado por [Ana Terhorst](https://anaterhorstdesign.com).
 - Fontes Roboto e Cascadia Mono: SIL Open Font License 1.1, em `fonts/`.
