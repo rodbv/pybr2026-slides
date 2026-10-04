@@ -32,7 +32,7 @@ The example slides show each layout and have tips in the speaker notes. Use the 
 4. Replace the text and the images. The gray boxes mark where images go: right-click a box and choose "Replace image" ("Change Picture" in PowerPoint, "Replace..." in LibreOffice).
 5. Delete the notes of the examples and write your own.
 
-A 25-minute talk usually fits in 15 to 25 slides: title slide, agenda, one section for each part, the content and the closing slide, with about 5 minutes for questions.
+A rule of thumb: plan about 1 minute per slide, after you set aside about 5 minutes for questions. The usual structure is title slide, agenda, one section for each part, the content and the closing slide.
 
 Before you present, search the file for what is left of the template: "Seu nome aqui", "@seu_usuario", "voce@exemplo.com.br", gray boxes, "Dados de exemplo" and "Troque pelo seu QR code".
 

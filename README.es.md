@@ -32,7 +32,7 @@ Las diapositivas de ejemplo muestran cada diseño y tienen consejos en las notas
 4. Cambia el texto y las imágenes. Las cajas grises marcan el lugar de las imágenes: haz clic derecho y elige "Reemplazar imagen" ("Cambiar imagen" en PowerPoint).
 5. Borra las notas de los ejemplos y escribe las tuyas.
 
-Una charla de 25 minutos suele caber en 15 a 25 diapositivas: portada, agenda, una sección para cada parte, el contenido y el cierre, con unos 5 minutos para preguntas.
+Un consejo: calcula más o menos 1 minuto por diapositiva, después de reservar unos 5 minutos para preguntas. La estructura suele ser portada, agenda, una sección para cada parte, el contenido y el cierre.
 
 Antes de presentar, busca en el archivo lo que quedó de la plantilla: "Seu nome aqui", "@seu_usuario", "voce@exemplo.com.br", cajas grises, "Dados de exemplo" y "Troque pelo seu QR code".
 

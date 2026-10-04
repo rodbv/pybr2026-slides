@@ -32,7 +32,7 @@ Os slides de exemplo mostram cada layout e trazem dicas nas anotações. Use as 
 4. Troque o texto e as imagens. As caixas cinza marcam o lugar das imagens: clique com o botão direito e escolha "Substituir imagem" (no PowerPoint, "Alterar Imagem").
 5. Apague as anotações dos exemplos e escreva as suas.
 
-Uma palestra de 25 minutos costuma caber em 15 a 25 slides: capa, agenda, uma seção para cada parte, o conteúdo e o encerramento, com uns 5 minutos para perguntas.
+Uma dica: conte mais ou menos 1 minuto por slide, depois de separar uns 5 minutos para perguntas. A estrutura costuma ser capa, agenda, uma seção para cada parte, o conteúdo e o encerramento.
 
 Antes de apresentar, procure no arquivo o que ficou do modelo: "Seu nome aqui", "@seu_usuario", "voce@exemplo.com.br", caixas cinza, "Dados de exemplo" e "Troque pelo seu QR code".
 
