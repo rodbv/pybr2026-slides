@@ -17,7 +17,7 @@ module.exports = [
   [
     "Troque a caixa cinza pela sua foto: botão direito > Substituir imagem (no PowerPoint, Alterar Imagem).",
     "Quem abre a sessão costuma apresentar você; com o tempo curto, este slide pode sair.",
-    "Uma autodescrição ajuda quem não vê, por exemplo: “Sou a Maria, tenho 1,60 m, cabelo preto solto, óculos verdes e uma camiseta da PyLadies.”",
+    "Uma autodescrição ajuda quem não vê, por exemplo: “Sou a Maria, tenho 1,60 m e cabelo preto solto, uso óculos verdes e estou com uma camiseta da PyLadies.”",
   ],
   // 4 Citação
   [
@@ -45,7 +45,7 @@ module.exports = [
   // 9 Texto e imagem
   [
     "A caixa cinza marca o lugar da sua imagem e mostra o tamanho que preenche o espaço numa tela Full HD. Botão direito > Substituir imagem (no PowerPoint, Alterar Imagem).",
-    "Preencha o texto alternativo da imagem: botão direito > Descrição (LibreOffice), Texto alternativo (Google Slides) ou Editar Texto Alt (PowerPoint).",
+    "Preencha o texto alternativo da imagem: botão direito > Descrição (LibreOffice), Texto alternativo (Google Slides e PowerPoint).",
     "Na fala, diga o que a imagem mostra, para quem não enxerga e para quem ouve a gravação.",
   ],
   // 10 Imagem e texto
@@ -87,7 +87,7 @@ module.exports = [
   // 16 Somente título, com tabela
   [
     "Espaço livre para tabelas, gráficos e diagramas.",
-    "Testar em casa o adaptador de vídeo e o espelhamento de tela deixa o dia mais tranquilo.",
+    "Testar em casa o adaptador de vídeo e o espelhamento de tela costuma deixar o dia mais tranquilo.",
     "Cada sala tem alguém do voluntariado. Projetor, microfone, coragem: o que faltar, a gente ajuda.",
   ],
   // 17 Gráfico
@@ -95,6 +95,7 @@ module.exports = [
     "PowerPoint: botão direito no gráfico > Editar Dados. LibreOffice: clique duas vezes no gráfico e use Exibir > Tabela de dados.",
     "O Google Slides importa o gráfico como imagem. Lá, crie o seu em Inserir > Gráfico e pinte as barras de verde limão (#B7FF06).",
     "Um gráfico, uma mensagem: diga em voz alta o que o público deve ver nas barras.",
+    "Escreva os números do gráfico no texto alternativo, para leitores de tela.",
   ],
   // 18 Fluxo
   [
@@ -120,11 +121,11 @@ module.exports = [
   [
     "O QR code pode levar ao seu contato, aos seus slides ou a uma página com tudo isso. Com uma página só, você troca os links depois sem mudar o QR code.",
     "Para gerar o QR code no LibreOffice: Inserir > Objeto > Código QR e de barras. Nos outros programas, gere a imagem num site de QR code e substitua esta. Depois, troque a legenda pelo link.",
-    "Você já tem o necessário. Os próximos slides repetem os layouts na versão clara, com dicas opcionais.",
+    "Os próximos slides repetem os layouts na versão clara, com mais dicas.",
   ],
   // 23 Capa clara
   [
-    "Telão de LED grande: use a versão escura, que não ofusca o público. Telão menor ou projetor: use a versão clara. O código fica em fundo claro nas duas.",
+    "Tela de LED do tamanho de uma parede: use a versão escura, que não ofusca o público. Projetor, TV ou monitor: use a versão clara. O código fica em fundo claro nas duas.",
   ],
   // 24 Seção clara
   [
@@ -138,7 +139,7 @@ module.exports = [
   ],
   // 26 Duas colunas claro
   [
-    "Ensaiar em voz alta mostra o tempo real e deixa a fala mais solta.",
+    "Ensaiar em voz alta mostra o tempo real e costuma deixar a fala mais solta.",
   ],
   // 27 Texto e imagem claro
   [
@@ -149,11 +150,11 @@ module.exports = [
   // 28 Imagem e texto claro
   [
     "As anotações aparecem só para você no modo apresentador. Olhar as anotações no palco é normal.",
-    "LibreOffice: Console do apresentador. Google Slides: Modo apresentador. PowerPoint: Modo de Exibição do Apresentador.",
+    "LibreOffice: Console do apresentador. Google Slides: Visualização do apresentador. PowerPoint: Modo de Exibição do Apresentador.",
   ],
   // 29 Código claro
   [
-    "Para gerar o código colorido, veja as anotações do slide Código, na parte escura.",
+    "Para gerar o código colorido, veja as anotações do slide “Código com cores”, na parte escura.",
   ],
   // 30 Citação clara
   [
@@ -162,7 +163,7 @@ module.exports = [
   ],
   // 31 Frase clara
   [
-    "Com menos texto no slide, a letra fica maior e a atenção do público fica em você.",
+    "Com menos texto no slide, cabe uma letra maior, e o público tende a olhar mais para você.",
   ],
   // 32 Destaque claro
   [
@@ -186,7 +187,8 @@ module.exports = [
   ],
   // 36 Gráfico claro
   [
-    "Para trocar os dados, veja as anotações do slide Gráfico, na parte escura.",
+    "Para trocar os dados, veja as anotações do slide “Versão do Python que você usa”, na parte escura.",
+    "Escreva os números do gráfico no texto alternativo, para leitores de tela.",
   ],
   // 37 Encerramento claro
   [

@@ -696,7 +696,7 @@ fill(s, {
 
 s = slide("Números em destaque", ESCURO);
 s.addText("Três números que ajudam", { placeholder: "title" });
-[["18", "pontos de letra: legível do fundo da sala"], ["1", "ensaio em voz alta mostra o tempo real"], ["5", "minutos para perguntas no fim"]].forEach(([v, l], i) => {
+[["18", "pontos de letra: dá para ler do fundo da sala"], ["1", "ensaio em voz alta mostra o tempo real"], ["5", "minutos para perguntas no fim"]].forEach(([v, l], i) => {
   fill(s, { [`value${i + 1}`]: v, [`label${i + 1}`]: l });
 });
 // The pixel circle from the stickers slide, around the middle number, as an example of use.
@@ -738,14 +738,14 @@ s = slide("Imagem cheia", ESCURO);
 // The example image fills the placeholder; an empty placeholder would be drawn above the caption.
 exampleImage(s, DARK, "image", "fundo", { x: 0, y: 0, w: W, h: H });
 s.addShape(pres.ShapeType.rect, { x: 0, y: H - 0.9, w: W, h: 0.9, fill: { color: HEX.dk1, transparency: 25 }, line: { color: HEX.dk1, width: 0 }, objectName: "Faixa da legenda" });
-s.addText("Legenda da foto. Foto: Nome da Pessoa · CC BY 4.0", { x: M, y: H - 0.75, w: W - 2 * M, h: 0.6, fontSize: 18, color: DARK.textHex, valign: "middle", isTextBox: true, margin: 0, lang: LANG });
+s.addText("Legenda da foto. Foto: Nome da pessoa · CC BY 4.0", { x: M, y: H - 0.75, w: W - 2 * M, h: 0.6, fontSize: 18, color: DARK.textHex, valign: "middle", isTextBox: true, margin: 0, lang: LANG });
 
 s = slide("Destaque", ESCURO);
 fill(s, {
   title: "Sua palestra é para todo mundo",
   body: bullets([
     "O público inclui crianças: conteúdo para todas as idades",
-    "Humor sem alvo e exemplos sem estereótipos",
+    "Humor que não ridiculariza ninguém, exemplos sem estereótipos",
     "Na dúvida sobre algum conteúdo, a organização ajuda",
   ]),
 });
@@ -771,7 +771,7 @@ pres.addSection({ title: CLARO });
 
 coverSlide(LIGHT, CLARO,
   "Título da sua palestra",
-  "Versão clara, para projetor");
+  "Versão clara, para projetor, TV ou monitor");
 
 s = slide("Seção (claro)", CLARO);
 fill(s, { number: "02", title: "Uma pausa para respirar e beber água" });
