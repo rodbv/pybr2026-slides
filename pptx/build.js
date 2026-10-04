@@ -684,9 +684,9 @@ const tiny = (runs) => runs.map((r) => ({ ...r, options: { ...r.options, fontSiz
 s = slide("Código lado a lado", ESCURO);
 fill(s, {
   title: "Um exemplo menor também ensina",
-  leftTitle: "20 linhas, letra miúda 😟",
+  leftTitle: "Muito pequeno para ler 😟",
   codeLeft: tiny(highlightCode(LONG_CODE)),
-  rightTitle: "4 linhas, letra grande 😊",
+  rightTitle: "Dá para ler do fundo 😊",
   codeRight: highlightCode(`def cabe(palestra, slot):
     # 5 min para perguntas
     fim = palestra.duracao + 5
