@@ -27,7 +27,7 @@ Una plantilla de presentación lista para quienes dan una charla en la [Python B
 Las diapositivas de ejemplo muestran cada diseño y tienen consejos en las notas. Usa los consejos que te sirvan.
 
 1. Guarda una copia de la plantilla sin cambios, para consultar los consejos después.
-2. En una segunda copia, con el nombre de tu charla, elige la versión oscura o la clara y borra la otra mitad.
+2. En una segunda copia, con el nombre de tu charla, elige la versión oscura o la clara y borra la otra mitad. Si tienes dudas, mira [¿Tema claro u oscuro?](#tema-claro-u-oscuro).
 3. Duplica las diapositivas que vas a usar y borra las demás. Para una diapositiva nueva, usa Diapositiva > Nueva diapositiva y elige el diseño.
 4. Cambia el texto y las imágenes. Las cajas grises marcan el lugar de las imágenes: haz clic derecho y elige "Reemplazar imagen" ("Cambiar imagen" en PowerPoint).
 5. Borra las notas de los ejemplos y escribe las tuyas.
@@ -37,6 +37,20 @@ Un consejo: calcula más o menos 1 minuto por diapositiva, después de reservar 
 Antes de presentar, busca en el archivo lo que quedó de la plantilla: "Seu nome aqui", "@seu_usuario", "voce@exemplo.com.br", cajas grises, "Dados de exemplo" y "Troque pelo seu QR code".
 
 La plantilla es un punto de partida: cambia lo que quieras. Para mantener el estilo del evento, usa los colores y las fuentes de abajo. El [resumen de la identidad visual](docs/referencia.md#identidade-visual) (en portugués) tiene el resto: logos, stickers y reglas de contraste.
+
+## ¿Tema claro u oscuro?
+
+El código va en una tarjeta clara en las dos versiones. El texto oscuro sobre fondo claro se lee mejor, sobre todo en letra pequeña, como la del código ([Piepenbrock, Mayr y Buchner, 2014](https://doi.org/10.1177/0018720813515509)). Esa ventaja se mantiene con la sala a oscuras y con la sala iluminada ([Buchner y Baumgartner, 2007](https://www.researchgate.net/publication/6321309_Text_-_Background_polarity_affects_performance_irrespective_of_ambient_illumination_and_colour_contrast)). Si prefieres el código sobre fondo oscuro, usa el tema Monokai y pon la letra bien grande.
+
+Para el resto de las diapositivas:
+
+```mermaid
+flowchart TD
+  pantalla{"¿Pantalla LED grande?"} -->|"Sí"| oscura["Versión oscura"]
+  pantalla -->|"No: pantalla más pequeña o proyector"| clara["Versión clara"]
+```
+
+En una pantalla LED grande, el fondo oscuro no deslumbra al público, y quien presenta no queda como una silueta en la grabación ([GeoEvent](https://www.geoevent.net/led-wall-brightness-event-viewing/)). En una pantalla más pequeña o con proyector, usa la versión clara. Con proyector, la luz de la sala apaga el negro de la proyección.
 
 ## Colores y fuentes
 
@@ -93,7 +107,7 @@ Para crear el código QR en LibreOffice, usa Insertar > Objeto OLE > Código QR 
 <details>
 <summary>¿Cómo pongo código con colores?</summary>
 
-Los programas de presentación no colorean el código. Pega tu fragmento en [SlideSnippet](https://www.slidesnippet.com/) y elige el tema Monokai. Después:
+Los programas de presentación no colorean el código. Pega tu fragmento en [SlideSnippet](https://www.slidesnippet.com/) y elige el tema GitHub Light. Después:
 
 - **Google Slides:** haz clic en "Copy styled" y pega en la tarjeta de la diapositiva "Código" con Editar > Pegar.
 - **PowerPoint:** haz clic en "Copy styled" y pega con "Mantener formato de origen".

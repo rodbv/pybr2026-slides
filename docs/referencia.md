@@ -16,7 +16,7 @@ Todos existem em versão escura e clara, exceto a imagem cheia, que é só escur
 | Texto e imagem | Texto à esquerda, imagem à direita |
 | Imagem e texto | Imagem sangrada à esquerda, texto à direita |
 | Três imagens | Três capturas de tela lado a lado, cada uma com legenda |
-| Código | Cartão escuro com até 8 linhas e 60 colunas de código a 15 pt |
+| Código | Cartão claro com até 8 linhas e 60 colunas de código a 15 pt |
 | Código lado a lado | Dois cartões de código, antes e depois, com até 8 linhas e 30 colunas cada |
 | Citação | Frase em destaque com autoria |
 | Frase | Uma frase só, grande, para a ideia principal ou para mudar de assunto |
@@ -45,7 +45,7 @@ Todas as combinações de texto e fundo usadas no modelo passam no nível AA do 
 | Link no escuro (violeta claro), sublinhado | `#D26CC9` | `#0F0F0F` | 6,1:1 |
 | Cartões no escuro | `#242424`, borda `#3A3A3A` | | |
 | Texto em cartão escuro | `#E8F4BA` | `#242424` | 13,4:1 |
-| Cartão de código, nos dois modos | `#1A1A1A` | | |
+| Cartão de código, nos dois modos | `#FFFFFF`, borda `#D0D7DE` | | |
 | Fundo claro | `#FFFFFF` | | |
 | Texto no claro | `#0F0F0F` | `#FFFFFF` | 19,2:1 |
 | Marca-texto no claro | `#0F0F0F` | `#B7FF06` | 15,8:1 |
@@ -61,7 +61,7 @@ Regras para manter o contraste quando você editar:
 - Cartões têm borda fina: só a cor de fundo deles fica a 1,1:1 do fundo do slide e some em projetor fraco.
 - Se for usar outras cores, confira o contraste no [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/).
 
-O telão da Python Brasil 2026 é de LED. Em telão de LED, o fundo escuro costuma funcionar melhor, por isso o modelo começa pelos layouts escuros.
+Para escolher a versão: em telão de LED grande, use a escura, que não ofusca o público. Em telão menor ou projetor, use a clara. O código fica em fundo claro nas duas. O telão da Python Brasil 2026 é de LED, por isso o modelo começa pelos layouts escuros.
 
 As cores estão no tema do arquivo. Se você trocar uma cor do tema (LibreOffice: Slide > Mestre; PowerPoint: Exibir > Slide mestre > Cores), todos os slides mudam juntos.
 
@@ -110,22 +110,24 @@ O último slide traz figurinhas para copiar e colar: o logo, a assinatura Python
 
 ## Código nos slides
 
-O modelo usa o tema **Monokai** para código. O verde-limão e o magenta do Monokai combinam com o limão e o violeta da Python Brasil, e todas as cores do tema passam no contraste AA sobre o cartão de código (`#1A1A1A`).
+O código fica num cartão claro nos dois modos, com o tema **GitHub Light**. Estudos de legibilidade mostram que texto escuro sobre fundo claro se lê melhor, em especial em letra pequena, como a do código ([Piepenbrock, Mayr e Buchner, 2014](https://doi.org/10.1177/0018720813515509)). No cartão branco, todas as cores do GitHub Light passam no contraste AA, menos o laranja dos argumentos nomeados (`minutes=`), que fica em 3,5:1.
+
+Se preferir fundo escuro no código, use o tema **Monokai** com o fundo `#1A1A1A` e deixe a fonte bem grande.
 
 Os programas de apresentação não colorem código. Para ter as mesmas cores no seu trecho, use o [SlideSnippet](https://www.slidesnippet.com/) com estas opções:
 
 | Opção | Valor |
 |---|---|
-| Theme | Monokai |
+| Theme | GitHub Light (ou Monokai, para fundo escuro) |
 | Font size | 20px (15 pt no slide) |
 | Line height | 1.2 |
-| Background | `#1A1A1A` (RGB 26, 26, 26) |
+| Background | `#FFFFFF` (com Monokai, `#1A1A1A`) |
 
 Depois, conforme o programa:
 
 - **Google Slides:** escolha "Optimised for: Google Slides / Docs" e clique em "Copy styled". Clique dentro do cartão do slide "Código" e cole pelo menu Editar > Colar; o Ctrl+V pode perder as cores. O código continua editável.
 - **PowerPoint:** escolha "Optimised for: PowerPoint / Word", clique em "Copy styled" e cole com "Manter formatação original".
-- **LibreOffice:** o LibreOffice perde as cores ao colar texto do navegador. Clique em "Download SVG" e arraste o arquivo para o slide, sobre o cartão. O SVG fica nítido em qualquer tamanho. Para código editável, instale a extensão [Code Highlighter 2](https://extensions.libreoffice.org/en/extensions/show/5814) e escolha o estilo `monokai`.
+- **LibreOffice:** o LibreOffice perde as cores ao colar texto do navegador. Clique em "Download SVG" e arraste o arquivo para o slide, sobre o cartão. O SVG fica nítido em qualquer tamanho. Para código editável, instale a extensão [Code Highlighter 2](https://extensions.libreoffice.org/en/extensions/show/5814) A extensão não tem o GitHub Light: escolha um estilo claro, ou o `monokai` para fundo escuro.
 
 Quando o código entrar como imagem, escreva o código no texto alternativo (botão direito > Descrição no LibreOffice, Texto alternativo no Google Slides e no PowerPoint), para leitores de tela.
 

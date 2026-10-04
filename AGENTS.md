@@ -20,7 +20,8 @@ Este repositório gera o modelo de slides da Python Brasil 2026 em `.pptx` e `.o
 - Fontes: Cascadia Mono nos títulos e no código, Roboto no texto.
 - Verde limão como cor de texto, só no fundo escuro. No fundo branco, o contraste é 1,2:1. No fundo claro, destaque a palavra com o limão como marca-texto e mantenha o texto preto.
 - Todo texto precisa de contraste de 4,5:1 com o fundo (WCAG 2.1 AA). A tabela completa está em [`docs/referencia.md`](docs/referencia.md#cores-e-contraste).
-- Código usa o tema Monokai sobre o cartão `#1A1A1A`.
+- Código usa o tema GitHub Light sobre o cartão branco `#FFFFFF`, com borda `#D0D7DE`, nos slides escuros e nos claros. Monokai sobre `#1A1A1A` fica só como alternativa para quem quer código em fundo escuro, com a fonte bem grande.
+- Versão escura para telão de LED grande, versão clara para telão menor ou projetor. O código fica em fundo claro nas duas.
 - Use as peças de `assets/brand/` como estão: sem distorcer, sem recolorir fora da paleta e sem efeitos. Uma figurinha por slide costuma bastar.
 - A identidade visual é de Ana Terhorst; mantenha o crédito no slide de figurinhas.
 - Gráficos e diagramas: barras e caixas em limão, rótulos com os números, fundo transparente ou da cor do slide.

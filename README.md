@@ -27,7 +27,7 @@ Um modelo de apresentação pronto para quem vai palestrar na [Python Brasil 202
 Os slides de exemplo mostram cada layout e trazem dicas nas anotações. Use as dicas que servirem para você.
 
 1. Guarde uma cópia do modelo sem mudanças, para consultar as dicas depois.
-2. Numa segunda cópia, com o nome da sua palestra, escolha a versão escura ou a clara e apague a outra metade.
+2. Numa segunda cópia, com o nome da sua palestra, escolha a versão escura ou a clara e apague a outra metade. Na dúvida, veja [Tema claro ou escuro?](#tema-claro-ou-escuro).
 3. Duplique os slides que você vai usar e apague os outros. Para um slide novo, use Slide > Novo slide e escolha o layout.
 4. Troque o texto e as imagens. As caixas cinza marcam o lugar das imagens: clique com o botão direito e escolha "Substituir imagem" (no PowerPoint, "Alterar Imagem").
 5. Apague as anotações dos exemplos e escreva as suas.
@@ -37,6 +37,20 @@ Uma dica: conte mais ou menos 1 minuto por slide, depois de separar uns 5 minuto
 Antes de apresentar, procure no arquivo o que ficou do modelo: "Seu nome aqui", "@seu_usuario", "voce@exemplo.com.br", caixas cinza, "Dados de exemplo" e "Troque pelo seu QR code".
 
 O modelo é um ponto de partida: mude o que quiser. Para manter a cara do evento, use as cores e as fontes abaixo. O [resumo da identidade visual](docs/referencia.md#identidade-visual) traz o resto: logos, figurinhas e regras de contraste.
+
+## Tema claro ou escuro?
+
+O código fica num cartão claro nas duas versões. Texto escuro sobre fundo claro se lê melhor, em especial em letra pequena, como a do código ([Piepenbrock, Mayr e Buchner, 2014](https://doi.org/10.1177/0018720813515509)). Essa vantagem aparece com a sala escura e com a sala iluminada ([Buchner e Baumgartner, 2007](https://www.researchgate.net/publication/6321309_Text_-_Background_polarity_affects_performance_irrespective_of_ambient_illumination_and_colour_contrast)). Se preferir código em fundo escuro, use o tema Monokai e deixe a fonte bem grande.
+
+Para o resto dos slides:
+
+```mermaid
+flowchart TD
+  tela{"Telão de LED grande?"} -->|"Sim"| escuro["Versão escura"]
+  tela -->|"Não: telão menor ou projetor"| claro["Versão clara"]
+```
+
+Num telão de LED grande, o fundo escuro não ofusca o público, e quem fala não vira silhueta na gravação ([GeoEvent](https://www.geoevent.net/led-wall-brightness-event-viewing/)). Em telão menor ou projetor, use a versão clara. No projetor, a luz da sala apaga o preto da projeção.
 
 ## Cores e fontes
 
@@ -93,7 +107,7 @@ Para gerar o QR code no LibreOffice, use Inserir > Objeto > Código QR e de barr
 <details>
 <summary>Como coloco código colorido?</summary>
 
-Os programas de apresentação não colorem código. Cole o seu trecho no [SlideSnippet](https://www.slidesnippet.com/) e escolha o tema Monokai. Depois:
+Os programas de apresentação não colorem código. Cole o seu trecho no [SlideSnippet](https://www.slidesnippet.com/) e escolha o tema GitHub Light. Depois:
 
 - **Google Slides:** clique em "Copy styled" e cole no cartão do slide "Código" pelo menu Editar > Colar.
 - **PowerPoint:** clique em "Copy styled" e cole com "Manter Formatação Original".

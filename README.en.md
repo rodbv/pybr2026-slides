@@ -27,7 +27,7 @@ A ready-to-use presentation template for speakers at [Python Brasil 2026](https:
 The example slides show each layout and have tips in the speaker notes. Use the tips that work for you.
 
 1. Keep an unchanged copy of the template, to read the tips later.
-2. In a second copy, named after your talk, choose the dark or the light version and delete the other half.
+2. In a second copy, named after your talk, choose the dark or the light version and delete the other half. If you are not sure, see [Light or dark theme?](#light-or-dark-theme).
 3. Duplicate the slides you will use and delete the others. For a new slide, use Slide > New slide and choose the layout.
 4. Replace the text and the images. The gray boxes mark where images go: right-click a box and choose "Replace image" ("Change Picture" in PowerPoint, "Replace..." in LibreOffice).
 5. Delete the notes of the examples and write your own.
@@ -37,6 +37,20 @@ A rule of thumb: plan about 1 minute per slide, after you set aside about 5 minu
 Before you present, search the file for what is left of the template: "Seu nome aqui", "@seu_usuario", "voce@exemplo.com.br", gray boxes, "Dados de exemplo" and "Troque pelo seu QR code".
 
 The template is a starting point: change anything you like. To keep the look of the event, use the colors and fonts below. The [visual identity summary](docs/referencia.md#identidade-visual) (in Portuguese) has the rest: logos, stickers and contrast rules.
+
+## Light or dark theme?
+
+Code sits on a light card in both versions. Dark text on a light background is easier to read, especially at small sizes such as code ([Piepenbrock, Mayr and Buchner, 2014](https://doi.org/10.1177/0018720813515509)). This advantage holds in a dark room and in a lit room ([Buchner and Baumgartner, 2007](https://www.researchgate.net/publication/6321309_Text_-_Background_polarity_affects_performance_irrespective_of_ambient_illumination_and_colour_contrast)). If you prefer code on a dark background, use the Monokai theme and make the font large.
+
+For the rest of the slides:
+
+```mermaid
+flowchart TD
+  screen{"Large LED screen?"} -->|"Yes"| dark["Dark version"]
+  screen -->|"No: smaller screen or projector"| light["Light version"]
+```
+
+On a large LED screen, a dark background does not dazzle the audience, and the speaker does not turn into a silhouette on the recording ([GeoEvent](https://www.geoevent.net/led-wall-brightness-event-viewing/)). On a smaller screen or a projector, use the light version. With a projector, the room light washes out the black of the projection.
 
 ## Colors and fonts
 
@@ -93,7 +107,7 @@ To make the QR code in LibreOffice, use Insert > OLE Object > QR and Barcode. In
 <details>
 <summary>How do I add colored code?</summary>
 
-Presentation programs do not highlight code syntax. Paste your snippet into [SlideSnippet](https://www.slidesnippet.com/) and choose the Monokai theme. Then:
+Presentation programs do not highlight code syntax. Paste your snippet into [SlideSnippet](https://www.slidesnippet.com/) and choose the GitHub Light theme. Then:
 
 - **Google Slides:** click "Copy styled" and paste into the card on the "Código" slide with Edit > Paste.
 - **PowerPoint:** click "Copy styled" and paste with "Keep Source Formatting".
