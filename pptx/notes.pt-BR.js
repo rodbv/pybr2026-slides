@@ -3,9 +3,9 @@
 module.exports = [
   // 1 Capa
   [
+    "Que bom que você vai palestrar! Este arquivo é um modelo: os slides de exemplo mostram cada layout, com uma dica de apresentação.",
     "Para começar: troque a capa, duplique os layouts que quiser usar e apague os exemplos.",
     "Cada slide traz uma dica; use as que servirem para você. A versão clara dos layouts vem depois do encerramento escuro.",
-    "A Python Brasil existe porque pessoas como você sobem ao palco e compartilham o que sabem.",
   ],
   // 2 Frase
   [
@@ -15,6 +15,7 @@ module.exports = [
   ],
   // 3 Palestrante
   [
+    "Troque a caixa cinza pela sua foto: botão direito > Substituir imagem.",
     "Quem abre a sessão costuma apresentar você; com o tempo curto, este slide pode sair.",
     "Uma autodescrição ajuda quem não vê, por exemplo: \"Sou a Maria, tenho 1,60 m, cabelo preto solto, óculos verdes e uma camiseta da PyLadies.\"",
   ],
@@ -46,17 +47,19 @@ module.exports = [
   ],
   // 9 Texto e imagem
   [
-    "Clique no ícone do espaço reservado para inserir a imagem.",
+    "A caixa cinza com um X marca o lugar da sua imagem. Botão direito nela > Substituir imagem (ou Trocar imagem).",
     "Preencha o texto alternativo da imagem (botão direito > Descrição, ou Texto alternativo).",
     "Na fala, diga o que a imagem mostra, para quem não enxerga e para quem ouve a gravação.",
   ],
   // 10 Imagem e texto
   [
+    "A caixa cinza com um X marca o lugar da foto e mostra o tamanho que preenche o espaço em Full HD. Botão direito > Substituir imagem.",
     "Fotos de pessoas, lugares e produtos funcionam bem aqui.",
     "Confira se a licença da foto permite o uso numa palestra gravada e dê o crédito: Foto: nome, licença, site.",
   ],
   // 11 Três imagens
   [
+    "Troque cada caixa cinza pela sua captura: botão direito > Substituir imagem.",
     "Antes de capturar a tela, aumente o zoom do navegador ou a fonte do terminal.",
     "Confira se a captura mostra senhas, tokens, e-mails, abas ou notificações.",
   ],
@@ -90,9 +93,9 @@ module.exports = [
   ],
   // 17 Gráfico
   [
-    "No PowerPoint e no LibreOffice, edite os dados com o botão direito > Editar dados.",
-    "O Google Slides transforma o gráfico em imagem; lá, crie o gráfico em Inserir > Gráfico.",
-    "Se usar outras cores, confira o contraste em webaim.org/resources/contrastchecker.",
+    "No PowerPoint e no LibreOffice, clique duas vezes no gráfico para abrir a planilha e troque os nomes e os números.",
+    "O Google Slides transforma o gráfico em imagem. Lá, crie o seu em Inserir > Gráfico e pinte as barras de limão.",
+    "Um gráfico, uma mensagem: diga em voz alta o que o público deve ver nas barras.",
   ],
   // 18 Fluxo
   [
@@ -117,7 +120,8 @@ module.exports = [
   // 22 Encerramento escuro
   [
     "O QR code leva o público aos seus slides pelo celular. Com uma página só, você troca os links depois sem mudar o QR code.",
-    "Para trocar o QR code no LibreOffice: Inserir > Objeto > Código QR e de barras. Nos outros programas, substitua a imagem.",
+    "Para gerar o QR code no LibreOffice: Inserir > Objeto > Código QR e de barras. Nos outros programas, gere a imagem num site de QR code e use botão direito > Substituir imagem.",
+    "Depois, troque a legenda pelo link, para quem não consegue ler o QR code.",
     "Este não é o último slide: a versão clara dos layouts vem a seguir, com mais dicas.",
   ],
   // 23 Capa clara
@@ -193,7 +197,7 @@ module.exports = [
   ],
   // 37 Gráfico claro
   [
-    "Para editar os dados, veja as anotações do slide 17.",
+    "Para trocar os dados, veja as anotações do slide 17.",
   ],
   // 38 Encerramento claro
   [
