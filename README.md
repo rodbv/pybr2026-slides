@@ -133,7 +133,7 @@ O telão da Python Brasil 2026 é de LED. Em telão de LED, o fundo escuro costu
 
 ## Identidade visual
 
-Resumo do brandboard oficial da Python Brasil 2026, para quem cria material novo a partir deste modelo, com ou sem ajuda de uma IA. As regras de contraste da seção anterior valem também aqui.
+Resumo do brandboard oficial da Python Brasil 2026, criado por [Ana Terhorst](https://anaterhorstdesign.com), para quem cria material novo a partir deste modelo, com ou sem ajuda de uma IA. As regras de contraste da seção anterior valem também aqui.
 
 **Cores principais**
 
@@ -233,5 +233,5 @@ A cópia no Google Slides não é atualizada pelo script. Depois de mudar o `.pp
 ## Licenças
 
 - Código deste repositório: MIT.
-- Logo, ilustrações e identidade visual: Python Brasil 2026 e APyB, do brandboard oficial do evento.
+- Logo, ilustrações e identidade visual: Python Brasil 2026 e APyB, do brandboard oficial do evento, criado por [Ana Terhorst](https://anaterhorstdesign.com).
 - Fontes Roboto e Cascadia Mono: SIL Open Font License 1.1, em `fonts/`.
