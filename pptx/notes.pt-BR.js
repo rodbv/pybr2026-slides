@@ -70,6 +70,7 @@ module.exports = [
   [
     "Antes e depois de uma refatoração, ou duas formas de resolver o mesmo problema.",
     "Cada cartão aceita até 30 colunas. O cartão da esquerda mostra como fica a letra miúda no telão.",
+    "Emoji também é recurso: um rosto triste ou feliz diz na hora qual lado é o exemplo a evitar.",
   ],
   // 14 Números em destaque
   [

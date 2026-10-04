@@ -569,7 +569,7 @@ exampleImage(s, DARK, "photo", "foto", PHOTO);
 
 s = slide("Citação", ESCURO);
 fill(s, {
-  quote: quoted("A praticidade vence a pureza.", LIME),
+  quote: quoted("Legibilidade conta.", LIME),
   author: "The Zen of Python, PEP 20",
 });
 // The context line lives on the slide, not the layout: other quotes do not need it.
@@ -684,9 +684,9 @@ const tiny = (runs) => runs.map((r) => ({ ...r, options: { ...r.options, fontSiz
 s = slide("Código lado a lado", ESCURO);
 fill(s, {
   title: "Um exemplo menor também ensina",
-  leftTitle: "20 linhas, letra miúda",
+  leftTitle: "20 linhas, letra miúda 😟",
   codeLeft: tiny(highlightCode(LONG_CODE)),
-  rightTitle: "4 linhas, letra grande",
+  rightTitle: "4 linhas, letra grande 😊",
   codeRight: highlightCode(`def cabe(palestra, slot):
     # 5 min para perguntas
     fim = palestra.duracao + 5
