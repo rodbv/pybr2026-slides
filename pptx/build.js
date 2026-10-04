@@ -479,7 +479,7 @@ function exampleImage(sl, mode, placeholder, file, box) {
 // Native chart with sample data that anyone reads at once, so the slide shows how to replace it.
 function chartSlide(mode, section) {
   const sl = slide("Somente título" + mode.suffix, section);
-  sl.addText("Versão do Python que você usa", { placeholder: "title" });
+  sl.addText("Versão do Python que você usa (%)", { placeholder: "title" });
   sl.addChart(
     pres.ChartType.bar,
     [{ name: "Pessoas (%)", labels: ["Python 3.10", "Python 3.11", "Python 3.12", "Python 3.13", "Python 3.14"], values: [8, 15, 29, 33, 15] }],
@@ -506,7 +506,7 @@ function chartSlide(mode, section) {
       showTitle: false,
     }
   );
-  sl.addText("Dados de exemplo. Clique duas vezes no gráfico para colocar os seus.", { x: M, y: BODY.y + BODY.h - 0.4, w: W - 2 * M, h: 0.4, fontSize: 16, color: mode.mutedHex, fontFace: THEME.bodyFontFace, margin: 0, valign: "middle", isTextBox: true, lang: LANG });
+  sl.addText("Dados de exemplo: clique duas vezes para editar (PowerPoint e LibreOffice).", { x: M, y: BODY.y + BODY.h - 0.4, w: W - 2 * M, h: 0.4, fontSize: 16, color: mode.mutedHex, fontFace: THEME.bodyFontFace, margin: 0, valign: "middle", isTextBox: true, lang: LANG });
 }
 
 // Flowchart: plain shapes, so a step is added by duplicating a box and an arrow.
