@@ -8,7 +8,7 @@ Una plantilla de presentación lista para quienes dan una charla en la [Python B
 
 | Usas | Haz esto |
 |---|---|
-| Google Slides | **[Hacer una copia en Google Slides](https://docs.google.com/presentation/d/1dvdf4WzOTW3nLGkz0IpL7lQq41O0QYfkiDRCiC5rSl4/copy)**. La copia va a tu Google Drive. |
+| Google Slides | **[Hacer una copia en Google Slides](https://docs.google.com/presentation/d/1glKLpS7_-X5MCBBZMDCs9_b3zl4Jqao8yOxpgpmy204/copy)**. La copia va a tu Google Drive. |
 | PowerPoint o Keynote | Descarga el [`.pptx`](https://github.com/rodbv/pybr2026-slides/releases/latest/download/pybr2026-template.pptx) e [instala las fuentes](#necesito-instalar-fuentes). |
 | LibreOffice | Descarga el [`.odp`](https://github.com/rodbv/pybr2026-slides/releases/latest/download/pybr2026-template.odp). Las fuentes ya vienen dentro del archivo. |
 | Un editor de texto | Usa la [plantilla en Markdown](https://github.com/rodbv/pybr2026-marp), que también tiene diapositivas de ejemplo en español y en inglés. Escribes las diapositivas como texto y un agente de IA, como Copilot o Claude, aplica el estilo visual. |
