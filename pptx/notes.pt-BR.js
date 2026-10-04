@@ -181,17 +181,22 @@ module.exports = [
     "Com os pronomes no slide, quem cita a sua palestra depois acerta.",
     "Uma foto recente ajuda o público a encontrar você nos intervalos.",
   ],
-  // 35 Gráfico claro
+  // 35 Fluxo claro
+  [
+    "Cada caixa e cada seta são formas: para um passo a mais, duplique uma caixa e uma seta e arraste para o lugar.",
+    "De três a cinco passos cabem numa linha. Para um fluxo com ramos, divida em dois slides.",
+  ],
+  // 36 Gráfico claro
   [
     "Para editar os dados, veja as anotações do slide 17.",
   ],
-  // 36 Encerramento claro
+  // 37 Encerramento claro
   [
     "Na sua palestra, troque o texto pelos seus contatos e o QR code pelo link dos seus slides.",
     "Nas perguntas, repita cada pergunta no microfone, para a sala e a gravação.",
     "\"Não sei, posso ver e te respondo depois\" é uma boa resposta. Uma pergunta que desrespeita o código de conduta não precisa de resposta.",
   ],
-  // 37 Figurinhas
+  // 38 Figurinhas
   [
     "Copie uma figurinha e cole no seu slide. Para mudar o tamanho sem deformar, arraste um canto segurando Shift.",
     "O marca-texto é o realce do texto: troque a palavra, ou escolha o realce limão #B7FF06 numa palavra sua.",

@@ -810,6 +810,32 @@ fill(s, {
   bio: bullets(["Onde o público encontra você", "Três fatos, não um currículo", "Uma foto recente"]),
 });
 
+// Flowchart: plain shapes, so a step is added by duplicating a box and an arrow.
+s = slide("Somente título (claro)", CLARO);
+s.addText("Do rascunho ao palco", { placeholder: "title" });
+const FLOW_STEPS = ["Escrever os slides", "Ensaiar em voz alta", "Exportar em PDF", "Apresentar"];
+const flowGap = 0.55;
+const flowW = (W - 2 * M - (FLOW_STEPS.length - 1) * flowGap) / FLOW_STEPS.length;
+const flowH = 1.3;
+const flowY = 2.45;
+FLOW_STEPS.forEach((step, i) => {
+  const x = M + i * (flowW + flowGap);
+  // The last step carries the lime, as the outcome of the flow.
+  const last = i === FLOW_STEPS.length - 1;
+  s.addText(step, {
+    shape: pres.ShapeType.roundRect, x, y: flowY, w: flowW, h: flowH, rectRadius: 0.12,
+    fill: { color: last ? LIME : LIGHT.cardHex }, line: { color: last ? LIME : LIGHT.outlineHex, width: 1.5 },
+    fontSize: 18, bold: last, color: ON_LIME, fontFace: THEME.bodyFontFace, align: "center", valign: "middle", margin: 0.1, lang: LANG,
+    objectName: `Passo ${i + 1}`,
+  });
+  if (!last) {
+    s.addShape(pres.ShapeType.line, {
+      x: x + flowW + 0.08, y: flowY + flowH / 2, w: flowGap - 0.16, h: 0,
+      line: { color: LIGHT.textHex, width: 2.5, endArrowType: "triangle" }, objectName: `Seta ${i + 1}`,
+    });
+  }
+});
+
 chartSlide(LIGHT, CLARO, [["Texto", LIGHT.textHex], ["Cinza", LIGHT.mutedHex]]);
 
 // The deck ends with the organization's message to the speaker.
