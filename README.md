@@ -46,11 +46,14 @@ Para o resto dos slides:
 
 ```mermaid
 flowchart TD
-  tela{"Telão de LED grande?"} -->|"Sim"| escuro["Versão escura"]
-  tela -->|"Não: telão menor ou projetor"| claro["Versão clara"]
+  inicio(["Qual versão eu escolho?"]) --> tipo{"Que tipo de tela?"}
+  tipo -->|"Projetor"| claro1["Versão clara"]
+  tipo -->|"Tela de LED, TV ou monitor"| tamanho{"Do tamanho de uma parede?"}
+  tamanho -->|"Sim"| escuro["Versão escura"]
+  tamanho -->|"Não"| claro2["Versão clara"]
 ```
 
-Num telão de LED grande, o fundo escuro não ofusca o público, e quem fala não vira silhueta na gravação ([GeoEvent](https://www.geoevent.net/led-wall-brightness-event-viewing/)). Em telão menor ou projetor, use a versão clara. No projetor, a luz da sala apaga o preto da projeção.
+No projetor, a luz da sala apaga o preto da projeção, e o fundo claro se lê melhor. Numa tela de LED do tamanho de uma parede, o fundo escuro não ofusca o público, e quem fala não vira silhueta na gravação ([GeoEvent](https://www.geoevent.net/led-wall-brightness-event-viewing/)). Numa tela menor, como uma TV ou um monitor grande, o brilho não chega a ofuscar, e a versão clara se lê melhor.
 
 ## Cores e fontes
 
