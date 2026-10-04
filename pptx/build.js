@@ -799,7 +799,7 @@ fill(s, {
 s = slide("Texto e imagem (claro)", CLARO);
 fill(s, {
   title: "Imagens acessíveis",
-  body: bullets(["Texto alternativo em toda imagem", "Legenda curta se a imagem não for óbvia", "Informação que não dependa só da cor"]),
+  body: bullets(["Texto alternativo em toda imagem", "Legenda curta se a imagem não for óbvia", "Cor e emoji ajudam, mas não sozinhos"]),
 });
 exampleImage(s, LIGHT, "image", "imagem-caixa", IMAGE_RIGHT);
 
