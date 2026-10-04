@@ -28,9 +28,9 @@ Os links baixam a versão mais recente. As versões anteriores ficam em [Release
 
 ## Fontes
 
-O modelo usa duas fontes livres, as mesmas do site do evento:
+O modelo usa as duas fontes livres da identidade visual do evento:
 
-- **Inter** para texto
+- **Roboto** para texto
 - **Cascadia Mono** para títulos e código
 
 Instale as duas antes de abrir o arquivo; elas estão na pasta [`fonts/`](fonts/) com suas licenças (SIL Open Font License).
@@ -79,9 +79,9 @@ Todos existem em versão escura e clara, exceto a imagem cheia, que é só escur
 
 | Layout | Para |
 |---|---|
-| Capa | Título da palestra em até três linhas, subtítulo, nome e handle, com o selo da data |
+| Capa | Título da palestra em até três linhas, subtítulo, nome e handle, com o logo e o selo da data |
 | Agenda | Lista numerada de três a cinco partes da palestra |
-| Seção | Divisor com número no disco limão e o dragão ao fundo |
+| Seção | Divisor com número no disco limão, a bruxinha ao fundo e o logo, sem número de slide |
 | Título e conteúdo | Tópicos; de três a cinco por slide |
 | Duas colunas | Comparações com título em cada coluna: antes e depois, problema e solução |
 | Texto e imagem | Texto à esquerda, imagem à direita |
@@ -98,8 +98,8 @@ Todos existem em versão escura e clara, exceto a imagem cheia, que é só escur
 | Somente título | Espaço livre para tabelas, gráficos e diagramas |
 | Imagem cheia | Foto de fundo com faixa de legenda |
 | Referências | Um material por linha, com nome e endereço curto |
-| Encerramento | "Valeu!" ou "Perguntas?", contatos e um QR code grande com o link dos slides |
-| Em branco | Só o logo e o número do slide |
+| Encerramento | "Valeu!" ou "Perguntas?", contatos, um QR code grande com o link dos slides e o lema "pessoas > tecnologia" |
+| Em branco | Só o nome do evento e o número do slide |
 
 ## Cores e contraste
 
@@ -110,15 +110,15 @@ Todas as combinações de texto e fundo usadas no modelo passam no nível AA do 
 | Fundo escuro | `#0F0F0F` | | |
 | Texto no escuro (verde claro) | `#E8F4BA` | `#0F0F0F` | 16,5:1 |
 | Destaque no escuro (limão) | `#B7FF06` | `#0F0F0F` | 15,8:1 |
-| Texto secundário no escuro | `#A8A8A8` | `#0F0F0F` | 8,1:1 |
-| Link no escuro (magenta do site), sublinhado | `#DE35D0` | `#0F0F0F` | 5,0:1 |
+| Texto secundário no escuro (cinza) | `#ABABAB` | `#0F0F0F` | 8,4:1 |
+| Link no escuro (violeta claro), sublinhado | `#D26CC9` | `#0F0F0F` | 6,1:1 |
 | Cartões no escuro | `#242424`, borda `#3A3A3A` | | |
 | Texto em cartão escuro | `#E8F4BA` | `#242424` | 13,4:1 |
 | Fundo claro | `#FFFFFF` | | |
 | Texto no claro | `#0F0F0F` | `#FFFFFF` | 19,2:1 |
 | Marca-texto no claro | `#0F0F0F` | `#B7FF06` | 15,8:1 |
 | Texto secundário no claro | `#4A4A4A` | `#FFFFFF` | 8,9:1 |
-| Link no claro (ameixa), sublinhado | `#7A2F6B` | `#FFFFFF` | 8,6:1 |
+| Link no claro (violeta), sublinhado | `#BF2EB2` | `#FFFFFF` | 4,9:1 |
 | Cartões no claro | `#E8F4BA`, borda `#C9D9A0` | | |
 | Texto em cartão claro | `#0F0F0F` | `#E8F4BA` | 16,5:1 |
 
@@ -131,9 +131,40 @@ Regras para manter o contraste quando você editar:
 
 O telão da Python Brasil 2026 é de LED. Em telão de LED, o fundo escuro costuma funcionar melhor, por isso o modelo começa pelos layouts escuros.
 
+## Identidade visual
+
+Resumo do brandboard oficial da Python Brasil 2026, para quem cria material novo a partir deste modelo, com ou sem ajuda de uma IA. As regras de contraste da seção anterior valem também aqui.
+
+**Cores principais**
+
+| Nome | Hex | Uso no modelo |
+|---|---|---|
+| Preto | `#0F0F0F` | Fundo escuro, texto no claro, texto sobre o limão |
+| Off white | `#E8F4BA` | Texto no escuro, cartões no claro |
+| Verde cítrico | `#B7FF06` | Destaque: discos, painéis, marca-texto; como cor de texto, só no escuro |
+| Violeta | `#BF2EB2` | Links no claro (4,9:1 sobre branco). Sobre o preto fica em 3,9:1, abaixo do mínimo para texto |
+
+**Tons de apoio:** `#D26CC9` (violeta claro, links no escuro), `#EFCBEC`, `#CCFF50`, `#EDFFC1`, `#ABABAB` (cinza, texto secundário no escuro) e `#E7E7E7`.
+
+**Tipografia:** Cascadia Mono nos títulos, Roboto nos parágrafos.
+
+**Logos:** a assinatura (adesivo "PythonBrasil" com o dragão), o logo horizontal ("python brasil 2026" empilhado, com o dragão), a sigla "pybr" e a abstração ("pybr" dentro de uma elipse pixelada).
+
+**Elementos gráficos:**
+
+- Magia: estrelas, explosões e brilhos, em limão, violeta ou preto.
+- Ícones pixelados: seta e `</>`, em quadrado limão.
+- Moldura e etiqueta em forma de pílula.
+- Ilustrações em traço preto: o mago "Olá, mundo!", a bruxinha surfista e o mago digitando.
+- Padrões de chevron, em limão e em preto e branco.
+
+**Frases:** a chamada "Um evento feito pra todo mundo" e o lema "pessoas > tecnologia".
+
+Para manter a marca, use as peças como estão: sem distorcer, sem recolorir fora da paleta e sem efeitos. Para aumentar ou diminuir uma peça, arraste um canto segurando Shift.
+
 ## Figurinhas
 
-O último slide traz figurinhas para copiar e colar: o logo empilhado (claro e escuro), a bruxinha surfista, o mago digitando, o dragão, o círculo pixelado e o marca-texto. Os arquivos originais, em PNG e SVG, estão em [`assets/brand/`](assets/brand/).
+O último slide traz figurinhas para copiar e colar: o logo, a assinatura PythonBrasil, a bruxinha surfista, os dois magos, a explosão de magia, os ícones pixelados, o círculo pixelado e o marca-texto. Os arquivos em PNG estão em [`assets/brand/`](assets/brand/), com outras peças do brandboard.
 
 As cores estão no tema do arquivo. Se você trocar uma cor do tema (LibreOffice: Slide > Mestre; PowerPoint: Exibir > Slide mestre > Cores), todos os slides mudam juntos.
 
@@ -141,13 +172,13 @@ As cores estão no tema do arquivo. Se você trocar uma cor do tema (LibreOffice
 
 - Tamanhos: 20 pt no corpo (diminui até caber, nunca abaixo de 18 pt), 18 pt em cartões e rótulos, 15 pt no código, 32 pt nos títulos. O slide tem 10 polegadas de largura, então 20 pt aqui equivalem a 27 pt num slide widescreen padrão de 13,33 polegadas.
 - Idioma do texto marcado como português do Brasil, para leitores de tela e corretor ortográfico.
-- Todas as caixas de texto são texto de verdade, não imagem, com exceção do logo e do dragão.
+- Todas as caixas de texto são texto de verdade, não imagem, com exceção do logo e das ilustrações.
 - As imagens de exemplo têm texto alternativo; ao inserir as suas, preencha o texto alternativo (botão direito > Descrição ou Texto alternativo).
 - Os espaços reservados têm nomes (`title`, `body`, `code`), o que ajuda a navegação por teclado e a ordem de leitura.
 
 ## Código nos slides
 
-O modelo usa o tema **Monokai** para código. O verde-limão e o magenta do Monokai combinam com o limão e o roxo da Python Brasil, e todas as cores do tema passam no contraste AA sobre o cartão escuro (`#1A1A1A`).
+O modelo usa o tema **Monokai** para código. O verde-limão e o magenta do Monokai combinam com o limão e o violeta da Python Brasil, e todas as cores do tema passam no contraste AA sobre o cartão escuro (`#1A1A1A`).
 
 Os programas de apresentação não colorem código. Para ter as mesmas cores no seu trecho, use o [SlideSnippet](https://www.slidesnippet.com/) com estas opções:
 
@@ -184,13 +215,13 @@ npm run render    # PDF, PNGs e GIF em dist/preview/ e dist/pybr2026-template.od
 
 As anotações dos slides ficam em `pptx/notes.pt-BR.js`, com uma lista de dicas curtas por slide, na ordem do deck. A paleta e as fontes ficam no objeto `THEME` no topo de `pptx/build.js`. O arquivo `pptx/lib/theme.js` grava essas cores no tema do `.pptx`; `pptx/lib/highlight.js` colore o código de exemplo.
 
-As figurinhas saem de `assets/make_brand_assets.sh`, que baixa as peças do site do evento e vetoriza o mago a partir de `assets/brand/source/mago.pdf` (precisa de ImageMagick, poppler e uv).
+As figurinhas saem do brandboard oficial em PDF, que não fica no repositório. `assets/extract_brandboard.sh` recorta as peças do PDF em PNG transparente a 600 dpi, na pasta `assets/brandboard/` (fora do git), e `assets/make_brand_assets.sh` gera a partir delas as versões usadas no modelo, em `assets/brand/` (precisa de poppler e ImageMagick 7).
 
 A pasta `dist/` fica fora do git. Para publicar uma versão, crie e envie uma tag:
 
 ```sh
-git tag v2.1
-git push origin v2.1
+git tag v3.0
+git push origin v3.0
 ```
 
 A Action `.github/workflows/release.yml` gera os arquivos e cria uma Release com o `.pptx`, o `.odp`, o GIF e a visão geral. O README aponta sempre para a Release mais recente.
@@ -202,5 +233,5 @@ A cópia no Google Slides não é atualizada pelo script. Depois de mudar o `.pp
 ## Licenças
 
 - Código deste repositório: MIT.
-- Logo, dragão e identidade visual: Python Brasil 2026 e APyB, vindos do [site oficial](https://github.com/pythonbrasil/pybr2026-site).
-- Fontes Inter e Cascadia Mono: SIL Open Font License 1.1, em `fonts/`.
+- Logo, ilustrações e identidade visual: Python Brasil 2026 e APyB, do brandboard oficial do evento.
+- Fontes Roboto e Cascadia Mono: SIL Open Font License 1.1, em `fonts/`.
